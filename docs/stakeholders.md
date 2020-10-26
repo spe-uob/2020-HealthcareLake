@@ -8,7 +8,5 @@ Philip Harland at Bristol, North Somerset and South Gloucestershire CCG (BNSSG).
 
 This software will provide services to a number of local healthcare organisations such as NHS trusts and the Healthier Together STP and such all these additional users are secondary stakeholders to this project. These organisations will need to be able to provide healthcare information to the software which will need to be able to load and store the data for future analysis.
 
-##  User Stories.
-
 
 
