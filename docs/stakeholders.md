@@ -2,7 +2,7 @@
 
 ## Primary stakeholder
   
-Philip Harland at Bristol, North Somerset and South Gloucestershire CCG (BNSSG). Philip Harland is our client, and this software is being developed for him at BNSSG. BNSSG require a piece of software to store healtcare data from varius sources to inform clinical and strategic decisions. THis means that BNSSG is our primary stakeholder.
+Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG). Philip Harfield is our client, and this software is being developed for him at BNSSG. BNSSG require a piece of software to store healthcare data from varius sources to inform clinical and strategic decisions. This means that BNSSG is our primary stakeholder.
 
 ## Additional stakeholders
 
