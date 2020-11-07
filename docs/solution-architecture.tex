@@ -1,6 +1,8 @@
 \documentclass[10pt]{article}
-\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                       			
 
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                       	
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \title{Healthcare Data Lake}
 
@@ -92,8 +94,20 @@ This software will provide services to a number of local healthcare organisation
 \newpage
 \section{Architecture}
 \paragraph{Overview}
-We propose a modular, (cloud)platform-independent solution that offers high scalability and performance at a low cost for maintenance, development and deployment. The key to achieving this is leveraging the practises of infrastructure-as-code (IaC), serverless architectures and open standards. Therefore, development expense is focused on providing the most value, security and flexibility to the user.
+We propose a modular, (cloud)platform-independent solution that offers high scalability and performance at a low cost for maintenance, development and deployment. The key to achieving this is leveraging the practises of infrastructure-as-code (IaC), serverless architectures and open standards. Therefore, development expense is focused on providing the most value, security and flexibility to the user.\\
 
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}{0.25\linewidth}
+		\includegraphics[width=\linewidth]{images/Terraform.png}
+	\end{subfigure}
+	\begin{subfigure}{0.25\linewidth}
+		\includegraphics[width=\linewidth]{images/Serverless.png}
+	\end{subfigure}
+	\begin{subfigure}{0.25\linewidth}
+		\includegraphics[width=\linewidth]{images/OpenAPI.png}
+	\end{subfigure}
+\end{figure}
 
 \newpage
 \section{Development Testing}
