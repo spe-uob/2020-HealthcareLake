@@ -3,6 +3,8 @@
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                       	
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{references.bib}
 
 \title{Healthcare Data Lake}
 
@@ -93,7 +95,7 @@ This software will provide services to a number of local healthcare organisation
 
 \newpage
 \section{Architecture}
-\paragraph{Overview}
+\subsection{Introduction}
 We propose a modular, (cloud)platform-independent solution that offers high scalability and performance at a low cost for maintenance, development and deployment. The key to achieving this is leveraging the practises of infrastructure-as-code (IaC), serverless architectures and open standards. Therefore, development expense is focused on providing the most value, security and flexibility to the user.\\
 
 \begin{figure}[h!]
@@ -109,6 +111,33 @@ We propose a modular, (cloud)platform-independent solution that offers high scal
 	\end{subfigure}
 \end{figure}
 
+\paragraph{IaC}
+By building infrastructure through extensible configuration files, we make it easy to build, test, secure, update and rollback versions of architecture which can combine multiple cloud or on-premise services. Terraform is an IaC framework that supports all major cloud providers in addition to self-hosted options such as Kubernetes. This makes it a popular choice for a modern infrastructure team that seeks to avoid vendor lock-in and easily protect the security of it with robust tests and auditing.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.65\linewidth]{images/TerraformProviders.png}	
+\end{figure}
+
+\paragraph{Serverless}
+Serverless computing is a cloud computing execution model in which the cloud provider runs the server, and dynamically manages the allocation of machine resources. Pricing is based on the actual amount of resources consumed by an application, rather than on pre-purchased units of capacity \parencite{serverless}. The benefits of this approach are the huge reduction in infrastructure and development expense. Engineers can focus on shipping their microservices and have secure, scalable infrastructure taken care of for them.
+\\ \\
+The Serverless Framework is also an example of IaC and provides developers with the ability to develop and deploy their serverless application to different cloud providers or simply Kubernetes (using \textbf{Knative}) if they wanted to run it on-premise or avoid code exposure to a cloud native service such as AWS Lambda or Google Cloud Functions.
+
+\paragraph{Open standards}
+\subparagraph{OpenAPI}
+%TODO%
+\subparagraph{HL7 FHIR}
+%TODO%
+
+\subsection{Data ingestion}
+
+\subsection{Data warehousing}
+
+\subsection{ETL system}
+
+\subsection{Secure access}
+
 \newpage
 \section{Development Testing}
 
@@ -118,5 +147,6 @@ We propose a modular, (cloud)platform-independent solution that offers high scal
 \newpage
 \section{OO Design \& UML}
 
+\printbibliography
 
 \end{document}
