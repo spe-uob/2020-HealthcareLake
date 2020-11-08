@@ -3,8 +3,9 @@
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                       	
 \usepackage{graphicx}
 \usepackage{subcaption}
-\usepackage[backend=bibtex]{biblatex}
-\addbibresource{references.bib}
+\usepackage[backend=bibtex,sorting=none]{biblatex}
+
+\bibliography{references}
 
 \title{Healthcare Data Lake}
 
@@ -120,15 +121,18 @@ By building infrastructure through extensible configuration files, we make it ea
 \end{figure}
 
 \paragraph{Serverless}
-Serverless computing is a cloud computing execution model in which the cloud provider runs the server, and dynamically manages the allocation of machine resources. Pricing is based on the actual amount of resources consumed by an application, rather than on pre-purchased units of capacity \parencite{serverless}. The benefits of this approach are the huge reduction in infrastructure and development expense. Engineers can focus on shipping their microservices and have secure, scalable infrastructure taken care of for them.
+Serverless computing is a cloud computing execution model in which the cloud provider runs the server, and dynamically manages the allocation of machine resources. Pricing is based on the actual amount of resources consumed by an application, rather than on pre-purchased units of capacity \cite{serverless}. The benefits of this approach are the huge reduction in infrastructure and development expense. Engineers can focus on shipping their microservices and have secure, scalable infrastructure taken care of for them.
 \\ \\
 The Serverless Framework is also an example of IaC and provides developers with the ability to develop and deploy their serverless application to different cloud providers or simply Kubernetes (using \textbf{Knative}) if they wanted to run it on-premise or avoid code exposure to a cloud native service such as AWS Lambda or Google Cloud Functions.
 
 \paragraph{Open standards}
+Open Standards allow people to share all kinds of data freely and with perfect fidelity. They prevent lock-in and other artificial barriers to interoperability, and promote choice between vendors and technology solutions. \cite{openstandards}
+
 \subparagraph{OpenAPI}
-%TODO%
+The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to RESTful APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. An OpenAPI definition can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases. \cite{openapi}
+
 \subparagraph{HL7 FHIR}
-%TODO%
+\textit{Fast Healthcare Interoperability Resources} (\texttt{FHIR}, pronounced "fire") is a standard describing data formats and elements (known as "resources") and an [API] for exchanging electronic health records (\texttt{EHR}). The standard was created by the Health Level Seven International (\texttt{HL7}) health-care standards organization. One of its goals is to facilitate interoperation between legacy health care systems, to make it easy to provide health care information to health care providers and individuals on a wide variety of devices from computers to tablets to cell phones, and to allow third-party application developers to provide medical applications which can be easily integrated into existing systems. \cite{fhir}
 
 \subsection{Data ingestion}
 \subsubsection{Microservices}
@@ -174,6 +178,7 @@ As we are implementing the OpenAPI specification, Postman enables the import of 
 
 \newpage
 \section{OO Design \& UML}
+\newpage
 
 \printbibliography
 
