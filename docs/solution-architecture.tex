@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 
-\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                       	
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                 \usepackage{booktabs}     	
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage[backend=bibtex,sorting=none]{biblatex}
@@ -118,13 +118,35 @@ By building infrastructure through extensible configuration files, we make it ea
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.65\linewidth]{images/TerraformProviders.png}	
+	\includegraphics[width=0.55\linewidth]{images/TerraformProviders.png}	
 \end{figure}
 
 \paragraph{Serverless}
 Serverless computing is a cloud computing execution model in which the cloud provider runs the server, and dynamically manages the allocation of machine resources. Pricing is based on the actual amount of resources consumed by an application, rather than on pre-purchased units of capacity \cite{serverless}. The benefits of this approach are the huge reduction in infrastructure and development expense. Engineers can focus on shipping their microservices and have secure, scalable infrastructure taken care of for them.
 \\ \\
 The Serverless Framework is also an example of IaC and provides developers with the ability to develop and deploy their serverless application to different cloud providers or simply Kubernetes (using \textbf{Knative}) if they wanted to run it on-premise or avoid code exposure to a cloud native service such as AWS Lambda or Google Cloud Functions.
+\\ \\
+This also provides quicker developer on-boarding and flexibility as a broad array of popular languages are supported. Given that the Function as a Service (\texttt{FaaS}) model is centred around the principles of loosely coupled microservices, this enables easy migration out of serverless architecture to a VM or container-based deployment. This may make sense in scenarios where there are cost savings to be made which typically applies to long-running, memory intensive tasks as opposed to short-lived and resource-light stateless services.
+
+\begin{center}
+\begin{tabular}{ p{5cm} p{5cm} }
+	\toprule
+	Provider & Supported Languages \\
+	\midrule
+	&\\
+	AWS Lambda   & Python, Java, Go, Node, .NET, Ruby or Custom runtime  \\
+	&\\
+	Google Cloud Functions & Node, Python, Go and Java \\
+	&\\
+	Azure Functions & .NET, Node, Java, PowerShell and Python \\
+	&\\
+	IBM Cloud Functions & Node, Python, Swift, PHP, Go, Ruby, Java and .NET \\
+	&\\
+	Cloudflare Workers & JavaScript, TypeScript or Wasm-supported \\
+	&\\
+	\midrule
+\end{tabular}
+\end{center}
 
 \paragraph{Open standards}
 Open Standards allow people to share all kinds of data freely and with perfect fidelity. They prevent lock-in and other artificial barriers to interoperability, and promote choice between vendors and technology solutions. \cite{openstandards}
@@ -160,7 +182,7 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \subsubsection{API development}
 %TODO%
 \paragraph{Serverless}
-%TODO%
+The Serverless Framework enables developers to run an emulated environment locally instead of needing to deploy that serverless app for testing. This comes with over 1,000 plugins that can emulate services such as AWS Lambda and API Gateway. 
 \paragraph{Postman}
 
 Postman is a very popular tool used by developers that want to conveniently test and build APIs in a collaborative way.
