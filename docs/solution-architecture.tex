@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage[backend=bibtex,sorting=none]{biblatex}
+\usepackage{hyperref}
 
 \bibliography{references}
 
@@ -66,29 +67,124 @@ The Healthcare Data Lake Project is envisioning a future integrated data storage
 \newpage
 
 
-\section{Requirements}
-\subsection{Stakeholders}
-\paragraph{Primary stakeholder}
-Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG). Philip Harfield is our client, and this software is being developed for him at BNSSG. BNSSG require a piece of software to store healthcare data from various sources to inform clinical and strategic decisions. This means that BNSSG is our primary stakeholder.
-\paragraph{Additional stakeholders}
-This software will provide services to a number of local healthcare organisations such as NHS trusts and the Healthier Together STP and such all these additional users are secondary stakeholders to this project. These organisations will need to be able to provide healthcare information to the software which will need to be able to load and store the data for future analysis.
+\section{Stakeholder and Requirements
+Analysis}\label{stakeholder-and-requirements-analysis}
 
-\subsection{User stories}
-\paragraph{API}
-%TODO%
-\subparagraph{HL7 FHIR}
-%TODO%
-\subparagraph{OpenAPI}
-%TODO%
+\subsection{Primary Stakeholder and User
+Story}\label{primary-stakeholder-and-user-story}
 
-\paragraph{Data lake}
-%TODO%
-\paragraph{Data catalogue}
-%TODO%
-\paragraph{ETL \& console}
-%TODO%
+Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG
+(BNSSG). Philip Harfield is our client, and this software is being
+developed for him at BNSSG. The user story for this stakeholder is that
+BNSSG require a piece of software that can be used to allow long-term
+healthcare data analytics from multiple data sources to inform clinical
+and strategic decisions. The reason for this is understanding the
+longitudinal health of a patient allows understanding of the merits of
+previous clinical decisions taken. In addition it can be used to inform
+strategic commissioning decisions using data on how effective services
+offered to patients have been.
 
-\newpage
+\subsubsection{Flow steps}\label{flow-steps}
+
+Considering the user story above, we can breakdown the story into a
+sequence of steps of user flow.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Local healthcare services provide data to the data lake.
+\item
+  Data is transformed and loaded into the data lake.
+\item
+  The data is catalogued in the data lake and stored in structured data
+  marts as required.
+\item
+  The data lake allows access to a data analytics environment.
+\item
+  An analytics environment can run queries on the data lake and report
+  results to analytics environment.
+\item
+  Clinical and strategic decisions can be taken based on analysis.
+\end{enumerate}
+
+We can also identify alternative or exceptional flows.
+
+\textbf{Exceptional Flow:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Local healthcare services provide data to the data lake.
+\item
+  Data is not provided in an acceptable format to the API.
+\item
+  The healthcare service receives an error message to provide data in
+  standard format.
+\end{enumerate}
+
+\subsubsection{Atomic Requirements}\label{atomic-requirements}
+
+We can breakdown these steps into atomic requirements of the software.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  An API takes in data from local healthcare providers as a HL7 FHIR
+  message. We have chosen HL7 FHIR as it is the
+  \href{https://digital.nhs.uk/services/fhir-uk-core}{UK   standard
+  for transferring healthcare messages.}
+\item
+  These data messages are stored in a cloud solution in a well
+  structured data model.
+\item
+  Ingested data is catalogued.
+\item
+  An ETL tool is used to curate data marts.
+\item
+  These data marts can be queried by the analytics environment.
+\end{enumerate}
+
+There are also additional requirements specified for the software:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Medical data is to be stored independently from pseudonymised patient
+  identifiers.
+\item
+  Provide a user console to monitor automated ETL jobs.
+\item
+  Provide full audit trails.
+\end{enumerate}
+
+\subsection{Additional stakeholders and User
+Stories}\label{additional-stakeholders-and-user-stories}
+
+This software will provide services to a number of local healthcare
+organisations such as NHS trusts and the Healthier Together STP and such
+all these additional users are secondary stakeholders to this project.
+These organisations will need to be able to provide healthcare
+information to the software which will need to be able to load and store
+the data for future analysis.
+
+\subsubsection{Flow Steps}\label{flow-steps-1}
+
+Considering the user story above, we can breakdown the story into a
+sequence of steps of user flow.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Healthcare provider (e.g.~Hospital Trust) provide data to the data
+  lake by a HL7 FHIR message.
+\item
+  The data is stored in the data lake.
+\end{enumerate}
 
 \section{Personal Data, Privacy, Security and Ethics Management}
 \subsection{GDPR}
