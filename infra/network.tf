@@ -20,9 +20,11 @@ resource "aws_internet_gateway" "main" {
   )
 }
 
-// public subnet for internet gateway
+/*
+  Public subnets
+    - two availability zones (a & b) for uptime and load balancing
+*/
 resource "aws_subnet" "public_a" {
-  // < 255 hosts
   cidr_block              = "10.1.1.0/24"
   map_public_ip_on_launch = true
   vpc_id                  = aws_vpc.main.id
@@ -122,5 +124,30 @@ resource "aws_nat_gateway" "public_b" {
   tags = merge(
     local.common_tags,
     map("Name", "${local.prefix}-public-b")
+  )
+}
+
+/*
+  Private subnets
+*/
+resource "aws_subnet" "private_a" {
+  cidr_block        = "10.1.10.0/24"
+  vpc_id            = aws_vpc.main.id
+  availability_zone = "${data.aws_region.current.name}a"
+
+  tags = merge(
+    local.common_tags,
+    map("Name", "${local.prefix}-private-a")
+  )
+}
+
+resource "aws_subnet" "private_b" {
+  cidr_block        = "10.1.11.0/24"
+  vpc_id            = aws_vpc.main.id
+  availability_zone = "${data.aws_region.current.name}b"
+
+  tags = merge(
+    local.common_tags,
+    map("Name", "${local.prefix}-private-b")
   )
 }
