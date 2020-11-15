@@ -76,7 +76,7 @@ The Healthcare Data Lake Project is envisioning a future integrated data storage
 \newpage
 
 
-\section{Stakeholder and Requirements
+section{Stakeholder and Requirements
 Analysis}\label{stakeholder-and-requirements-analysis}
 
 \subsection{Primary Stakeholder and User
@@ -92,8 +92,9 @@ longitudinal health of a patient allows understanding of the merits of
 previous clinical decisions taken. In addition it can be used to inform
 strategic commissioning decisions using data on how effective services
 offered to patients have been.
+\\
 
-\subsubsection{Flow steps}\label{flow-steps}
+\textbf{Flow steps}
 
 Considering the user story above, we can breakdown the story into a
 sequence of steps of user flow.
@@ -102,7 +103,9 @@ sequence of steps of user flow.
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Local healthcare services provide data to the data lake.
+  Local healthcare service authenticates their identity.
+\item
+  Local healthcare service provides information to the data lake.
 \item
   Data is transformed and loaded into the data lake.
 \item
@@ -118,12 +121,15 @@ sequence of steps of user flow.
 \end{enumerate}
 
 We can also identify alternative or exceptional flows.
-
+\\
+\\
 \textbf{Exceptional Flow:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
+\item
+  Local healthcare service is authenticated.
 \item
   Local healthcare services provide data to the data lake.
 \item
@@ -131,6 +137,17 @@ We can also identify alternative or exceptional flows.
 \item
   The healthcare service receives an error message to provide data in
   standard format.
+\end{enumerate}
+
+\textbf{Exceptional Flow:} 
+\begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+  \item Local healthcare service fails to be
+  authenticated.
+  \item The service receives an error message to provide valid
+  credentials.
+  \item Incoming data is not accepted.
 \end{enumerate}
 
 \subsubsection{Atomic Requirements}\label{atomic-requirements}
@@ -141,10 +158,13 @@ We can breakdown these steps into atomic requirements of the software.
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
+  An identity authentication process provides healthcare providers with
+  credentials to supply data to the API.
+\item
   An API takes in data from local healthcare providers as a HL7 FHIR
-  message. We have chosen HL7 FHIR as it is the
-  \href{https://digital.nhs.uk/services/fhir-uk-core}{UK   standard
-  for transferring healthcare messages.}
+  message. \emph{We have chosen HL7 FHIR as it is the
+  \href{https://digital.nhs.uk/services/fhir-uk-core}{UK standard for
+  transferring healthcare messages.}}
 \item
   These data messages are stored in a cloud solution in a well
   structured data model.
@@ -180,8 +200,8 @@ These organisations will need to be able to provide healthcare
 information to the software which will need to be able to load and store
 the data for future analysis.
 
-\subsubsection{Flow Steps}\label{flow-steps-1}
-
+\textbf{Flow Steps}
+\\
 Considering the user story above, we can breakdown the story into a
 sequence of steps of user flow.
 
@@ -193,6 +213,26 @@ sequence of steps of user flow.
   lake by a HL7 FHIR message.
 \item
   The data is stored in the data lake.
+\end{enumerate}
+
+We can also consider the stakeholder of a developer and their user story
+of accessing a user control to monitor automated ETL jobs to identify
+live support issues.
+
+\textbf{Flow Steps}
+\\
+This can be broken into the following user flow.
+\\
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Developer authenticates identity.
+\item
+  Developer accesses user interface which logs all automated ETL jobs
+  carried out on the data lake.
+\item
+  Developer can use information to identify issues and provide support.
 \end{enumerate}
 
 \section{Personal Data, Privacy, Security and Ethics Management}
