@@ -345,7 +345,7 @@ The cluster key encrypts the database key for the Amazon Redshift cluster.  AWS 
 \\
 The master key encrypts the cluster key. AWS KMS customer master key (CMK) can be used as the master key for Amazon Redshift.
 
-\\\textbf{AWS KMS} \\
+\textbf{AWS KMS}
 AWS Key Management Service (KMS) allows you to create and manage cryptographic keys and control their use across a wide range of AWS services and in the applications. AWS KMS uses hardware security modules that have been validated under FIPS 140-2, or are in the process of being validated, to protect keys. AWS KMS is integrated with AWS CloudTrail to provide logs of all key usage to help meet applicable regulatory and compliance needs.
 \\
 What is going on when S3 handles the process of server-side encryption:
@@ -357,7 +357,7 @@ What is going on when S3 handles the process of server-side encryption:
     \item The encrypted data key is then stored with the encrypted data in the S3 bucket.
     \\{images/KMSDiagram3.png}\\
 \end{itemize}
-\\\textbf{Overview} \\
+\textbf{Overview} 
 \\{images/EncryptionOverview.png}
 The major steps in this process are
 \begin{enumerate}
