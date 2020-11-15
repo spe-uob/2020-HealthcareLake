@@ -18,5 +18,10 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = var.region
+  region  = "eu-west-2"
+}
+
+locals {
+  // resource naming prefix
+  prefix = "${var.prefix}-${terraform.workspace}"
 }
