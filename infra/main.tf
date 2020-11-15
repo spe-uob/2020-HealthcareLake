@@ -24,4 +24,11 @@ provider "aws" {
 locals {
   // resource naming prefix
   prefix = "${var.prefix}-${terraform.workspace}"
+  // resource tagging
+  common_tags = {
+    Environment = terraform.workspace
+    Project     = var.project
+    Owner       = var.contact
+    ManagedBy   = "Terraform"
+  }
 }
