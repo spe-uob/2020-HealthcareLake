@@ -1,10 +1,12 @@
 version: 2.1
 
 jobs:
-  build_pdf:
-    docker:
-      - image: cicleci/buildpack-deps:trusty
+  build:
+    docker: # executor type
+      - image: buildpack-deps:trusty # primary container will run Ubuntu Trusty
+
       steps:
+        # Commands run in the primary container
         - checkout
         - run: sudo apt-get -qq && sudo apt-get install -y --no-install-recommends texlive-full
         - run: pdflatex -interaction=nonstopmode -halt-on-error docs/*.tex
@@ -12,7 +14,7 @@ jobs:
 workflows:
   pdflatex:
     jobs:
-      - build_pdf:
+      - build:
           filters:
             branches:
               only: main
