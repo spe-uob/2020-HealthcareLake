@@ -6,7 +6,7 @@ jobs:
       - image: buildpack-deps:trusty
     steps:
       - checkout
-      - run: sudo apt-get -qq && sudo apt-get install -y --no-install-recommends texlive-full
+      - run: sudo apt-get -qq && sudo apt-get install -y --no-install-recommends texlive
       - run: cd docs/ && pdflatex -interaction=nonstopmode -halt-on-error *.tex
 
 workflows:
