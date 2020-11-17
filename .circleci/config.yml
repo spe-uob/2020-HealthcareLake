@@ -7,7 +7,9 @@ jobs:
     steps:
       - checkout
       - run: cd docs/ 
-      - run: bibtex solution-architecture && pdflatex -interaction=nonstopmode -halt-on-error *.tex
+      - run: pdflatex solution-architecture interaction=nonstopmode solution-architecture.tex
+      - run: bibtex solution-architecture.aux 
+      - run: pdflatex -interaction=nonstopmode -halt-on-error solution-architecture.tex
 
 workflows:
   latex:
