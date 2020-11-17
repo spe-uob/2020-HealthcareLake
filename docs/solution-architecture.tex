@@ -5,7 +5,7 @@
 \usepackage{subcaption}
 \usepackage[backend=bibtex,sorting=none]{biblatex}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true,
+\hypersetup{colorlinks=false,
             urlcolor=blue}
 	    
 \bibliography{references}
@@ -76,7 +76,7 @@ The Healthcare Data Lake Project is envisioning a future integrated data storage
 \newpage
 
 
-section{Stakeholder and Requirements
+\section{Stakeholder and Requirements
 Analysis}\label{stakeholder-and-requirements-analysis}
 
 \subsection{Primary Stakeholder and User
@@ -92,9 +92,8 @@ longitudinal health of a patient allows understanding of the merits of
 previous clinical decisions taken. In addition it can be used to inform
 strategic commissioning decisions using data on how effective services
 offered to patients have been.
-\\
 
-\textbf{Flow steps}
+\subsubsection{Flow steps}\label{flow-steps}
 
 Considering the user story above, we can breakdown the story into a
 sequence of steps of user flow.
@@ -103,9 +102,7 @@ sequence of steps of user flow.
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Local healthcare service authenticates their identity.
-\item
-  Local healthcare service provides information to the data lake.
+  Local healthcare services provide data to the data lake.
 \item
   Data is transformed and loaded into the data lake.
 \item
@@ -121,15 +118,11 @@ sequence of steps of user flow.
 \end{enumerate}
 
 We can also identify alternative or exceptional flows.
-\\
-\\
 \textbf{Exceptional Flow:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
-\item
-  Local healthcare service is authenticated.
 \item
   Local healthcare services provide data to the data lake.
 \item
@@ -137,17 +130,6 @@ We can also identify alternative or exceptional flows.
 \item
   The healthcare service receives an error message to provide data in
   standard format.
-\end{enumerate}
-
-\textbf{Exceptional Flow:} 
-\begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-\itemsep1pt\parskip0pt\parsep0pt
-  \item Local healthcare service fails to be
-  authenticated.
-  \item The service receives an error message to provide valid
-  credentials.
-  \item Incoming data is not accepted.
 \end{enumerate}
 
 \subsubsection{Atomic Requirements}\label{atomic-requirements}
@@ -158,13 +140,11 @@ We can breakdown these steps into atomic requirements of the software.
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  An identity authentication process provides healthcare providers with
-  credentials to supply data to the API.
-\item
   An API takes in data from local healthcare providers as a HL7 FHIR
-  message. \emph{We have chosen HL7 FHIR as it is the
-  \href{https://digital.nhs.uk/services/fhir-uk-core}{UK standard for
-  transferring healthcare messages.}}
+  message. We have chosen HL7 FHIR as it is the
+  \href{https://digital.nhs.uk/services/fhir-uk-core}{UK   standard
+  for
+ transferring healthcare messages.}
 \item
   These data messages are stored in a cloud solution in a well
   structured data model.
@@ -200,8 +180,8 @@ These organisations will need to be able to provide healthcare
 information to the software which will need to be able to load and store
 the data for future analysis.
 
-\textbf{Flow Steps}
-\\
+\subsubsection{Flow Steps}\label{flow-steps-1}
+
 Considering the user story above, we can breakdown the story into a
 sequence of steps of user flow.
 
@@ -213,26 +193,6 @@ sequence of steps of user flow.
   lake by a HL7 FHIR message.
 \item
   The data is stored in the data lake.
-\end{enumerate}
-
-We can also consider the stakeholder of a developer and their user story
-of accessing a user control to monitor automated ETL jobs to identify
-live support issues.
-
-\textbf{Flow Steps}
-\\
-This can be broken into the following user flow.
-\\
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Developer authenticates identity.
-\item
-  Developer accesses user interface which logs all automated ETL jobs
-  carried out on the data lake.
-\item
-  Developer can use information to identify issues and provide support.
 \end{enumerate}
 
 \section{Personal Data, Privacy, Security and Ethics Management}
@@ -354,7 +314,8 @@ Client-side encryption is an alternative option is to encrypt the data locally i
 \subsubsection{Solutions}
 In cloud computing services “Microsoft Azure Data Lake Storage Gen1”, “Google Cloud” and “AWS” all provide options for the client and server-side encryption.
 \subsubsection{Example}
-We will be looking at AWS S3\cite{encryption-in-s3}, AWS Redshift\cite{encryption-in-redshift} and AWS KMS for an example of the implementation of encryption of data lakes.
+\subparagraph{}
+We will be looking at AWS S3 \cite{encryption-in-s3}, AWS Redshift \cite{encryption-in-redshift} and AWS KMS for an example of the implementation of encryption of data lakes.
 \\\\\textbf{AWS S3}\\
 Server-side encryption uses three different modes of server-side encryption: SSE-S3, SSE-C, or SSE-KMS. The following will be an example of SSE-KMS.
 \\
@@ -386,9 +347,10 @@ The cluster key encrypts the database key for the Amazon Redshift cluster.  AWS 
 The master key encrypts the cluster key. AWS KMS customer master key (CMK) can be used as the master key for Amazon Redshift.
 
 \textbf{AWS KMS}
-AWS Key Management Service (KMS) allows you to create and manage cryptographic keys and control their use across a wide range of AWS services and in the applications. AWS KMS uses hardware security modules that have been validated under FIPS 140-2, or are in the process of being validated, to protect keys. AWS KMS is integrated with AWS CloudTrail to provide logs of all key usage to help meet applicable regulatory and compliance needs.\cite{aws-kms}
+\subparagraph{}
+AWS Key Management Service (KMS) allows you to create and manage cryptographic keys and control their use across a wide range of AWS services and in the applications. AWS KMS uses hardware security modules that have been validated under FIPS 140-2, or are in the process of being validated, to protect keys. AWS KMS is integrated with AWS CloudTrail to provide logs of all key usage to help meet applicable regulatory and compliance needs. \cite{aws-kms}
 \\
-What is going on when S3 handles the process of server-side encryption \cite{encryption-with-aws-kms):
+What is going on when S3 handles the process of server-side encryption \cite{encryption-with-aws-kms}
 \begin{itemize}
     \item When an object is upload into S3 and specify SSE, a unique 256-bit key (a data key) is generated and the data is encrypted using that key with AES-256.
     \begin{figure}[h!]
@@ -396,10 +358,10 @@ What is going on when S3 handles the process of server-side encryption \cite{enc
     	\includegraphics[width=0.4\linewidth]{images/KMSDiagram1.PNG}	
     \end{figure}
     \item The data key is then encrypted using a master key, which S3 retrieves from KMS using the master key ID that was supplied in the s3 cp command.
-    \begin{figure}[h!]
-    	\centering
-    	\includegraphics[width=0.4\linewidth]{images/KMSDiagram2.PNG}	
-    \end{figure}
+   \begin{figure}[h!]
+   	\centering
+   	\includegraphics[width=0.4\linewidth]{images/KMSDiagram2.PNG}	
+   \end{figure}
     \item The encrypted data key is then stored with the encrypted data in the S3 bucket.
     \begin{figure}[h!]
     	\centering
@@ -408,8 +370,8 @@ What is going on when S3 handles the process of server-side encryption \cite{enc
 \end{itemize}
 \textbf{Overview} 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.6\linewidth]{images/EcryptionOverview.PNG}	
+	\centering
+	\includegraphics[width=0.6\linewidth]{images/EcryptionOverview.PNG}	
 \end{figure}
 The major steps in this process are
 \begin{enumerate}
@@ -422,11 +384,11 @@ The major steps in this process are
 \subsubsection{Concept}
 Identity and Access management (IMA) is used to make sure authorised users have the right to services while preventing access to non-authorised users guarantying secure access. It does this by defining and managing the roles, the access privileges of individual users and the circumstance users are granted those privileges.
 \\
-IAM allows access management over computing, storage, database and application services. It gives one identity per individual. Once that identity has been introduced, it must be maintained, modified and monitored throughout each user’s access lifecycle.\cite{iam}
+IAM allows access management over computing, storage, database and application services. It gives one identity per individual. Once that identity has been introduced, it must be maintained, modified and monitored throughout each user’s access lifecycle. \cite{iam}
 \subsubsection{Solutions}
 Each cloud service provider offers a built an associated IAM. Independent IAM includes Okta Identity Cloud, JumpCloud and Auth0 which are all compatible with a range of cloud service providers.
 \subsubsection{Examples}
-We will be examining AWS Identity and Access Management\cite{aws-iam}. IAM is a feature of an AWS account offered at no additional charge. 
+We will be examining AWS Identity and Access Management \cite{aws-iam}. IAM is a feature of an AWS account offered at no additional charge. 
 \\
 The use cases of AWS IAM include finite-grained access control to AWS resources, Multifactor authentication for high privilege users, analyse access across the AWS environment and ability to integrate with the corporate directly (integration of current IAM system). 
 \\\\\textbf{How it works} \\
@@ -440,7 +402,7 @@ AWS IAM allows us to:
 \subsubsection{Concept}
 A Log is data that can describe application information, system performance and user activity, for example, might include Timestamp, Application, User, Session ID .etc.
 \\
-Using logs to monitor the use of the system provides security to check for violations and unpredicted behaviour from users and the system. Analysing, searching and filtering logs discovers and alerts these incidents. It enables access to historic information for debugging and forensic investigations.\cite{logs}
+Using logs to monitor the use of the system provides security to check for violations and unpredicted behaviour from users and the system. Analysing, searching and filtering logs discovers and alerts these incidents. It enables access to historic information for debugging and forensic investigations. \cite{logs}
 \subsubsection{Examples}
 The example which will show the use of logs is Amazon CloudWatch Logs. Amazon CloudWatch Logs can be used to monitor, store and access the log files from AWS Services. AWS Identity and Access Management (IAM) and AWS Lambda used in conjunction with CloudWatch Logs.
 \\
