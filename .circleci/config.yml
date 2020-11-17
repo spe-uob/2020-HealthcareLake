@@ -6,10 +6,9 @@ jobs:
       - image: danteev/texlive
     steps:
       - checkout
-      - run: cd docs/ 
-      - run: pdflatex solution-architecture interaction=nonstopmode solution-architecture.tex
-      - run: bibtex solution-architecture.aux 
-      - run: pdflatex -interaction=nonstopmode -halt-on-error solution-architecture.tex
+      - run: cd docs/ && pdflatex solution-architecture interaction=nonstopmode solution-architecture.tex
+      - run: cd docs/ && bibtex solution-architecture.aux 
+      - run: cd docs/ && pdflatex -interaction=nonstopmode -halt-on-error solution-architecture.tex
 
 workflows:
   latex:
