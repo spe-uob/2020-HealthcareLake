@@ -3,3 +3,6 @@ documentation:
 
 infrastructure:
   - infra/*
+
+devops:
+  - .circleci/*
