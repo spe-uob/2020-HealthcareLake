@@ -3,10 +3,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: buildpack-deps:trusty
+      - image: danteev/texlive
     steps:
       - checkout
-      - run: sudo apt-get -qq && sudo apt-get install -y --no-install-recommends texlive
       - run: cd docs/ && pdflatex -interaction=nonstopmode -halt-on-error *.tex
 
 workflows:
