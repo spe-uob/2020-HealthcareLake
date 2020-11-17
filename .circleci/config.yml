@@ -1,0 +1,18 @@
+version: 2.1
+
+jobs:
+  build_pdf:
+    docker:
+      - image: cicleci/buildpack-deps:trusty
+      steps:
+        - checkout
+        - run: sudo apt-get -qq && sudo apt-get install -y --no-install-recommends texlive-full
+        - run: pdflatex -interaction=nonstopmode -halt-on-error docs/*.tex
+
+workflows:
+  pdflatex:
+    jobs:
+      - build_pdf:
+          filters:
+            branches:
+              only: main
