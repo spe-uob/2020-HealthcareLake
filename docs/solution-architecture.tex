@@ -102,7 +102,9 @@ sequence of steps of user flow.
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Local healthcare services provide data to the data lake.
+Local healthcare service authenticates their identity.
+\item	
+	Local healthcare service provides information to the data lake.
 \item
   Data is transformed and loaded into the data lake.
 \item
@@ -117,12 +119,14 @@ sequence of steps of user flow.
   Clinical and strategic decisions can be taken based on analysis.
 \end{enumerate}
 
-We can also identify alternative or exceptional flows.
-\textbf{Exceptional Flow:}
+We can also identify alternative or exceptional flows. 
+\subparagraph{Exceptional Flow:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
+\item	
+Local healthcare service is authenticated.
 \item
   Local healthcare services provide data to the data lake.
 \item
@@ -132,6 +136,17 @@ We can also identify alternative or exceptional flows.
   standard format.
 \end{enumerate}
 
+\subparagraph{Exceptional Flow:} 	
+\begin{enumerate}	
+	\def\labelenumi{\arabic{enumi}.}	
+	\itemsep1pt\parskip0pt\parsep0pt	
+	\item Local healthcare service fails to be	
+	authenticated.	
+	\item The service receives an error message to provide valid	
+	credentials.	
+	\item Incoming data is not accepted.	
+\end{enumerate}
+
 \subsubsection{Atomic Requirements}\label{atomic-requirements}
 
 We can breakdown these steps into atomic requirements of the software.
@@ -139,6 +154,9 @@ We can breakdown these steps into atomic requirements of the software.
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
+\item	
+An identity authentication process provides healthcare providers with	
+credentials to supply data to the API.
 \item
   An API takes in data from local healthcare providers as a HL7 FHIR
   message. We have chosen HL7 FHIR as it is the
@@ -193,6 +211,26 @@ sequence of steps of user flow.
   lake by a HL7 FHIR message.
 \item
   The data is stored in the data lake.
+\end{enumerate}
+
+We can also consider the stakeholder of a developer and their user story	
+of accessing a user control to monitor automated ETL jobs to identify	
+live support issues.	
+
+\subparagraph{Flow Steps}
+
+This can be broken into the following user flow.	
+
+\begin{enumerate}	
+	\def\labelenumi{\arabic{enumi}.}	
+	\itemsep1pt\parskip0pt\parsep0pt	
+	\item	
+	Developer authenticates identity.	
+	\item	
+	Developer accesses user interface which logs all automated ETL jobs	
+	carried out on the data lake.	
+	\item	
+	Developer can use information to identify issues and provide support.	
 \end{enumerate}
 
 \section{Personal Data, Privacy, Security and Ethics Management}
