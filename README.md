@@ -1,4 +1,6 @@
 [![CircleCI](https://circleci.com/gh/spe-uob/HealthcareLakeRepo.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareLakeRepo)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareLakeRepo.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareLakeRepo?ref=badge_shield)
+
 # Healthcare Data Lake
 This project is designed to explore the benefits of cloud technologies to produce a prototype secure, scalable health data storage platform that can underpin local healthcare analytics.
 
