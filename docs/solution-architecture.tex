@@ -237,6 +237,13 @@ This can be broken into the following user flow.
 \subsection{GDPR}
 The data lake solution developed by the “Healthcare Data Lake” project team is an integrating part of the larger prototype system, alongside "Healthcare Data Visualisation" and "Healthcare Analytics Environment" teams \emph{(section 1.3)}. The proposed system is going to be used in compliance with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance implementation and the liability for the personal data stored falls onto the respective primary stakeholder, Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG) \emph{(section 2.1)}. The team developing the data lake infrastructure is responsible for creating a prototype secure, robust and scalable health data storage platform used for ingesting and interrogating patient’s data under the HL7 FHIR standard \emph{(section 4.1)}. As a client-specified requirement, medical data is going to be stored independently from the pseudonymised patient identifiers, thus protecting the identity and integrity of the patients whose data is stored in the data lake. The security of the data ingested as described in \emph {section 3.2} is aligned with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance and practice.
 \subsection{Security}
+\subsubsection{VPC}
+\subsubsection{VPN}
+\subsubsection{Encryption}
+\subsubsection{IAM}
+\subsubsection{Logging}
+\subsubsection{Auditing}
+
 \subsection{Ethics}
 
 \newpage
@@ -297,11 +304,11 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \end{figure}
 
 \subsubsection{Microservices}
-%TODO%
+The API Gateway will forward requests to a Lambda that stores the data in S3, may send a notification using SNS and write metadata to the Glue catalogue. The SNS notification may trigger another microservice that prepares an ETL job.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/Lambda.png}
+	\includegraphics[width=0.8\linewidth]{images/Lambda.png}
 	\caption*{Example: AWS Lambda}	
 \end{figure}
 
@@ -442,30 +449,47 @@ CloudWatch enables the centralization of the logs from all over the systems, app
 \newpage
 \section{Development Testing}
 \subsection{Local environment}
-\subsubsection{API development}
-%TODO%
+
+\subsubsection{API}
 \paragraph{Serverless}
 The Serverless Framework enables developers to run an emulated environment locally instead of needing to deploy that serverless app for testing. This comes with over 1,000 plugins that can emulate services such as AWS Lambda and API Gateway. 
+\\ \\
+Therefore, developers are expected to build and test their code locally with identical behaviour to that of the deployment environment.
 \paragraph{Postman}
 
 Postman is a very popular tool used by developers that want to conveniently test and build APIs in a collaborative way.
 \\ \\
 As we are implementing the OpenAPI specification, Postman enables the import of Swagger files to automatically generate a Postman environment. This makes developer on-boarding much easier as versioned mock endpoints and documentation are hosted for us as part of the DevOps deployment.
 
+\subsubsection{Infrastructure}
+The shared infrastructure differs from that of the application infrastructure (in this case referring to the serverless API). The shared infrastructure can be built, updated, reverted and destroyed easily using the Terraform command-line tools (\texttt{cli}). 
 
-\subsection{DevOps pipeline}
+\paragraph{Docker}
+To achieve consistency across developers' local machines, a Docker container will be used to run any Terraform commands.
+
+\paragraph{Terraform}
+Terraform workspaces are utilised to isolate development, staging and production environments. It also gives developers the option to work on their own accounts without breaking global state. However, a global state backend will be configured with S3 and a state lock with DynamoDB to enable a team to work on the same infrastructure.
+
+\subsection{DevOps}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/DevOpsWorkflow.png}	
+\end{figure}
+
 \subsubsection{GitHub}
+The git repository is hosted on GitHub in the custody of the organisation. However, the repository will be MIT licensed.
 \subsubsection{CircleCI}
-\subsubsection{CodeDeploy}
+The Continuous Integration \& Continuous Delivery are run by CircleCI servers. The workflows of jobs are defined in a YAML configuration file. 
+\subsubsection{Terraform}
+Terraform handles the deployment by using the relevant APIs - in this case it will use the AWS API but may use any other providers as required.
+
 
 \section{Release Testing}
 \subsection{Staging}
 \subsection{Production}
 
-\newpage
-\section{OO Design \& UML}
-\newpage
 
+\newpage
 \printbibliography
 
 \end{document}
