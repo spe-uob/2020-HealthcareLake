@@ -8,6 +8,7 @@
 *.run.xml
 *-blx.bib
 *.out
+*.dvi
 
 # darwin
 .DS_Store
