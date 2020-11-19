@@ -290,22 +290,21 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \textit{Fast Healthcare Interoperability Resources} (\texttt{FHIR}, pronounced "fire") is a standard describing data formats and elements (known as "resources") and an [API] for exchanging electronic health records (\texttt{EHR}). The standard was created by the Health Level Seven International (\texttt{HL7}) health-care standards organization. One of its goals is to facilitate interoperation between legacy health care systems, to make it easy to provide health care information to health care providers and individuals on a wide variety of devices from computers to tablets to cell phones, and to allow third-party application developers to provide medical applications which can be easily integrated into existing systems. \cite{fhir}
 
 \subsection{Data ingestion}
+The system will expose a RESTful endpoint for FHIR HL7 messages. It will not offer the full CRUD, only the Create and Update (when authorised). This accepts binary data and formatted UTF-8. The API will sit inside a private subnet whereby only VPC connectors or VPN clients will have access.
 \subsubsection{API management}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\linewidth]{images/APIGateway.png}
+\end{figure}
+
 %TODO%
 \paragraph{Authentication}
 %TODO%
 \paragraph{Gateway}
 %TODO%
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.4\linewidth]{images/APIGateway.png}	
-	\caption*{Example: AWS API Gateway}
-\end{figure}
-
 \subsubsection{Microservices}
 The API Gateway will forward requests to a Lambda that stores the data in S3, may send a notification using SNS and write metadata to the Glue catalogue. The SNS notification may trigger another microservice that prepares an ETL job.
-
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/Lambda.png}
@@ -334,7 +333,6 @@ When data is received, it will require a key to encrypt the data. This key is ty
 A key manager is used to generate, exchange, use, replace and delete cryptographic keys. It's able to deal with asymmetric and symmetric keys. Some key managers encrypt keys after generation to add another layer of security.
 \\ \\
 Client-side encryption is an alternative option to encrypt the data locally in the application before it gets to the lake. This means the lake is not involved in the cryptographic process of the data, as the application will use its own encryption key which the lake cannot access. This is beneficial for the users as it provides them peace of mind.
-\newpage
 \paragraph{Solutions} 
 Cloud computing services \textit{Azure}, \textit{GCP} and \textit{AWS} all provide options for client and server-side encryption.
 \\ \\
@@ -445,8 +443,15 @@ CloudWatch enables the centralization of the logs from all over the systems, app
 	\item Archive Log Data – CloudWatch Logs can be used to store log data in highly durable storage. The CloudWatch Logs agent makes it easy to quickly send both rotated and non-rotated log data off of a host and into the log service. You can then access the raw log data when needed.
 \end{itemize}
 
+\subsection{Streaming data}
+\subsubsection{Kinesis Fire Hose}
+\subsubsection{Medical IoT}
+\subsubsection{Real-time analytics}
 
-\newpage
+\subsection{Extensible}
+\subsubsection{Databricks integration}
+\subsubsection{Multi-vendor}
+
 \section{Development Testing}
 \subsection{Local environment}
 
