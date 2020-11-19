@@ -463,21 +463,24 @@ To achieve consistency across developers' local machines, a Docker container wil
 \paragraph{Terraform}
 Terraform workspaces are utilised to isolate development, staging and production environments. It also gives developers the option to work on their own accounts without breaking global state. However, a global state backend will be configured with S3 and a state lock with DynamoDB to enable a team to work on the same infrastructure.
 
-\subsection{DevOps pipeline}
-\subsubsection{GitHub}
-\subsubsection{CircleCI}
-\subsubsection{CodeDeploy}
+\subsection{DevOps}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/DevOpsWorkflow.png}	
+\end{figure}
 
+\subsubsection{GitHub}
+The git repository is hosted on GitHub in the custody of the organisation. However, the repository will be MIT licensed.
+\subsubsection{CircleCI}
+The Continuous Integration \& Continuous Delivery are run by CircleCI servers. The workflows of jobs are defined in a YAML configuration file. 
+\subsubsection{Terraform}
+Terraform handles the deployment by using the relevant APIs - in this case it will use the AWS API but may use any other providers as required.
 
 
 \section{Release Testing}
 \subsection{Staging}
 \subsection{Production}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/DevOpsWorkflow.png}	
-\end{figure}
 
 \newpage
 \printbibliography
