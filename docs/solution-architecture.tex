@@ -297,11 +297,11 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \end{figure}
 
 \subsubsection{Microservices}
-%TODO%
+The API Gateway will forward requests to a Lambda that stores the data in S3, may send a notification using SNS and write metadata to the Glue catalogue. The SNS notification may trigger another microservice that prepares an ETL job.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/Lambda.png}
+	\includegraphics[width=0.8\linewidth]{images/Lambda.png}
 	\caption*{Example: AWS Lambda}	
 \end{figure}
 
