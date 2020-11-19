@@ -442,30 +442,44 @@ CloudWatch enables the centralization of the logs from all over the systems, app
 \newpage
 \section{Development Testing}
 \subsection{Local environment}
-\subsubsection{API development}
-%TODO%
+
+\subsubsection{API}
 \paragraph{Serverless}
 The Serverless Framework enables developers to run an emulated environment locally instead of needing to deploy that serverless app for testing. This comes with over 1,000 plugins that can emulate services such as AWS Lambda and API Gateway. 
+\\ \\
+Therefore, developers are expected to build and test their code locally with identical behaviour to that of the deployment environment.
 \paragraph{Postman}
 
 Postman is a very popular tool used by developers that want to conveniently test and build APIs in a collaborative way.
 \\ \\
 As we are implementing the OpenAPI specification, Postman enables the import of Swagger files to automatically generate a Postman environment. This makes developer on-boarding much easier as versioned mock endpoints and documentation are hosted for us as part of the DevOps deployment.
 
+\subsubsection{Infrastructure}
+The shared infrastructure differs from that of the application infrastructure (in this case referring to the serverless API). The shared infrastructure can be built, updated, reverted and destroyed easily using the Terraform command-line tools (\texttt{cli}). 
+
+\paragraph{Docker}
+To achieve consistency across developers' local machines, a Docker container will be used to run any Terraform commands.
+
+\paragraph{Terraform}
+Terraform workspaces are utilised to isolate development, staging and production environments. It also gives developers the option to work on their own accounts without breaking global state. However, a global state backend will be configured with S3 and a state lock with DynamoDB to enable a team to work on the same infrastructure.
 
 \subsection{DevOps pipeline}
 \subsubsection{GitHub}
 \subsubsection{CircleCI}
 \subsubsection{CodeDeploy}
 
+
+
 \section{Release Testing}
 \subsection{Staging}
 \subsection{Production}
 
-\newpage
-\section{OO Design \& UML}
-\newpage
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/DevOpsWorkflow.png}	
+\end{figure}
 
+\newpage
 \printbibliography
 
 \end{document}
