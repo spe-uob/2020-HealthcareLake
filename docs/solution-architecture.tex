@@ -296,12 +296,11 @@ The system will expose a RESTful endpoint for FHIR HL7 messages. It will not off
 	\centering
 	\includegraphics[width=0.4\linewidth]{images/APIGateway.png}
 \end{figure}
-
-%TODO%
+We will run a RESTful API to take HL7 FHIR messages from the simulation team or a healthcare provider to allow ingestion into the data lake.
 \paragraph{Authentication}
-%TODO%
+A healthcare service/simulation team app will first authenticate their identity with Amazon Cognito who will supply the service with a secure access token. The service can then use this access token to access the API Gateway. This gateway will run a RESTful API that accepts a secure access token and a FHIR HL7 message for ingestion into the data lake. The API Gateway can then confirm with Amazon Cognito to ensure the access token is valid. If so then the HL7 FHIR message will be accepted.
 \paragraph{Gateway}
-%TODO%
+Were planning to use the Amazon API Gateway to run our API as it provides an affordable pricing model for API requests, as well as scalable performance that allows for monitoring.
 
 \subsubsection{Microservices}
 The API Gateway will forward requests to a Lambda that stores the data in S3, may send a notification using SNS and write metadata to the Glue catalogue. The SNS notification may trigger another microservice that prepares an ETL job.
