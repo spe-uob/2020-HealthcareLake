@@ -315,8 +315,34 @@ The API Gateway will forward requests to a Lambda that stores the data in S3, ma
 	\caption*{Example: AWS Lambda}	
 \end{figure}
 
+\newpage
 \subsubsection{Metadata cataloguing}
-\paragraph{Glue}
+\subparagraph{AWS Glue}
+AWS Glue \cite{aws-glue} is a fully managed ETL (extract, transform, and load) service that makes it simple and cost-effective to categorize data, clean it, enrich it, and move it reliably between various data stores and data streams. AWS Glue consists of a central metadata repository known as the AWS Glue Data Catalog, an ETL engine that automatically generates Python or Scala code, and a flexible scheduler that handles dependency resolution, job monitoring, and retries. AWS Glue is serverless, so there’s no infrastructure to set up or manage.
+
+\subparagraph{How it works}When used for metadata cataloguing, AWS Glue handles essential tasks:
+\begin{itemize}
+    \item Discovers and catalogs metadata about data stores into a central catalog. Semi-structured data can be processed, such as clickstream or process logs.
+    \item Populates the AWS Glue Data Catalog with table definitions from scheduled crawler programs. Crawlers call classifier logic to infer the schema, format, and data types of data. This metadata is stored as tables in the AWS Glue Data Catalog and used in the authoring process of the ETL jobs.
+    \item Detects schema changes and adapts by preference.
+\end{itemize}
+The data is stored in a Data Catalog made up Databases and Tables (Metadata). Databases are used to organize metadata tables in the AWS Glue. When a table is defined in the AWS Glue Data Catalog, it is added to a database. A table can be in only one database. 
+
+\subparagraph{What is a crawler and how do they work?}A table can be defined using a crawler. Running a crawler connects to one or more data stores, determines the data structures, and writes tables into the Data Catalog. The crawler uses built-in or custom classifiers to recognize the structure of the data. A crawler can be ran on a schedule. To be noted that this is not the only way for creating tables, as the AWS Glue console can be used to manually create a table in the AWS Glue Data Catalog, or by using the CreateTable operation in the AWS Glue API. \cite{aws-crawlers}
+\begin{itemize}
+    \item A crawler runs any chosen custom classifier to infer the format and schema of your data. As the ingested data comes as HL7 FHIR messages through the RESTful endpoint, a custom classifier will be needed.
+    \item The crawler connects to the data store. Some data stores require connection properties for crawler access.
+    \item The inferred schema is created for the data.
+    \item The crawler writes metadata to the Data Catalog. A table definition contains metadata about the data in the data store. The table is written to a database, which is a container of tables in the Data Catalog. Attributes of a table include classification, which is a label created by the classifier that inferred the table schema.
+    \item If the crawler runs more than once, perhaps on a schedule, it looks for new or changed files or tables in the data store. The output of the crawler includes new tables and partitions found since a previous run.
+\end{itemize}
+
+\newpage
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{docs/images/PopulateCatalog-overview.png}
+	\caption*{Example: General workflow for how a crawler populates the AWS Glue Data Catalog}
+\end{figure}
 \subsubsection{Schema-less object store}
 \paragraph{S3}
 
