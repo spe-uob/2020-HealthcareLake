@@ -236,13 +236,12 @@ This can be broken into the following user flow.
 \section{Personal Data, Privacy, Security and Ethics Management}
 \subsection{GDPR}
 The data lake solution developed by the “Healthcare Data Lake” project team is an integrating part of the larger prototype system, alongside "Healthcare Data Visualisation" and "Healthcare Analytics Environment" teams \emph{(section 1.3)}. The proposed system is going to be used in compliance with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance implementation and the liability for the personal data stored falls onto the respective primary stakeholder, Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG) \emph{(section 2.1)}. The team developing the data lake infrastructure is responsible for creating a prototype secure, robust and scalable health data storage platform used for ingesting and interrogating patient’s data under the HL7 FHIR standard \emph{(section 4.1)}. As a client-specified requirement, medical data is going to be stored independently from the pseudonymised patient identifiers, thus protecting the identity and integrity of the patients whose data is stored in the data lake. The security of the data ingested as described in \emph {section 3.2} is aligned with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance and practice.
+
 \subsection{Security}
-\subsubsection{VPC}
-\subsubsection{VPN}
-\subsubsection{Encryption}
-\subsubsection{IAM}
-\subsubsection{Logging}
-\subsubsection{Auditing}
+\paragraph{}
+The security requirements for this project are extremely high, and thus this implementation will enforce protections at every layer in the stack. The principle of least privilege (\texttt{PoLP}) applies with isolation and strong encryption to ensure data storage, access and communication is safeguarded from unauthorised processes in any event. The entire infrastructure is written in testable code to catch any mistakes before they hit production in the first place.
+\paragraph{}
+There will be no outbound (egress) communication from inside the data lake and the only inbound connection is data ingestion from the client API, which may in fact reside within a Virtual Private Network (\texttt{VPN}) to begin with rather than accessed over a public gateway. So that internet access is forbidden inside the Virtual Private Cloud (\texttt{VPC}) from our standpoint - so data exfiltration becomes challenging for an attacker that compromises any user account. All curated data marts are accessible via a peering link with the Data Analytics team who are responsible for the security of their environment in which they spawn their processes. All access to these will be logged and anomalies, violations and exceptions will be flagged for alerts and auditing. Furthermore, this  storage of curated data marts is in a private network separate from the rest of the data lake in any case. A comprehensive look at this architecture is included in \hyperref[sec:secure_access]{Section 4.5} and \hyperref[sec:network]{Section 4.6} of this paper. 
 
 \subsection{Ethics}
 Ethics pre-approval was applied for on 19 November 2020, 12:00 GMT. 
@@ -295,27 +294,34 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \textit{Fast Healthcare Interoperability Resources} (\texttt{FHIR}, pronounced "fire") is a standard describing data formats and elements (known as "resources") and an [API] for exchanging electronic health records (\texttt{EHR}). The standard was created by the Health Level Seven International (\texttt{HL7}) health-care standards organization. One of its goals is to facilitate interoperation between legacy health care systems, to make it easy to provide health care information to health care providers and individuals on a wide variety of devices from computers to tablets to cell phones, and to allow third-party application developers to provide medical applications which can be easily integrated into existing systems. \cite{fhir}
 
 \subsection{Data ingestion}
-The system will expose a RESTful endpoint for FHIR HL7 messages. It will not offer the full CRUD, only the Create and Update (when authorised). This accepts binary data and formatted UTF-8. The API will sit inside a private subnet whereby only VPC connectors or VPN clients will have access.
+The system will expose a RESTful endpoint for FHIR HL7 messages. It will not offer the full CRUD, only the Create and Update (when authorised). This accepts any structured or unstructured data when contained in a valid HL7 message. There is scope to build on this to add other data ingestion methods by building an API Facade that accepts other kinds of standards the client wants - such as medical IoT streaming data. This API will be accessible over a public gateway at first, with the intent to encourage developers to use a private link.
 \subsubsection{API management}
-\begin{figure}[h!]
+\begin{minipage}{\textwidth}
+	
+\paragraph{Gateway}
+AWS API Gateway automatically handles the caching, authentication, rate-limiting, routing, logging, validation, integration, scaling, versioning, mocking, documentation and usage plans of APIs defined with the OpenAPI specification. It also offers an affordable, flexible pricing model in exchange for handling these very challenging aspects of API development. Cutting time and cost, enabling teams to focus on shipping their code that actually matters.
+\\
+
+\begin{center}
 	\centering
 	\includegraphics[width=0.4\linewidth]{images/APIGateway.png}
-\end{figure}
-We will run a RESTful API to take HL7 FHIR messages from the simulation team or a healthcare provider to allow ingestion into the data lake.
+\end{center}
+
 \paragraph{Authentication}
-A healthcare service/simulation team app will first authenticate their identity with Amazon Cognito who will supply the service with a secure access token. The service can then use this access token to access the API Gateway. This gateway will run a RESTful API that accepts a secure access token and a FHIR HL7 message for ingestion into the data lake. The API Gateway can then confirm with Amazon Cognito to ensure the access token is valid. If so then the HL7 FHIR message will be accepted.
-\paragraph{Gateway}
-Were planning to use the Amazon API Gateway to run our API as it provides an affordable pricing model for API requests, as well as scalable performance that allows for monitoring.
+A healthcare service/simulation team app will first authenticate their identity with AWS Cognito which will supply the service with a secure access token. This token may be time-scoped and resource-scoped. The service can then use this token to access the API Gateway. This gateway uses strictly the latest version of TLS and requires the \texttt{Authorization} header to be set. This uses the AWS4-HMAC-SHA256 algorithm to calculate a signature for the secret key (access token). This is provided as a hexadecimal representation along with the other required parameters of access key (identity key) and requested resource. The Authorization header is added to all requests that contain the HL7 body for ingestion into the data lake. The API Gateway can then confirm with AWS Cognito to ensure the token is valid. If so then the HL7 FHIR message will be accepted.
+
+
+\end{minipage}
 
 \subsubsection{Microservices}
-The API Gateway will forward requests to a Lambda that stores the data in S3, may send a notification using SNS and write metadata to the Glue catalogue. The SNS notification may trigger another microservice that prepares an ETL job.
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.8\linewidth]{images/Lambda.png}
-	\caption*{Example: AWS Lambda}	
-\end{figure}
+\begin{minipage}{\textwidth}
+The API Gateway will forward requests to an AWS Lambda function that stores the data in S3, may send a notification using AWS Simple Notification Service (\texttt{SNS}) and writes metadata to the Glue catalogue. SNS notifications may trigger other microservices that prepare ETL jobs. These are yet to be scoped by the client but by default everything will be thrown into the lake where an EMR cluster can process.\\
 
-\newpage
+\includegraphics[width=0.8\linewidth]{images/Lambda.png}
+
+\end{minipage}
+
+
 \subsubsection{Metadata cataloguing}
 \subparagraph{AWS Glue}
 AWS Glue \cite{aws-glue} is a fully managed ETL (extract, transform, and load) service that makes it simple and cost-effective to categorize data, clean it, enrich it, and move it reliably between various data stores and data streams. AWS Glue consists of a central metadata repository known as the AWS Glue Data Catalog, an ETL engine that automatically generates Python or Scala code, and a flexible scheduler that handles dependency resolution, job monitoring, and retries. AWS Glue is serverless, so there’s no infrastructure to set up or manage.
@@ -336,13 +342,14 @@ The data is stored in a Data Catalog made up Databases and Tables (Metadata). Da
     \item The crawler writes metadata to the Data Catalog. A table definition contains metadata about the data in the data store. The table is written to a database, which is a container of tables in the Data Catalog. Attributes of a table include classification, which is a label created by the classifier that inferred the table schema.
     \item If the crawler runs more than once, perhaps on a schedule, it looks for new or changed files or tables in the data store. The output of the crawler includes new tables and partitions found since a previous run.
 \end{itemize}
-
-\newpage
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/PopulateCatalog-overview.png}
 	\caption*{Example: General workflow for how a crawler populates the AWS Glue Data Catalog}
 \end{figure}
+\subparagraph{DataBrew}
+%TODO%
+
 \subsubsection{Schema-less object store}
 \paragraph{S3}
 
@@ -351,11 +358,14 @@ The data is stored in a Data Catalog made up Databases and Tables (Metadata). Da
 \subsubsection{Common models}
 
 \subsection{ETL \& data marts}
+\subsubsection{EMR cluster}
 \subsubsection{Scheduling}
 \subsubsection{Developers}
 \subsubsection{Console}
 
 \subsection{Secure access}
+\label{sec:secure_access}
+
 \subsubsection{Encryption}
 
 When data is received, it will require a key to encrypt the data. This key is typically generated by a key manager. When data is being retrieved or queried it will then use the same key to decrypt the data to be used.
@@ -474,6 +484,7 @@ CloudWatch enables the centralization of the logs from all over the systems, app
 \end{itemize}
 
 \subsection{Network}
+\label{sec:network}
 \subsubsection{Public subnet (API)}
 %TODO%
 \subsubsection{Private subnet A (Data Lake)}
