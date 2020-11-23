@@ -452,9 +452,7 @@ The major steps in this process are
 Identity and Access management (\texttt{IAM}) is used to make sure authorised users have the right to services while preventing access to non-authorised users (guaranteeing secure access). It does this by defining and managing the roles, the access privileges of individual users and the circumstance users are granted those privileges.
 \\ \\
 IAM allows access management over computing, storage, database and application services. It gives one identity per individual. Once that identity has been introduced, it must be maintained, modified and monitored throughout each user’s access lifecycle. \cite{iam}
-\paragraph{Solutions}
-Each cloud service provider offers IAM. Independent IAM includes Okta Identity Cloud, JumpCloud and Auth0 which are all compatible with a range of cloud service providers.
-\paragraph{Examples}
+\paragraph{Solution}
 We will be examining AWS IAM \cite{aws-iam}. IAM is a feature of an AWS account offered at no additional charge. 
 \\ \\
 The use cases of AWS IAM include finite-grained access control to AWS resources, multi-factor authentication for high privilege users, analysis of access across the AWS environment and ability to integrate with the corporate directly (integration of current IAM system). 
@@ -485,18 +483,18 @@ CloudWatch enables the centralization of the logs from all over the systems, app
 
 \subsection{Network}
 \label{sec:network}
-\subsubsection{Public subnet (API)}
-%TODO%
-\subsubsection{Private subnet A (Data Lake)}
-%TODO%
-\subsubsection{Private subnet B (Trusted Research Environment)}
-%TODO%
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/Network.png}
 \end{figure}
+\subsubsection{Public subnet (API)}
+The client API is accessible over the WAN on all IPv4 and IPv6 addresses (0.0.0.0/0, ::/0). In future versions, it may be decided to make this a private network though. In front of the Lambda sits the API Gateway, forwarding requests to and fro. Lambdas may not be directly invoked. The Lambda only has the following IAM permissions: \texttt{PutObject} and \texttt{UploadPart}. This would ideally be replicated across at least two availability zones in the region so that downtime is prevented.
+\subsubsection{Private subnet A (Data Lake)}
+The lake itself contains the S3 bucket, Glue instance, Redshift instance and EMR cluster. These are needed for all the ETL jobs and federated querying. Optionally, an AWS Athena instance could be added here for SQL querying across the lake. The EMR cluster can be accessed securely via a VPN client connection.
+\subsubsection{Private subnet B (Trusted Research Environment)}
+Once big data tasks are run across the lake to cleanse and prepare data marts, they are written to an S3 bucket inside a private subnet for use in the analytics environment. Additionally, Redshift can provide Business Intelligence tools with data. An example of AWS QuickSight has been included here, but most BI tools are compatible with S3 anyway and if not, then Redshift solves that problem by providing data warehousing so that models are there for querying.
 \subsubsection{VPC peering}
-%TODO%
+Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}"), is accessible to the Data Analytics team via a VPC peering connection. This assumes the VPCs are held in the same AWS Organization account, ensuring IAM roles can be used across VPCs.
 
 \subsection{Streaming data (Optional)}
 \subsubsection{Kinesis Fire Hose}
