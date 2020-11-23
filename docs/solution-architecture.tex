@@ -371,7 +371,7 @@ Amazon S3 Intelligent-Tiering \cite{S3-storage-classes} is an S3 storage class d
 It works by storing objects in four access tiers: two low latency access tiers optimized for frequent and infrequent access and two opt-in archive access tiers designed for asynchronous access that are optimized for rare access (archive, and deep archive access).\\
 \begin{figure}[h!]
    	\centering
-   	\includegraphics[width=0.7\linewidth]{docs/images/S3-Intelligent-Tiering.png}	
+   	\includegraphics[width=0.7\linewidth]{images/S3-Intelligent-Tiering.png}	
 \end{figure}
 \\
 Objects uploaded or transitioned to S3 Intelligent-Tiering are automatically stored in the Frequent Access tier. S3 Intelligent-Tiering works by monitoring access patterns and then moving the objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. When one of the archive access tiers are accessed, S3 Intelligent Tiering will automatically move objects that haven’t been accessed for 90 consecutive days to the Archive Access tier and then after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, S3 Intelligent-Tiering moves the objects back to the Frequent Access tier. \\
@@ -388,7 +388,7 @@ We will be using cloud-based data warehouses compared to on-premise warehouses b
 \textbf{Amazon Redshift}\cite{redshift-architecture} uses traditional data warehouse approach.\\
 \begin{figure}[h!]
    	\centering
-   	\includegraphics[width=0.7\linewidth]{docs/images/Redshift-Architecture.png}	
+   	\includegraphics[width=0.7\linewidth]{images/Redshift-Architecture.png}	
    \end{figure}
 \\Clusters are the core component of Amazon Redshift. It is composed of one or more compute nodes. If a cluster is provisioned with two or more compute nodes, an additional leader node coordinates the compute nodes and handles external communication. Client applications interact directly with the leader node only. The compute nodes are transparent to external applications.\\
 The leader node manages communications with client programs and all communication with compute nodes. It parses and develops execution plans to carry out database operations (results of queries). the leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node.\\
