@@ -352,11 +352,57 @@ The data is stored in a Data Catalog made up Databases and Tables (Metadata). Da
 
 \subsubsection{Schema-less object store}
 \paragraph{S3}
+Amazon Simple Storage Service (Amazon S3) \cite{S3} is an object storage service that offers industry-leading scalability, data availability, security, and performance. Amazon S3 offers a range of storage classes these included; S3 Intelligent-Tiering for data with unknown or changing access patterns; Amazon S3 Glacier (S3 Glacier) for long-term archive and digital preservation. Amazon S3 also offers capabilities to manage data throughout its lifecycle. \\
+S3 can use the AWS Global Infrastructure to be flexible and take advantage of the conceptually infinite scalability of the cloud. This gives the ability to instantly scale up or down the number of resources according to the application and user needs while reducing the cost. This is done by quickly deploying hundreds or thousands of servers in minutes.\\
+S3 can allow lots of application access to shared data sets. Amazon S3 access Point simplifies managing data access at scale for these applications. Access points are unique hostnames that customers create to enforce distinct permissions and network controls for any request made through the access point from applications. Any access point can be restricted to a Virtual Private Cloud (VPC) to firewall S3 data access within a private network. Access points are available at no additional cost (More information about S3 pricing\cite{S3-pricing}).\\
+\paragraph{Amazon S3 Glacier}
+S3 Glacier\cite{S3-glacier} is a secure, durable, and low-cost storage class for data archiving. It provides three retrieval options that range from minutes to hours. There are two options to upload objects either directly or use S3 Lifecycle policies to transfer data between any of the S3 Storage Classes for active data. Amazon S3 Glacier stores data for as little as £0.003 per gigabyte per month.\\
+The way S3 Glacier works is if storage should be immediately archived without delay, or when transitioning objects to S3 Glacier can’t be expressed through an Amazon S3 Lifecycle policy, S3 PUT to Glacier allows you to use S3 APIs to upload to the S3 Glacier storage class on an object-by-object basis. This method therefore does not need to set a bucket-level policy.\\
+The other method is to use Lifecycle rules to automatically archive sets of Amazon S3 objects to S3 Glacier based on object age. Rules can be defined in the S3 Management Console, the AWS SDKs, or the Amazon S3 APIs. Rules Specify a prefix and time period. The prefix identifies the objects subject to the rule. The time period specifies either the number of days from the object creation date or the specified date after which the objects should be archived. Then any S3 Standard objects which have names beginning with the specified prefix and which have aged past the specified time period are archived to S3 Glacier.\\
+To Amazon S3 data stored in S3 Glacier, initiate a retrieval job via the Amazon S3 APIs or Management Console. Once the retrieval job is complete, you can access your data through an Amazon S3 GET object request.
+\paragraph{Lifecycle Management}
+To manage when objects are deleted or moved to and from a different storage class while being stored cost-effectively throughout their lifecycle, you can configure their Amazon S3 Lifecycle\cite{S3-lifecycle}. An S3 Lifecycle configuration is a set of rules, mentioned previously, that define actions that Amazon S3 applies to a group of objects. There are two types of actions:
+\begin{itemize}
+  \item Transition actions—Define when objects transition to another storage class (S3 Storage and Reduced Redundancy). An example might be transition objects to the S3 Standard-IA storage class 30 days after they are created, or archive objects to the S3 Glacier storage class one year after creating them. There are costs associated with the lifecycle transition requests. 
+  \item Expiration actions—Define when objects expire. Amazon S3 automatically deletes the expired objects as defined. The lifecycle expiration costs depend on when you choose to expire objects. 
+  \end{itemize}
+\paragraph{Intelligent Tiering}
+Amazon S3 Intelligent-Tiering \cite{S3-storage-classes} is an S3 storage class designed to optimize storage costs by automatically moving data to the most cost-effective access tier, without operational overhead.\\
+It works by storing objects in four access tiers: two low latency access tiers optimized for frequent and infrequent access and two opt-in archive access tiers designed for asynchronous access that are optimized for rare access (archive, and deep archive access).\\
+\begin{figure}[h!]
+   	\centering
+   	\includegraphics[width=0.7\linewidth]{docs/images/S3-Intelligent-Tiering.png}	
+\end{figure}
+\\
+Objects uploaded or transitioned to S3 Intelligent-Tiering are automatically stored in the Frequent Access tier. S3 Intelligent-Tiering works by monitoring access patterns and then moving the objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. When one of the archive access tiers are accessed, S3 Intelligent Tiering will automatically move objects that haven’t been accessed for 90 consecutive days to the Archive Access tier and then after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, S3 Intelligent-Tiering moves the objects back to the Frequent Access tier. \\
+There are no retrieval fees when using the S3 Intelligent-Tiering storage class, and no additional tiering fees when objects are moved between access tiers within S3 Intelligent-Tiering. It is designed for durability of 99.999999999\% of objects across multiple Availability Zones and for 99.9\% availability over a given year.
+\paragraph{Encyption} The encryption for Amazon S3 is explained in section 4.5. 
 
 \subsection{Data warehousing}
+Data warehouses will be used in our project to store data that has been structured and cleansed from the data lake. This format lets us query the data so we can produce useful analytics and reports to return to the user.
+\\
+We will be using cloud-based data warehouses compared to on-premise warehouses because you do not have to purchase or maintain physical hardware, it is quicker and cheaper to initialise and scale, and can usually perform analytics queries much faster.
+\paragraph{Options}There are many options to go with when it comes to cloud-based data warehouses, the one that we mention below include Google BigQuery, and Amazon Redshift.\cite{data-warehouse-comparisons}\\
+\textbf{Google BigQuery} is a serverless architecture meaning resource management decisions are hidden from the user. Allows for the stream of data to the data warehouse. It uses the Dremel query execution engine which uses massively parallel processing (MPP) of querying to scan data in the Clossus file management system which uses clusters.\\
+\textbf{Snowflake} is a hybrid of traditional shared-disk database architectures and shared-nothing database architectures. Snowflake uses a central data repository for persisted data that is accessible from all compute nodes in the data warehouse. Snowflake also processes queries using MPP compute clusters. \\
+\textbf{Amazon Redshift}\cite{redshift-architecture} uses traditional data warehouse approach.\\
+\begin{figure}[h!]
+   	\centering
+   	\includegraphics[width=0.7\linewidth]{docs/images/Redshift-Architecture.png}	
+   \end{figure}
+\\Clusters are the core component of Amazon Redshift. It is composed of one or more compute nodes. If a cluster is provisioned with two or more compute nodes, an additional leader node coordinates the compute nodes and handles external communication. Client applications interact directly with the leader node only. The compute nodes are transparent to external applications.\\
+The leader node manages communications with client programs and all communication with compute nodes. It parses and develops execution plans to carry out database operations (results of queries). the leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node.\\
+Compute nodes execute the compiled code from the leader node and send intermediate results back to the leader node for final aggregation. Each compute node has its own dedicated CPU, memory, and attached disk storage. To increase the compute capacity and storage capacity of a cluster by increasing the number of nodes, upgrading the node type, or both.\\
+A compute node is partitioned into slices. Each slice is allocated a portion of the node's memory and disk space, where it processes a portion of the workload assigned to the node. The leader node manages distributing data to the slices and apportions the workload for any queries or other database operations to the slices. The slices then work in parallel to complete the operation. The number of slices per node is determined by the node size of the cluster. 
+\paragraph{Solution}For our project, we will be choosing Amazon Redshift firstly as it strongly focuses on the security of the data this is a major factor when we are dealing with personal data (section 4.5.1 discusses how Amazon Redshift uses encryption). Secondly, it is the cheapest as Redshift is the leader in being cost-efficient as it uses pay-as-you-go pricing so you only pay for what we will use. If we are using other AWS services, there will be a lot of support and documentation on the implantation and maintenance of the system. Other reasons include its highly scalable, easy to manage and has the best performance.\cite{redshift-benefits} 
 \subsubsection{Federated querying}
+Federate querying allows you to query data from multiple sources with different storage types to provide a solution. It will be used in our project to query from the data warehouse, remote sources, live data and straight from the data lake. Federate querying can remove the reliance on complex extract, transform, load (ETL) pipelines when loading data into the data storages.
+\\
+An Example of Federate Querying with Amazon Redshift \cite{federate-queries} you can integrate queries from Amazon Redshift on live data in external databases with queries across your Amazon Redshift and Amazon S3 environments. Federated queries can work with external databases in Amazon RDS for PostgreSQL and Amazon Aurora with PostgreSQL compatibility.
 \subsubsection{Common models}
-
+Common data warehouse models \cite{data-modelling} include virtual warehousing, data mart model and enterprise data warehouse model.
+\\
+We will be using the data mart model as it is used for business-line specific reporting and analysis. In this model, data is aggregated from a range of source systems relevant to a specific area. The data mart will then be used by the analytics team.
 \subsection{ETL \& data marts}
 \subsubsection{EMR cluster}
 \subsubsection{Scheduling}
