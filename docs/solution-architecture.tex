@@ -515,18 +515,18 @@ Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}
 \paragraph{Serverless}
 The Serverless Framework enables developers to run an emulated environment locally instead of needing to deploy that serverless app for testing. This comes with over 1,000 plugins that can emulate services such as AWS Lambda and API Gateway. 
 \\ \\
-Therefore, developers are expected to build and test their code locally with identical behaviour to that of the deployment environment.
+Therefore, developers are expected to build and test their code locally with identical behaviour to that of the deployment environment. As any microservice can be done in a number of languages, it is not decided which framework is chosen for unit tests of those.
 \paragraph{Postman}
 
 Postman is a very popular tool used by developers that want to conveniently test and build APIs in a collaborative way.
 \\ \\
-As we are implementing the OpenAPI specification, Postman enables the import of Swagger files to automatically generate a Postman environment. This makes developer on-boarding much easier as versioned mock endpoints and documentation are hosted for us as part of the DevOps deployment.
+As we are implementing the OpenAPI specification, Postman enables the import of Swagger files to automatically generate a Postman environment. This makes developer on-boarding much easier as versioned mock endpoints and documentation are hosted for us as part of the DevOps deployment. It enables tests to be written as well (JavaScript), but we may opt to use a different RESTful testing framework such as REST-assured (Java).
 
 \subsubsection{Infrastructure}
-The shared infrastructure differs from that of the application infrastructure (in this case referring to the serverless API). The shared infrastructure can be built, updated, reverted and destroyed easily using the Terraform command-line tools (\texttt{cli}). 
+The shared infrastructure differs from that of the application infrastructure (in this case referring to the serverless API). The shared infrastructure can be built, updated, reverted and destroyed easily using the Terraform command-line tools (\texttt{cli}). Terraform formats and validates your plan before applying it, so writing unit tests around the migration itself doesn't make sense in this context. What does make sense is testing the enforcement of user-defined standards. This can be written with Terraform Validate (Python) or Terratest (Go). Furthermore, compliance controls could be generated with Chef InSpec profiles ("Compliance-as-Code").
 
 \paragraph{Docker}
-To achieve consistency across developers' local machines, a Docker container will be used to run any Terraform commands.
+To achieve consistency across developers' local machines and avoid headaches, Docker containers will be used for the local development environments.
 
 \paragraph{Terraform}
 Terraform workspaces are utilised to isolate development, staging and production environments. It also gives developers the option to work on their own accounts without breaking global state. However, a global state backend will be configured with S3 and a state lock with DynamoDB to enable a team to work on the same infrastructure.
@@ -540,9 +540,9 @@ Terraform workspaces are utilised to isolate development, staging and production
 \subsubsection{GitHub}
 The git repository is hosted on GitHub in the custody of the organisation. However, the repository will be MIT licensed.
 \subsubsection{CircleCI}
-The Continuous Integration \& Continuous Delivery are run by CircleCI servers. The workflows of jobs are defined in a YAML configuration file. 
+The Continuous Integration \& Continuous Delivery pipelines are run by CircleCI servers. This decision was made by the university. Jenkins (self-hosted) would be preferred to reduce overall cost constraints and just generally to reduce vendor lock-in and improve security. The workflows of jobs are defined in a YAML configuration file. 
 \subsubsection{Terraform}
-Terraform handles the deployment by using the relevant APIs - in this case it will use the AWS API but may use any other providers as required.
+Terraform handles the deployment by using the relevant APIs - in this case it will use the AWS API but may use any other providers as required - such as if we decided to integrate Azure or Google for a multi-vendor infrastructure.
 
 
 \section{Release Testing}
