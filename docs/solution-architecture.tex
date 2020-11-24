@@ -546,6 +546,22 @@ Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}
 
 \subsection{Extensible}
 \subsubsection{Databricks integration}
+\paragraph{What is Databricks?} DataBricks is a start-up offering a Unified Data Analytics Platform, one cloud platform for massive scale data engineering and collaborative data science. The platform is designed to integrate AWS and Azure solutions to create one reliable and scalable data lake
+for all analytics, create a collaborative workspace for data and Machine Learning teams and deploy one platform for data science, Machine Learning, and analytics. \cite{databricks}
+\\ \\
+In the further development of the project by the NHS Digital teams, Databricks can be easily integrated to offer extraordinary data analytics opportunities, beyond the initial intended purpose of the project.
+\paragraph{Integration}
+\begin{itemize}
+    \item \textbf{Amazon Redshift} Databricks can read data securely from Redshift and integrate it with other datasets. With Delta Lake, Databricks can make that data into simplified and reliable data pipelines using optimized cluster resources. Data can then be used for machine learning in Databricks, or put back into Redshift for data warehouse workloads.
+    \item \textbf{AWS Glue Integration} Being a Apache compatible Hive serverless metastore, AWS Glue integration offers several benefits such as simplified manageability by using the same AWS Glue catalog across multiple Databricks workspaces or simplified integrated security using IAM Credntial Passthrough for metadata in AWS Glue.
+    \item \textbf{Amazon SageMaker} Databricks is integrated with Amazon SageMaker using MLflow to enable distribution of machine learning models. Databricks is used to build collaborative ML models and train them at scale. The deployment enables real-time model serving and REST API integration.
+    \item \textbf{Automated, High Scale Data Pipelines} Created automated data pipelines at scale that minimize cost with features such as auto-clustering and spot pricing. Using Delta Lake, you can scale up to the largest datasets, with high velocity data providing constant updates, instantly available for analytics.
+	\item \textbf{Delta Lake} Delta Lake is an open source project with the Linux Foundation. Data is stored in the open Apache Parquet format, allowing data to be read by any compatible reader. It offers integration for existing Amazon S3 storage service. Delta Lake adds a storage layer to data lakes to manage data quality, ensuring data lakes contain only high quality data for consumers. The Delta Lake transaction log records details about every change made to data, providing a full history of changes, for compliance, audit, and reproduction.
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/AWS-Data-Lake-Architecture-light-BG.png}
+\end{figure}
 \subsubsection{Multi-vendor}
 
 \section{Development Testing}
