@@ -378,6 +378,7 @@ Objects uploaded or transitioned to S3 Intelligent-Tiering are automatically sto
 There are no retrieval fees when using the S3 Intelligent-Tiering storage class, and no additional tiering fees when objects are moved between access tiers within S3 Intelligent-Tiering. It is designed for durability of 99.999999999\% of objects across multiple Availability Zones and for 99.9\% availability over a given year.
 \paragraph{Encyption} The encryption for Amazon S3 is explained in section 4.5. 
 
+\newpage
 \subsection{Data warehousing}
 Data warehouses will be used in our project to store data that has been structured and cleansed from the data lake. This format lets us query the data so we can produce useful analytics and reports to return to the user.
 \\
@@ -404,7 +405,7 @@ Common data warehouse models \cite{data-modelling} include virtual warehousing, 
 \\
 We will be using the data mart model as it is used for business-line specific reporting and analysis. In this model, data is aggregated from a range of source systems relevant to a specific area. The data mart will then be used by the analytics team.
 
-
+\newpage
 \subsection{ETL \& data marts}
 \begin{figure}[h!]
 	\centering
@@ -468,42 +469,16 @@ Amazon Redshift uses a four-tier, key-based architecture for encryption. The arc
 
 \subparagraph{AWS KMS}
 
-AWS Key Management Service (\texttt{KMS}) allows you to create and manage cryptographic keys and control their use across a wide range of AWS services and in the applications. AWS KMS uses hardware security modules that have been validated under FIPS 140-2, or are in the process of being validated, to protect keys. AWS KMS is integrated with AWS CloudTrail to provide logs of all key usage to help meet applicable regulatory and compliance needs. \cite{aws-kms}
-\\
-What is going on when S3 handles the process of server-side encryption \cite{encryption-with-aws-kms}
+AWS Key Management Service (\texttt{KMS}) allows you to create and manage cryptographic keys and control their use across a wide range of AWS services and in the applications. AWS KMS uses hardware security modules (\texttt{HSM}s) that have been validated under FIPS 140-2, to protect keys. AWS KMS is integrated with AWS CloudTrail to provide logs of all key usage to help meet applicable regulatory and compliance needs. \cite{aws-kms}
+\\ \\
+S3 handles the process of Server-Side Encryption (\texttt{SSE}) \cite{encryption-with-aws-kms}
 \begin{itemize}
     \item When an object is uploaded into S3 and specified SSE, a unique 256-bit key (a data key) is generated and the data is encrypted using that key with AES-256.
-    \begin{figure}[h!]
-    	\centering
-    	\includegraphics[width=0.4\linewidth]{images/KMSDiagram1.PNG}	
-    \end{figure}
-    \item The data key is then encrypted using a master key, which S3 retrieves from KMS using the master key ID that was supplied in the s3 cp command.
-   \begin{figure}[h!]
-   	\centering
-   	\includegraphics[width=0.4\linewidth]{images/KMSDiagram2.PNG}	
-   \end{figure}
+    \item The data key is then encrypted using a master key, which S3 retrieves from KMS using the master key ID that was supplied.
     \item The encrypted data key is then stored with the encrypted data in the S3 bucket.
-    \begin{figure}[h!]
-    	\centering
-    	\includegraphics[width=0.4\linewidth]{images/KMSDiagram3.PNG}	
-    \end{figure}
 \end{itemize}
 
-\begin{samepage}
-\subparagraph{Overview} 
-The major steps in this process are
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/EcryptionOverview.PNG}	
-\end{figure}
-\nopagebreak
-\begin{enumerate}
-  \item You create a master key in KMS
-  \item You load the data into S3.
-  \item S3 retrieves the key from KMS and encrypts the data.
-  \item You run the COPY (\texttt{cp}) command in Redshift to load the data from S3.
-\end{enumerate}
-\end{samepage}
+\newpage
 
 \subsubsection{IAM}
 \paragraph{Concept}
@@ -522,10 +497,9 @@ AWS IAM allows us to:
     \item Manage federated users and their permissions – Enable identity federation to allow existing identities (users, groups and roles) in the enterprise to access the AWS Management Console, call AWS APIs and access resources, without the need to create an IAM user for each identity. Enable the use of any identity management solution that supports SAML 2.0.
 \end{itemize}
 
+\newpage
 \subsubsection{Logging}
 \paragraph{Concept}
-A Log is data that can describe application information, system performance and user activity, for example, might include Timestamp, Application, User, Session ID etc.
-\\ \\
 Using logs to monitor the use of the system provides security to check for violations and unpredicted behaviour from users and the system. Analysing, searching and filtering logs discovers and alerts these incidents. It enables access to historic information for debugging and forensic investigations. \cite{logs}
 \paragraph{Examples}
 The example which will show the use of logs is AWS CloudWatch. CloudWatch can be used to monitor, store and access the log files from AWS Services.
@@ -533,17 +507,18 @@ The example which will show the use of logs is AWS CloudWatch. CloudWatch can be
 CloudWatch enables the centralization of the logs from all over the systems, applications and AWS services that are used, in a single, highly scalable service. You can then easily view them, search them for specific error codes or patterns, filter them based on specific fields, or archive them securely for future analysis. \cite{aws-cloudwatch}
 \subparagraph{Features}
 \begin{itemize}
-	\item Querying – CloudWatch Insights can be used to interactively search and analyse log data. CloudWatch provides sample queries, command descriptions, query autocompletion and log field discovery to help get started. 
+	\item Querying – CloudWatch Insights can be used to interactively search and analyse log data. 
 	\item Monitor AWS CloudTrail Events – You can create alarms in CloudWatch and receive notifications of particular API activity as captured by CloudTrail and use the notification to perform troubleshooting.
 	\item Log Retention – By default, logs are kept indefinitely and never expire. You can adjust the retention policy for each log group, keeping the indefinite retention, or choosing a retention period between 10 years and one day.
 	\item Archive Log Data – CloudWatch Logs can be used to store log data in highly durable storage. The CloudWatch Logs agent makes it easy to quickly send both rotated and non-rotated log data off of a host and into the log service. You can then access the raw log data when needed.
 \end{itemize}
 
+\newpage
 \subsection{Network}
 \label{sec:network}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/Network.png}
+	\includegraphics[width=0.62\linewidth]{images/Network.png}
 \end{figure}
 \subsubsection{Public subnet (API)}
 The client API is accessible over the WAN on all IPv4 and IPv6 addresses (0.0.0.0/0, ::/0). In future versions, it may be decided to make this a private network though. In front of the Lambda sits the API Gateway, forwarding requests to and fro. Lambdas may not be directly invoked. The Lambda only has the following IAM permissions: \texttt{PutObject} and \texttt{UploadPart}. This would ideally be replicated across at least two availability zones in the region so that downtime is prevented.
