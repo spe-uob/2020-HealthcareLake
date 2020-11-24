@@ -403,11 +403,23 @@ An Example of Federate Querying with Amazon Redshift \cite{federate-queries} you
 Common data warehouse models \cite{data-modelling} include virtual warehousing, data mart model and enterprise data warehouse model.
 \\
 We will be using the data mart model as it is used for business-line specific reporting and analysis. In this model, data is aggregated from a range of source systems relevant to a specific area. The data mart will then be used by the analytics team.
+
+
 \subsection{ETL \& data marts}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/AWSAnalyticsPipeline.png}
+	\cite{aws-warehousing}
+\end{figure}
 \subsubsection{EMR cluster}
+AWS Elastic MapReduce (\texttt{EMR}) is a service for running big data frameworks such as Apache Spark, Hive and Presto. It enables you to run petabyte-scale analysis at less than half the cost of on-premises solutions and over 3x the speed compared with standard Spark. It is easy to scale up and down and only pay per second of the instances used. It also provides Notebooks (based on Jupyter) for developers to work with and have all the heavy lifting taken care of with up to date dependencies. Encryption can be implemented with AWS KMS or customer-managed keys, for strong in-transit and at-rest encryption. IAM is used to create access controls for databases, tables and columns. \cite{aws-emr}
 \subsubsection{Scheduling}
-\subsubsection{Developers}
-\subsubsection{Console}
+ETL workloads can be automated using EMR with AWS Data Pipeline for movement of complex data processing workloads that are fault tolerant by ensuring availability, managing dependencies, retrying failures or timeouts or creating a failure notification system. As expected, this service is also easy to use, flexible / scalable, cheap and extremely reliable. This could be used to move on-premise data silos into the lake if desired.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/AWSWorkflow.png}
+	\cite{aws-warehousing}
+\end{figure}
 
 \subsection{Secure access}
 \label{sec:secure_access}
@@ -543,7 +555,7 @@ Once big data tasks are run across the lake to cleanse and prepare data marts, t
 Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}"), is accessible to the Data Analytics team via a VPC peering connection. This assumes the VPCs are held in the same AWS Organization account, ensuring IAM roles can be used across VPCs.
 
 \subsection{Streaming data (Optional)}
-\subsubsection{Kinesis Fire Hose}
+\subsubsection{Kinesis Firehose}
 \subsubsection{Medical IoT}
 \subsubsection{Wearables / sensors}
 \subsubsection{EHR}
