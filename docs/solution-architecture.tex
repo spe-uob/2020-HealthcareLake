@@ -297,7 +297,8 @@ The OpenAPI Specification (OAS) defines a standard, language-agnostic interface 
 \textit{Fast Healthcare Interoperability Resources} (\texttt{FHIR}, pronounced "fire") is a standard describing data formats and elements (known as "resources") and an [API] for exchanging electronic health records (\texttt{EHR}). The standard was created by the Health Level Seven International (\texttt{HL7}) health-care standards organization. One of its goals is to facilitate interoperation between legacy health care systems, to make it easy to provide health care information to health care providers and individuals on a wide variety of devices from computers to tablets to cell phones, and to allow third-party application developers to provide medical applications which can be easily integrated into existing systems. \cite{fhir}
 
 \subsection{Data ingestion}
-The system will expose a RESTful endpoint for FHIR HL7 messages. It will not offer the full CRUD, only the Create and Update (when authorised). This accepts any structured or unstructured data when contained in a valid HL7 message. There is scope to build on this to add other data ingestion methods by building an API Facade that accepts other kinds of standards the client wants - such as medical IoT streaming data. This API will be accessible over a public gateway at first, with the intent to encourage developers to use a private link.
+The system will expose a RESTful endpoint for FHIR HL7 messages. It will not offer the full CRUD, only the Create and Update (when authorised). This accepts any structured or unstructured data when contained in a valid HL7 message. There is scope to build on this to add other data ingestion methods by building an API Facade that accepts other kinds of standards the client wants - such as streaming data from medical IoT devices, Electronic Health Records, digital medical imagery and other forms of historical and real-time data. \\\\This API will be accessible over a public gateway at first, with the intent to encourage developers to use a private connection. The API will be developed using the Serverless Framework. The rest of the shared infrastructure will be developed with Terraform. This is important as the data lake must be open to pluggable data ingestion methods in the future and not reliant on one project (the HL7 API). There is scope to divide the data ingestion into many other projects including streaming data and secure transfer from on-premise silos. Therefore the API is viewed as a subproject and the rest of the data lake project is not dependent on the maintenance of that system. There are other benefits as well such as easier development and operation (DevOps).
+
 \subsubsection{API management}
 \begin{minipage}{\textwidth}
 	
@@ -381,7 +382,7 @@ It works by storing objects in four access tiers: two low latency access tiers o
    	\includegraphics[width=1\linewidth]{images/S3-Intelligent-Tiering.png}	
 \end{figure} \\
 There are no retrieval fees when using the S3 Intelligent-Tiering storage class, and no additional tiering fees when objects are moved between access tiers within S3 Intelligent-Tiering. It is designed for durability of 99.999999999\% of objects across multiple Availability Zones and for 99.9\% availability over a given year.
-\paragraph{Encyption} The encryption for Amazon S3 is explained in section 4.5. 
+\paragraph{Encyption} The encryption for S3 is explained in \hyperref[sec:secure_access]{Section 4.5}. 
 
 \newpage
 \subsection{Data warehousing}
