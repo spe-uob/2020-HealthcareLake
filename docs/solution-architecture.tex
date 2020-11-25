@@ -385,27 +385,31 @@ There are no retrieval fees when using the S3 Intelligent-Tiering storage class,
 Data warehouses will be used in our project to store data that has been structured and cleansed from the data lake. This format lets us query the data so we can produce useful analytics and reports to return to the user.
 \\
 We will be using cloud-based data warehouses compared to on-premise warehouses because you do not have to purchase or maintain physical hardware, it is quicker and cheaper to initialise and scale, and can usually perform analytics queries much faster.
-\paragraph{Options}There are many options to go with when it comes to cloud-based data warehouses, the one that we mention below include Google BigQuery, and Amazon Redshift.\cite{data-warehouse-comparisons}\\
-\textbf{Google BigQuery} is a serverless architecture meaning resource management decisions are hidden from the user. Allows for the stream of data to the data warehouse. It uses the Dremel query execution engine which uses massively parallel processing (MPP) of querying to scan data in the Clossus file management system which uses clusters.\\
-\textbf{Snowflake} is a hybrid of traditional shared-disk database architectures and shared-nothing database architectures. Snowflake uses a central data repository for persisted data that is accessible from all compute nodes in the data warehouse. Snowflake also processes queries using MPP compute clusters. \\
-\textbf{Amazon Redshift}\cite{redshift-architecture} uses traditional data warehouse approach.\\
+\paragraph{Options}There are many options to go with when it comes to cloud-based data warehouses.\cite{data-warehouse-comparisons}
+\begin{itemize}
+	\item \textbf{Google BigQuery} is a serverless architecture meaning resource management decisions are hidden from the user. Allows for the stream of data to the data warehouse. It uses the Dremel query execution engine which uses massively parallel processing (MPP) of querying to scan data in the Clossus file management system which uses clusters.
+	\item \textbf{Snowflake} is a hybrid of traditional shared-disk database architectures and shared-nothing database architectures. Snowflake uses a central data repository for persisted data that is accessible from all compute nodes in the data warehouse. Snowflake also processes queries using MPP compute clusters.
+	\item \textbf{AWS Redshift}\cite{redshift-architecture} uses traditional data warehouse approach.
+\end{itemize}
+
 \begin{figure}[h!]
    	\centering
    	\includegraphics[width=0.7\linewidth]{images/Redshift-Architecture.png}	
    \end{figure}
-\\Clusters are the core component of Amazon Redshift. It is composed of one or more compute nodes. If a cluster is provisioned with two or more compute nodes, an additional leader node coordinates the compute nodes and handles external communication. Client applications interact directly with the leader node only. The compute nodes are transparent to external applications.\\
-The leader node manages communications with client programs and all communication with compute nodes. It parses and develops execution plans to carry out database operations (results of queries). the leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node.\\
-Compute nodes execute the compiled code from the leader node and send intermediate results back to the leader node for final aggregation. Each compute node has its own dedicated CPU, memory, and attached disk storage. To increase the compute capacity and storage capacity of a cluster by increasing the number of nodes, upgrading the node type, or both.\\
-A compute node is partitioned into slices. Each slice is allocated a portion of the node's memory and disk space, where it processes a portion of the workload assigned to the node. The leader node manages distributing data to the slices and apportions the workload for any queries or other database operations to the slices. The slices then work in parallel to complete the operation. The number of slices per node is determined by the node size of the cluster. 
-\paragraph{Solution}For our project, we will be choosing Amazon Redshift firstly as it strongly focuses on the security of the data this is a major factor when we are dealing with personal data (section 4.5.1 discusses how Amazon Redshift uses encryption). Secondly, it is the cheapest as Redshift is the leader in being cost-efficient as it uses pay-as-you-go pricing so you only pay for what we will use. If we are using other AWS services, there will be a lot of support and documentation on the implantation and maintenance of the system. Other reasons include its highly scalable, easy to manage and has the best performance.\cite{redshift-benefits} 
+Clusters are the core component of Redshift. If a cluster is provisioned with two or more compute nodes, an additional leader node coordinates the compute nodes and handles external communication. Client applications interact directly with the leader node only.\\
+It parses and develops parallel execution plans to carry out database operations (results of queries). The leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node. It can increase the compute capacity and storage capacity of a cluster by increasing the number of nodes, upgrading the node type, or both.\\
+
+\paragraph{Solution}For our project, we will be choosing Redshift firstly as it strongly focuses on the security of the data this is a major factor when we are dealing with personal data (\hyperref[sec:secure_access]{Section 4.5.1} discusses how Amazon Redshift uses encryption). Secondly, it is the cheapest as Redshift is the leader in being cost-efficient as it uses pay-as-you-go pricing so you only pay for what we will use. If we are using other AWS services, there will be a lot of support and documentation on the implantation and maintenance of the system. Other reasons include its highly scalable, easy to manage and has the best performance.\cite{redshift-benefits} 
 \subsubsection{Federated querying}
-Federate querying allows you to query data from multiple sources with different storage types to provide a solution. It will be used in our project to query from the data warehouse, remote sources, live data and straight from the data lake. Federate querying can remove the reliance on complex extract, transform, load (ETL) pipelines when loading data into the data storages.
-\\
-An Example of Federate Querying with Amazon Redshift \cite{federate-queries} you can integrate queries from Amazon Redshift on live data in external databases with queries across your Amazon Redshift and Amazon S3 environments. Federated queries can work with external databases in Amazon RDS for PostgreSQL and Amazon Aurora with PostgreSQL compatibility.
+Federated querying allows you to query data from multiple sources with different storage types to provide a solution. It will be used in our project to query from the data warehouse, remote sources, live data and straight from the data lake. Federated querying can remove the reliance on complex extract, transform, load (ETL) pipelines when loading data into the data storages.
+\\ \\
+An Example of Federate Querying with Amazon Redshift \cite{federate-queries} you can integrate queries from Redshift on live data in external databases with queries across your Redshift and S3 environments. Federated queries can work with external databases in AWS RDS and AWS Aurora. AWS Athena is a serverless SQL querying service for S3 that is also cost efficient and automatically scalable.
 \subsubsection{Common models}
 Common data warehouse models \cite{data-modelling} include virtual warehousing, data mart model and enterprise data warehouse model.
 \\
 We will be using the data mart model as it is used for business-line specific reporting and analysis. In this model, data is aggregated from a range of source systems relevant to a specific area. The data mart will then be used by the analytics team.
+\subsubsection{Business Intelligence}
+Furthermore, Redshift can create the data models for use in live Business Intelligence (\texttt{BI}) tools like visualisation dashboards and other high level business insights. This is compatible with many popular BI tools like Tableau, PowerBI and AWS QuickSight.
 
 \newpage
 \subsection{ETL \& data marts}
