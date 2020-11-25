@@ -73,7 +73,6 @@ The project is one of three designed an end-to-end proof of concept to the local
 \subsection{Vision}
 The Healthcare Data Lake Project is envisioning a future integrated data storage solution, one that is scalable and portable, while using the latest cloud-based technologies. Starting with a prototype, the final scope is to create, alongside the Simulation and Analytics Projects, a system that is going to change how data is handled and used in the healthcare system. There is the real possibility that this three projects will represent the cornerstone of a future solution used and developed extensively by the NHS, which will bring immediate aid to the average medical worker and improve the quality of the service provided to the patients.
 
-\newpage
 
 
 \section{Stakeholder and Requirements
@@ -233,6 +232,7 @@ This can be broken into the following user flow.
 	Developer can use information to identify issues and provide support.	
 \end{enumerate}
 
+\newpage
 \section{Personal Data, Privacy, Security and Ethics Management}
 \subsection{GDPR}
 The data lake solution developed by the “Healthcare Data Lake” project team is an integrating part of the larger prototype system, alongside "Healthcare Data Visualisation" and "Healthcare Analytics Environment" teams \emph{(section 1.3)}. The proposed system is going to be used in compliance with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance implementation and the liability for the personal data stored falls onto the respective primary stakeholder, Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG) \emph{(section 2.1)}. The team developing the data lake infrastructure is responsible for creating a prototype secure, robust and scalable health data storage platform used for ingesting and interrogating patient’s data under the HL7 FHIR standard \emph{(section 4.1)}. As a client-specified requirement, medical data is going to be stored independently from the pseudonymised patient identifiers, thus protecting the identity and integrity of the patients whose data is stored in the data lake. The security of the data ingested as described in \emph {section 3.2} is aligned with the \href{https://digital.nhs.uk/about-nhs-digital/our-work/keeping-patient-data-safe/gdpr}{\emph{NHS Digital GDPR}} compliance and practice.
@@ -359,29 +359,24 @@ With the intuitive DataBrew interface, raw data can be interactively discovered,
 
 \subsubsection{Schema-less object store}
 \paragraph{S3}
-Amazon Simple Storage Service (Amazon S3) \cite{S3} is an object storage service that offers industry-leading scalability, data availability, security, and performance. Amazon S3 offers a range of storage classes these included; S3 Intelligent-Tiering for data with unknown or changing access patterns; Amazon S3 Glacier (S3 Glacier) for long-term archive and digital preservation. Amazon S3 also offers capabilities to manage data throughout its lifecycle. \\
-S3 can use the AWS Global Infrastructure to be flexible and take advantage of the conceptually infinite scalability of the cloud. This gives the ability to instantly scale up or down the number of resources according to the application and user needs while reducing the cost. This is done by quickly deploying hundreds or thousands of servers in minutes.\\
-S3 can allow lots of application access to shared data sets. Amazon S3 access Point simplifies managing data access at scale for these applications. Access points are unique hostnames that customers create to enforce distinct permissions and network controls for any request made through the access point from applications. Any access point can be restricted to a Virtual Private Cloud (VPC) to firewall S3 data access within a private network. Access points are available at no additional cost (More information about S3 pricing\cite{S3-pricing}).\\
-\paragraph{Amazon S3 Glacier}
-S3 Glacier\cite{S3-glacier} is a secure, durable, and low-cost storage class for data archiving. It provides three retrieval options that range from minutes to hours. There are two options to upload objects either directly or use S3 Lifecycle policies to transfer data between any of the S3 Storage Classes for active data. Amazon S3 Glacier stores data for as little as £0.003 per gigabyte per month.\\
-The way S3 Glacier works is if storage should be immediately archived without delay, or when transitioning objects to S3 Glacier can’t be expressed through an Amazon S3 Lifecycle policy, S3 PUT to Glacier allows you to use S3 APIs to upload to the S3 Glacier storage class on an object-by-object basis. This method therefore does not need to set a bucket-level policy.\\
-The other method is to use Lifecycle rules to automatically archive sets of Amazon S3 objects to S3 Glacier based on object age. Rules can be defined in the S3 Management Console, the AWS SDKs, or the Amazon S3 APIs. Rules Specify a prefix and time period. The prefix identifies the objects subject to the rule. The time period specifies either the number of days from the object creation date or the specified date after which the objects should be archived. Then any S3 Standard objects which have names beginning with the specified prefix and which have aged past the specified time period are archived to S3 Glacier.\\
-To Amazon S3 data stored in S3 Glacier, initiate a retrieval job via the Amazon S3 APIs or Management Console. Once the retrieval job is complete, you can access your data through an Amazon S3 GET object request.
+AWS Simple Storage Service (S3) \cite{S3} is an object storage service that offers industry-leading scalability, availability, security, and performance. S3 offers a range of storage classes including S3 Intelligent-Tiering for data with unknown or changing access patterns and S3 Glacier for long-term archive and digital preservation. S3 also offers capabilities to manage data throughout its lifecycle. \\ \\
+S3 can use the AWS Global Infrastructure to be flexible and take advantage of the conceptually infinite scalability of the cloud. This gives the ability to instantly scale up or down the number of resources according to the application and user needs while reducing the cost. \\ \\
+S3 can allow lots of access to shared data sets. S3 Access Point simplifies managing data access at scale for these applications. Access points are unique hostnames that customers create to enforce distinct permissions and network controls for any request made through the access point from applications. Any access point can be restricted to a VPC to firewall S3 data access within a private network. \\
+\paragraph{S3 Glacier}
+S3 Glacier\cite{S3-glacier} is a secure, durable, and low-cost storage class for data archiving. It provides three retrieval options that range from minutes to hours. There are two options to upload objects either directly or use S3 Lifecycle policies to transfer data between any of the S3 Storage Classes for active data. S3 Glacier stores data for as little as £0.003 per gigabyte per month.
 \paragraph{Lifecycle Management}
-To manage when objects are deleted or moved to and from a different storage class while being stored cost-effectively throughout their lifecycle, you can configure their Amazon S3 Lifecycle\cite{S3-lifecycle}. An S3 Lifecycle configuration is a set of rules, mentioned previously, that define actions that Amazon S3 applies to a group of objects. There are two types of actions:
+To manage when objects are deleted or moved to and from a different storage class while being stored cost-effectively throughout their lifecycle, you can configure their S3 Lifecycle\cite{S3-lifecycle}. An S3 Lifecycle configuration is a set of rules that define actions that S3 applies to a group of objects. There are two types of actions:
 \begin{itemize}
   \item Transition actions—Define when objects transition to another storage class (S3 Storage and Reduced Redundancy). An example might be transition objects to the S3 Standard-IA storage class 30 days after they are created, or archive objects to the S3 Glacier storage class one year after creating them. There are costs associated with the lifecycle transition requests. 
-  \item Expiration actions—Define when objects expire. Amazon S3 automatically deletes the expired objects as defined. The lifecycle expiration costs depend on when you choose to expire objects. 
+  \item Expiration actions—Define when objects expire. S3 automatically deletes the expired objects as defined. The lifecycle expiration costs depend on when you choose to expire objects. 
   \end{itemize}
 \paragraph{Intelligent Tiering}
-Amazon S3 Intelligent-Tiering \cite{S3-storage-classes} is an S3 storage class designed to optimize storage costs by automatically moving data to the most cost-effective access tier, without operational overhead.\\
+S3 Intelligent-Tiering \cite{S3-storage-classes} is an S3 storage class designed to optimize storage costs by automatically moving data to the most cost-effective access tier, without operational overhead.\\ \\
 It works by storing objects in four access tiers: two low latency access tiers optimized for frequent and infrequent access and two opt-in archive access tiers designed for asynchronous access that are optimized for rare access (archive, and deep archive access).\\
 \begin{figure}[h!]
    	\centering
-   	\includegraphics[width=0.7\linewidth]{images/S3-Intelligent-Tiering.png}	
-\end{figure}
-\\
-Objects uploaded or transitioned to S3 Intelligent-Tiering are automatically stored in the Frequent Access tier. S3 Intelligent-Tiering works by monitoring access patterns and then moving the objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. When one of the archive access tiers are accessed, S3 Intelligent Tiering will automatically move objects that haven’t been accessed for 90 consecutive days to the Archive Access tier and then after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, S3 Intelligent-Tiering moves the objects back to the Frequent Access tier. \\
+   	\includegraphics[width=1\linewidth]{images/S3-Intelligent-Tiering.png}	
+\end{figure} \\
 There are no retrieval fees when using the S3 Intelligent-Tiering storage class, and no additional tiering fees when objects are moved between access tiers within S3 Intelligent-Tiering. It is designed for durability of 99.999999999\% of objects across multiple Availability Zones and for 99.9\% availability over a given year.
 \paragraph{Encyption} The encryption for Amazon S3 is explained in section 4.5. 
 
@@ -536,6 +531,7 @@ Once big data tasks are run across the lake to cleanse and prepare data marts, t
 \subsubsection{VPC peering}
 Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}"), is accessible to the Data Analytics team via a VPC peering connection. This assumes the VPCs are held in the same AWS Organization account, ensuring IAM roles can be used across VPCs.
 
+\iffalse
 \subsection{Streaming data (Optional)}
 \subsubsection{Kinesis Firehose}
 \subsubsection{Medical IoT}
@@ -543,9 +539,14 @@ Private subnet B, or the Trusted Research Environment (hereinafter "\texttt{TRE}
 \subsubsection{EHR}
 \subsubsection{Digital medical imagery}
 \subsubsection{Real-time analytics}
+\fi
 
 \subsection{Extensible}
 \subsubsection{Databricks integration}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/AWS-Data-Lake-Architecture-light-BG.png}
+\end{figure}
 \paragraph{What is Databricks?} DataBricks is a start-up offering a Unified Data Analytics Platform, one cloud platform for massive scale data engineering and collaborative data science. The platform is designed to integrate AWS and Azure solutions to create one reliable and scalable data lake
 for all analytics, create a collaborative workspace for data and Machine Learning teams and deploy one platform for data science, Machine Learning, and analytics. \cite{databricks}
 \\ \\
@@ -558,10 +559,7 @@ In the further development of the project by the NHS Digital teams, Databricks c
     \item \textbf{Automated, High Scale Data Pipelines} Created automated data pipelines at scale that minimize cost with features such as auto-clustering and spot pricing. Using Delta Lake, you can scale up to the largest datasets, with high velocity data providing constant updates, instantly available for analytics.
 	\item \textbf{Delta Lake} Delta Lake is an open source project with the Linux Foundation. Data is stored in the open Apache Parquet format, allowing data to be read by any compatible reader. It offers integration for existing Amazon S3 storage service. Delta Lake adds a storage layer to data lakes to manage data quality, ensuring data lakes contain only high quality data for consumers. The Delta Lake transaction log records details about every change made to data, providing a full history of changes, for compliance, audit, and reproduction.
 \end{itemize}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/AWS-Data-Lake-Architecture-light-BG.png}
-\end{figure}
+
 \subsubsection{Multi-vendor}
 
 \section{Development Testing}
