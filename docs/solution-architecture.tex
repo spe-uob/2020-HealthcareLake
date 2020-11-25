@@ -3,6 +3,7 @@
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}                 \usepackage{booktabs}     	
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{multirow}
 \usepackage[backend=bibtex,sorting=none]{biblatex}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false,
@@ -586,6 +587,19 @@ Therefore, developers are expected to build and test their code locally with ide
 Postman is a very popular tool used by developers that want to conveniently test and build APIs in a collaborative way.
 \\ \\
 As we are implementing the OpenAPI specification, Postman enables the import of Swagger files to automatically generate a Postman environment. This makes developer on-boarding much easier as versioned mock endpoints and documentation are hosted for us as part of the DevOps deployment. It enables tests to be written as well (JavaScript), but we may opt to use a different RESTful testing framework such as REST-assured (Java).
+\\ \\
+The following are API test cases
+\begin{center}
+	\begin{tabular}{ |c|c| } 
+		\hline
+		Test case & Expected \\
+		\hline
+		POST /api/\textless Resource\textgreater & 200 \\ 
+		POST /api/Binary & presignedS3Url \\
+		PUT \textless presignedS3Url\textgreater & 200 \\
+		\hline
+	\end{tabular}
+\end{center}
 
 \subsubsection{Infrastructure}
 The shared infrastructure differs from that of the application infrastructure (in this case referring to the serverless API). The shared infrastructure can be built, updated, reverted and destroyed easily using the Terraform command-line tools (\texttt{cli}). Terraform formats and validates your plan before applying it, so writing unit tests around the migration itself doesn't make sense in this context. What does make sense is testing the enforcement of user-defined standards. This can be written with Terraform Validate (Python) or Terratest (Go). Furthermore, compliance controls could be generated with Chef InSpec profiles ("Compliance-as-Code").
