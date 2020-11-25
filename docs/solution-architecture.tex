@@ -627,8 +627,9 @@ Terraform handles the deployment by using the relevant APIs - in this case it wi
 
 \section{Release Testing}
 \subsection{Staging}
+Once the unit and integration tests have passed and the new version has been deployed to the staging workspace, a human must manually approve in order for the pipeline to progress and deploy to production. At this phase, all user flows that have changed or can be affected need to be tested again. Refer to \hyperref[flow-steps]{Sections 2.1 - 2.2} for details of these user flows. We have not provided a table here to avoid data duplication.
 \subsection{Production}
-
+At this stage, the workspace is made identical to the staging phase so all updates are deployed to production. The API must be versioned to be backwards compatible and prevent client applications from behaving differently and developers can switch the api version in the url parameter of their applications once ready. The documentation is also generated automatically and so the different versions are there for the client developers to consume. API Gateway provides this upgrade and versioning capability so that the complications are dealt with out-of-the-box.
 
 \newpage
 \printbibliography
