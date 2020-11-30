@@ -28,3 +28,10 @@ secrets.tf
 
 # ide
 .vscode
+
+# package directories
+api/node_modules
+api/jspm_packages
+
+# Serverless directories
+api/.serverless
