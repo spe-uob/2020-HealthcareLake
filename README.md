@@ -43,5 +43,3 @@ terraform apply
 ```
 terraform destroy
 ```
-## License
-This software is being developed under the MIT License.
