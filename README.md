@@ -15,33 +15,33 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 ### API
 Change into the API directory
 ```
-$ cd api
+cd api
 ```
 Run the deployment
 ```
-$ sls deploy
+sls deploy
 ```
 Destroy the deployment
 ```
-$ sls remove
+sls remove
 ```
 
 ### Data lake
 Select `dev` workspace
 ```
-$ terraform workspace select dev
+terraform workspace select dev
 ```
 Run Terraform plan
 ```
-$ terraform plan
+terraform plan
 ```
 Deploy Terraform changes
 ```
-$ terraform apply
+terraform apply
 ```
 Destroy Terraform infrastructure
 ```
-$ terraform destroy
+terraform destroy
 ```
 ## License
 This software is being developed under the MIT License.
