@@ -21,7 +21,7 @@ Run the deployment
 ```
 sls deploy
 ```
-Destroy the deployment
+(Optional) Destroy the deployment
 ```
 sls remove
 ```
@@ -39,7 +39,7 @@ Deploy Terraform changes
 ```
 terraform apply
 ```
-Destroy Terraform infrastructure
+(Optional) Destroy Terraform infrastructure
 ```
 terraform destroy
 ```
