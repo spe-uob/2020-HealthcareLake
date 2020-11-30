@@ -21,6 +21,10 @@ Run the deployment
 ```
 $ sls deploy
 ```
+Destroy the deployment
+```
+$ sls remove
+```
 
 ## License
 This software is being developed under the MIT License.
