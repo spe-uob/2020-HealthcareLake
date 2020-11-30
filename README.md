@@ -27,6 +27,10 @@ sls remove
 ```
 
 ### Data lake
+Change into the infra directory
+```
+cd infra
+```
 Select `dev` workspace
 ```
 terraform workspace select dev
