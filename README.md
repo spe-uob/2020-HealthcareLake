@@ -10,5 +10,17 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 ## Documentation
 [Solution architecture](../main/docs/solution-architecture.pdf)
 
+## Usage
+
+### API
+Change into the API directory
+```
+$ cd api
+```
+Run the deployment
+```
+$ sls deploy
+```
+
 ## License
 This software is being developed under the MIT License.
