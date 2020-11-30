@@ -26,5 +26,22 @@ Destroy the deployment
 $ sls remove
 ```
 
+### Data lake
+Select `dev` workspace
+```
+$ make tf-workspace-dev
+```
+Run Terraform plan
+```
+$ make tf-plan
+```
+Deploy Terraform changes
+```
+$ make tf-apply
+```
+Destroy Terraform infrastructure
+```
+$ make tf-destroy
+```
 ## License
 This software is being developed under the MIT License.
