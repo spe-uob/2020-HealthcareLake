@@ -13,33 +13,33 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 ## Usage
 
 ### API
-1. Change into the API directory
+Change into the API directory
 ```
 cd api
 ```
-2. Run the deployment
+Run the deployment
 ```
 sls deploy
 ```
-3. (Optional) Destroy the deployment
+(Optional) Destroy the deployment
 ```
 sls remove
 ```
 
 ### Data lake
-1. Select `dev` workspace
+Select `dev` workspace
 ```
 terraform workspace select dev
 ```
-2. Run Terraform plan
+Run Terraform plan
 ```
 terraform plan
 ```
-3. Deploy Terraform changes
+Deploy Terraform changes
 ```
 terraform apply
 ```
-4. (Optional) Destroy Terraform infrastructure
+(Optional) Destroy Terraform infrastructure
 ```
 terraform destroy
 ```
