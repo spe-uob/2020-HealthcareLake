@@ -54,7 +54,7 @@ Using either of the above scopes will include the user groups in the access toke
 
 #### Retrieving an access token via script - easier (scope = aws.cognito.signin.user.admin)
 
-A Cognito OAuth2 access token can be obtained using [this script](scripts\cognito-auth.py). You may wish to write the equivalent code in Java using the AWS SDK if you prefer.
+A Cognito OAuth2 access token can be obtained using [this script](./scripts/cognito-auth.py). You may wish to write the equivalent code in Java using the AWS SDK if you prefer.
 
 ```sh
 $ python3 scripts/init-auth.py <USER_POOL_APP_CLIENT_ID> eu-west-2
