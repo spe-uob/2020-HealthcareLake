@@ -6,9 +6,10 @@ The following instructions are meant to guide you on using our API. You do not n
 
 To use the API, you will need to ask one of us for the following values:
 
-1. The endpoint URL for the `dev` stage
-2. The Cognito password (username = `data-sim-team`)
-3. The API key for the `dev` stage
+1. The endpoint URL for the `dev` stage (`DEV_FHIR_API_ENDPOINT`)
+2. The Cognito password (`COGNITO_PASSWORD`)
+3. The API key for the `dev` stage (`DEV_API_KEY`)
+4. The `USER_POOL_APP_CLIENT_ID`
 
 You will use the Cognito username and password to request a time-limited Access Token (OAuth2) from AWS Cognito.
 
