@@ -9,7 +9,7 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ## Documentation
 
-[FHIR API](../main/api#data-simulation-team)
+[FHIR API](../main/api/README.md)
 
 [Solution architecture](../main/docs/solution-architecture.pdf)
 
