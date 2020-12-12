@@ -78,7 +78,7 @@ In order to access the FHIR API, a `COGNITO_AUTH_TOKEN` is required. This can be
 4. You should now see a button `Get New Access Token`; Click it
 5. For 'Grant Type' choose `Implicit`
 6. For 'Callback URL' use `http://localhost`
-7. For 'Auth URL' use `https://<USER_POOL_APP_CLIENT_ID>.auth.<REGION>.amazoncognito.com/oauth2/authorize` which should look something like: `https://92huon34t5jlkrfgon343.auth.eu-east-1.amazoncognito.com/oauth2/authorize`
+7. For 'Auth URL' use `https://<USER_POOL_APP_CLIENT_ID>.auth.eu-west-2.amazoncognito.com/oauth2/authorize` which should look something like: `https://92huon34t5jlkrfgon343.auth.eu-west-2.amazoncognito.com/oauth2/authorize`
 8. For 'Client ID' use your USER_POOL_APP_CLIENT_ID which should look like: `92huon34t5jlkrfgon343`
 9. For 'Scope' use `profile openid`
 10. For 'State' use a random string
