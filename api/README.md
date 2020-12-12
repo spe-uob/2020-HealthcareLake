@@ -1,6 +1,6 @@
 # Data Simulation Team
 
-The following instructions are meant to guide you on using our API. You do not need to download anything, but we would recommend testing it in Postman.
+The following instructions are meant to guide you on using our API. You do not need to download anything, but we would recommend testing it in Postman. We have provided you with an up-to-date API documentation that includes example requests and the option to generate code snippets in various languages [here](https://documenter.getpostman.com/view/12190139/TVsoFVgc).
 
 ## Usage
 
