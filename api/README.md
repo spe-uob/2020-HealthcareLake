@@ -11,7 +11,7 @@ To use the API, you will need to ask one of us for the following values:
 3. The API key for the dev stage (`DEV_API_KEY`)
 4. The `USER_POOL_APP_CLIENT_ID`
 
-You will use the Cognito username (`data-sim-team`) and password to request a time-limited Access Token (OAuth2) from AWS Cognito.
+You will use the Cognito username ("data-sim-team") and password to request a time-limited Access Token (OAuth2) from AWS Cognito.
 
 ### Accessing the FHIR API
 
