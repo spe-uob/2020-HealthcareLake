@@ -9,13 +9,19 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ## Documentation
 
-[FHIR API](../main/api/README.md)
+[API](https://documenter.getpostman.com/view/12190139/TVsoFVgc)
 
 [Solution architecture](../main/docs/solution-architecture.pdf)
 
 ## Usage
 
-### API
+### Data Simulation Team
+
+[FHIR API](../main/api/README.md)
+
+### Data Lake Team
+
+#### API
 Change into the API directory
 ```
 cd api
@@ -29,7 +35,7 @@ sls deploy
 sls remove
 ```
 
-### Data lake
+#### Data lake
 Change into the infra directory
 ```
 cd infra
