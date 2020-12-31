@@ -1,7 +1,7 @@
 
 resource "aws_s3_bucket" "lake" {
   bucket = "${var.prefix}-lake"
-  acl = "private"
+  acl    = "private"
 
   versioning {
     enabled = true
@@ -15,22 +15,22 @@ resource "aws_s3_bucket" "lake" {
 
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "${var.prefix}-lake-logs"
-  acl = "log-delivery-write"
+  acl    = "log-delivery-write"
 }
 
 data "aws_iam_policy_document" "lake_vpc" {
   statement {
-    sid = "Access from subnet only"
-    actions = ["s3:*"]
+    sid       = "Access from subnet only"
+    actions   = ["s3:*"]
     resources = [aws_s3_bucket.lake.arn]
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
     condition {
-      test = "IpAddress"
+      test     = "IpAddress"
       variable = "aws:SourceIp"
-      values = [var.lake_subnet]
+      values   = [var.lake_subnet]
     }
   }
 }

@@ -18,11 +18,11 @@ resource "aws_route_table" "ingest_public" {
 }
 
 resource "aws_route_table_association" "ingest_public-a" {
-  subnet_id = aws_subnet.ingest.id
+  subnet_id      = aws_subnet.ingest.id
   route_table_id = aws_route_table.ingest_public.id
 }
 
 resource "aws_vpn_gateway" "vpn_gw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id            = aws_vpc.main.id
   availability_zone = data.aws_availability_zone.main_zone.name
 }
