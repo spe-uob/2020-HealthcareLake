@@ -1,7 +1,7 @@
 variable "region" {}
 
 variable "prefix" {
-  default = "DataLake"
+  default = "healthcarelake"
 }
 
 variable "project" {

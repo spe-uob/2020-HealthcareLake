@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 2.70"
+      version = "~> 3.22"
     }
   }
   // where our terraform state is stored
@@ -19,6 +19,19 @@ terraform {
 provider "aws" {
   profile = "default"
   region  = var.region
+}
+
+module "vpc" {
+  source = "./modules/vpc"
+  prefix = "${var.prefix}-${terraform.workspace}"
+  region = var.region
+}
+
+module "s3" {
+  source = "./modules/s3"
+  prefix  = "${var.prefix}-${terraform.workspace}"
+  region = var.region
+  lake_subnet = module.vpc.lake_subnet
 }
 
 locals {
