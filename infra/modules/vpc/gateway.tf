@@ -22,7 +22,7 @@ resource "aws_route_table_association" "ingest_public-a" {
   route_table_id = aws_route_table.ingest_public.id
 }
 
-# resource "aws_vpn_gateway" "vpn_gw" {
-#   vpc_id = aws_vpc.main.id
-#   availability_zone = data.aws_availability_zone.main_zone.name_suffix
-# }
+resource "aws_vpn_gateway" "vpn_gw" {
+  vpc_id = aws_vpc.main.id
+  availability_zone = data.aws_availability_zone.main_zone.name
+}
