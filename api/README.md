@@ -33,11 +33,11 @@ Other means of accessing the API are valid as well, such as Postman. More detail
 
 Included in this code package, under the folder “postman”, are JSON definitions for some requests that you can make against the server. To import these requests into your POSTMAN application, you can follow the directions [here](https://kb.datamotion.com/?ht_kb=postman-instructions-for-exporting-and-importing). Be sure to import the collection file.
 
-> [Fhir.postman_collection.json](./postman/collection.json)
+> [collection.json](./postman/collection.json)
 
 After you import the collection, you need to set up your environment. You can set up a dev environment for now by importing:
 
-> [Fhir_Dev_Env.json](./postman/dev_environment.json)
+> [dev_environment.json](./postman/dev_environment.json)
 
 The `COGNITO_AUTH_TOKEN` required for this file can be obtained by following the instructions under [Authorizing a user](#authorizing-a-user). The other parameters can be obtained by asking one of the team.
 
