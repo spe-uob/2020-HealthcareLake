@@ -1,5 +1,7 @@
 variable "region" {}
 
+variable "stage" {}
+
 variable "prefix" {
   default = "healthcarelake"
 }
