@@ -17,8 +17,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
-  region  = var.region
+  region = var.region
 }
 
 module "vpc" {
@@ -32,6 +31,11 @@ module "s3" {
   prefix      = "${var.prefix}-${terraform.workspace}"
   region      = var.region
   lake_subnet = module.vpc.lake_subnet
+}
+
+module "dynamodb" {
+  source = "./modules/dynamodb"
+  stage  = var.stage
 }
 
 locals {
