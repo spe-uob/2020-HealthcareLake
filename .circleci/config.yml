@@ -6,6 +6,9 @@ jobs:
       - image: danteev/texlive
     steps:
       - checkout
+      - run:
+          command: |
+            .circleci/latex_changed_check.sh || circleci-agent step halt
       - run: cd docs/ && pdflatex solution-architecture interaction=nonstopmode solution-architecture.tex
       - run: cd docs/ && bibtex solution-architecture.aux 
       - run: cd docs/ && pdflatex -interaction=nonstopmode -halt-on-error solution-architecture.tex
