@@ -35,3 +35,10 @@ resource "aws_dynamodb_table" "fhir_api_db" {
     "service" = "fhir"
   }
 }
+
+resource "aws_ssm_parameter" "endpoint" {
+  name  = "/database/${aws_dynamodb_table.fhir_api_db.name}/endpoint"
+  description = "Endpoint to connect to the fhir dynamodb"
+  type = "SecureString"
+  value = aws_dynamodb_table.fhir_api_db.arn
+}
