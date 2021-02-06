@@ -38,6 +38,12 @@ module "dynamodb" {
   stage  = var.stage
 }
 
+module "glue" {
+  source        = "./modules/glue"
+  lake_bucket   = module.s3.bucket_arn
+  fhir_dynamodb = module.dynamodb.dynamodb_name
+}
+
 locals {
   // resource naming prefix
   prefix = "${var.prefix}-${terraform.workspace}"
