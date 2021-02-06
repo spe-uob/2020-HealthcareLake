@@ -39,9 +39,11 @@ module "dynamodb" {
 }
 
 module "glue" {
-  source        = "./modules/glue"
-  lake_bucket   = module.s3.bucket_arn
-  fhir_dynamodb = module.dynamodb.dynamodb_name
+  source       = "./modules/glue"
+  lake_bucket  = module.s3.bucket_arn
+  fhir_db_name = module.dynamodb.name
+  fhir_db_arn  = module.dynamodb.arn
+  fhir_db_cmk  = module.dynamodb.cmk_arn
 }
 
 locals {
