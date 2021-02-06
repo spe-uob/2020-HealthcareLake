@@ -20,6 +20,10 @@ resource "aws_glue_job" "fhir_etl" {
   //...TODO:
 }
 
+resource "aws_glue_workflow" "lake_ingestion" {
+  name = "${var.name_prefix}Ingestion"
+}
+
 resource "aws_glue_trigger" "fhir_trigger" {
   name = "${var.name_prefix}Trigger"
   type = "ON_DEMAND"
