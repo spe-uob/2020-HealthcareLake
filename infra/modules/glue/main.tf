@@ -51,12 +51,11 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
 }
 
 resource "aws_glue_crawler" "lake_crawler" {
-
-  database_name = aws_glue_catalog_database.example.name
-  name          = "example"
-  role          = aws_iam_role.example.arn
+  database_name = aws_glue_catalog_database.lake_catalog_table.name
+  name = "lake_crawler"
+  role = aws_iam_role.fhir_glue_crawler_role.arn
 
   s3_target {
-    path = "s3://${aws_s3_bucket.example.bucket}"
+    path = var.lake_bucket
   }
 }
