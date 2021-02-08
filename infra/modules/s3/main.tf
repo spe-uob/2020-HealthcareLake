@@ -51,6 +51,16 @@ resource "aws_s3_bucket_policy" "lake" {
 resource "aws_s3_bucket" "fhir_binary" {
   bucket = "${var.prefix}-fhir-binary"
   acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+
+  logging {
+    target_bucket = aws_s3_bucket.fhir_log_bucket.id
+    target_prefix = "binary-acl"
+  }
+
   // KMS encryption
   server_side_encryption_configuration {
     rule {
@@ -60,6 +70,11 @@ resource "aws_s3_bucket" "fhir_binary" {
       }
     }
   }
+}
+
+resource "aws_s3_bucket" "fhir_log_bucket" {
+  bucket = "${var.prefix}-fhir-binary-logs"
+  acl    = "log-delivery-write"
 }
 
 resource "aws_kms_key" "fhir_binary_key" {
