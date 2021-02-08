@@ -20,26 +20,6 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ### Deployment
 
-```shell
-aws s3api create-bucket --bucket=GLUE_SCRIPTS --region=eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
-aws s3 cp jobs/lake_ingestion.py s3://GLUE_SCRIPTS/lake_ingestion.py
-```
-
-#### API
-Change into the API directory
-```
-cd api
-```
-Run the deployment
-```
-sls deploy
-```
-(Optional) Destroy the deployment
-```
-sls remove
-```
-
-#### Data lake
 Change into the infra directory
 ```
 cd infra
@@ -56,6 +36,12 @@ Deploy Terraform changes
 ```
 terraform apply
 ```
+Copy the ETL script to the glue scripts bucket (Terraform output variable)
+```shell
+aws s3 cp jobs/lake_ingestion.py s3://GLUE_SCRIPTS/lake_ingestion.py
+```
+
+
 (Optional) Destroy Terraform infrastructure
 ```
 terraform destroy
