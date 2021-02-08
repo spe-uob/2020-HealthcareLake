@@ -21,8 +21,8 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 ### Deployment
 
 ```shell
-$ aws s3api create-bucket --bucket=*GLUE_SCRIPTS* --region=eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
-$ aws s3 cp jobs/lake_ingestion.py s3://*GLUE_SCRIPTS*/lake_ingestion.py
+aws s3api create-bucket --bucket=GLUE_SCRIPTS --region=eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
+aws s3 cp jobs/lake_ingestion.py s3://GLUE_SCRIPTS/lake_ingestion.py
 ```
 
 #### API
