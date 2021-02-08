@@ -15,28 +15,3 @@ data "aws_iam_policy_document" "lake_vpc" {
   }
 }
 
-data "aws_iam_policy_document" "s3_https_only" {
-  statement {
-    sid = "AllowSSLRequestsOnly"
-
-    effect = "Deny"
-
-    principals {
-       type = "*"
-       identifiers = ["*"]
-    }
-
-    actions = ["s3:*"]
-
-    resources = [
-      aws_s3_bucket.fhir_binary.arn,
-      "${aws_s3_bucket.fhir_binary.arn}/*"
-    ]
-
-    condition {
-      test  = "Bool"
-      variable = "aws:SecureTransport"
-      values = [false]
-    }
-  }
-}

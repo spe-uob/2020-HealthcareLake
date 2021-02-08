@@ -12,3 +12,4 @@ variable "project" {
 
 variable "devops_contact" {}
 
+variable "deployment_bucket" {}
