@@ -42,3 +42,10 @@ resource "aws_ssm_parameter" "endpoint" {
   type = "SecureString"
   value = aws_dynamodb_table.fhir_api_db.arn
 }
+
+resource "aws_ssm_parameter" "db_key" {
+  name  = "/kms/${aws_dynamodb_table.fhir_api_db.name}/arn"
+  description = "KMS key ARN for the FHIR DynamoDB"
+  type = "SecureString"
+  value = aws_kms_key.fhir_api_db_key.arn
+}

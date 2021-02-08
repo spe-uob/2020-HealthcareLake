@@ -21,23 +21,6 @@ resource "aws_s3_bucket" "log_bucket" {
   acl    = "log-delivery-write"
 }
 
-data "aws_iam_policy_document" "lake_vpc" {
-  statement {
-    sid       = "Access from subnet only"
-    actions   = ["s3:*"]
-    resources = [aws_s3_bucket.lake.arn]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = [var.lake_subnet]
-    }
-  }
-}
-
 resource "aws_s3_bucket_policy" "lake" {
   bucket = aws_s3_bucket.lake.id
 
@@ -77,32 +60,6 @@ resource "aws_s3_bucket_policy" "https_only_policy" {
   policy = data.aws_iam_policy_document.s3_https_only.json
 }
 
-data "aws_iam_policy_document" "s3_https_only" {
-  statement {
-    sid = "AllowSSLRequestsOnly"
-
-    effect = "Deny"
-
-    principals {
-       type = "*"
-       identifiers = ["*"]
-    }
-
-    actions = ["s3:*"]
-
-    resources = [
-      aws_s3_bucket.fhir_binary.arn,
-      "${aws_s3_bucket.fhir_binary.arn}/*"
-    ]
-
-    condition {
-      test  = "BoolLike"
-      variable = "aws:SecureTransport"
-      values = [false]
-    }
-  }
-}
-
 resource "aws_s3_bucket" "fhir_log_bucket" {
   bucket = "${var.prefix}-fhir-binary-logs"
   acl    = "log-delivery-write"
@@ -115,4 +72,18 @@ resource "aws_kms_key" "fhir_binary_key" {
 resource "aws_kms_alias" "fhir_binary_key_alias" {
   name          = "alias/fhirS3Key-${var.stage}"
   target_key_id = aws_kms_key.fhir_binary_key.key_id
+}
+
+resource "aws_ssm_parameter" "s3_binary_arn" {
+  name  = "/bucket/fhir-binary/arn"
+  description = "S3 FHIR Binary ARN"
+  type = "SecureString"
+  value = aws_s3_bucket.fhir_binary.arn
+}
+
+resource "aws_ssm_parameter" "s3_binary_kms_arn" {
+  name  = "/kms/fhir-binary/arn"
+  description = "S3 FHIR Binary KMS ARN"
+  type = "SecureString"
+  value = aws_kms_key.fhir_binary_key.arn
 }
