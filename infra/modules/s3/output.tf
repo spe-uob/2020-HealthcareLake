@@ -9,3 +9,7 @@ output "bucket_arn" {
 output "logging_target_bucket" {
   value = tolist(aws_s3_bucket.lake.logging)[0].target_bucket
 }
+
+output "binary_bucket_arn" {
+  value = aws_s3_bucket.fhir_binary.arn
+}

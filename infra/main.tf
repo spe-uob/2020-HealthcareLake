@@ -31,6 +31,7 @@ module "s3" {
   prefix      = "${var.prefix}-${terraform.workspace}"
   region      = var.region
   lake_subnet = module.vpc.lake_subnet
+  stage       = var.stage
 }
 
 module "dynamodb" {
