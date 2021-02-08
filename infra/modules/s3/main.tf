@@ -1,4 +1,7 @@
-
+/*
+  The 'Lake' is an S3 bucket with our
+  Parquet files stored in
+*/
 resource "aws_s3_bucket" "lake" {
   bucket = "${var.prefix}-lake"
   acl    = "private"
@@ -16,23 +19,6 @@ resource "aws_s3_bucket" "lake" {
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "${var.prefix}-lake-logs"
   acl    = "log-delivery-write"
-}
-
-data "aws_iam_policy_document" "lake_vpc" {
-  statement {
-    sid       = "Access from subnet only"
-    actions   = ["s3:*"]
-    resources = [aws_s3_bucket.lake.arn]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = [var.lake_subnet]
-    }
-  }
 }
 
 resource "aws_s3_bucket_policy" "lake" {

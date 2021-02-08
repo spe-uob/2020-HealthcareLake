@@ -10,8 +10,9 @@
 *.out
 *.dvi
 
-# darwin
+# general / system
 .DS_Store
+*.zip
 
 # terraform
 **/.terraform/
@@ -29,9 +30,20 @@ secrets.tf
 # ide
 .vscode
 
-# package directories
-api/node_modules
-api/jspm_packages
+# Serverless
+**/node_modules
+**/build
+dist
+.build
+.idea
+yarn-error.log
+coverage
+**/.serverless
+serverless_config.json
+.yalc
+yalc.lock
+package-lock.json
 
-# Serverless directories
-api/.serverless
+.env
+
+go.sum

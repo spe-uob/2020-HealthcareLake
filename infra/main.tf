@@ -20,31 +20,34 @@ provider "aws" {
   region = var.region
 }
 
-module "vpc" {
-  source = "./modules/vpc"
-  prefix = "${var.prefix}-${terraform.workspace}"
-  region = var.region
+# module "vpc" {
+#   source = "./modules/vpc"
+#   prefix = "${var.prefix}-${terraform.workspace}"
+#   region = var.region
+# }
+
+# module "s3" {
+#   source      = "./modules/s3"
+#   prefix      = "${var.prefix}-${terraform.workspace}"
+#   region      = var.region
+#   lake_subnet = module.vpc.lake_subnet
+#   stage       = var.stage
+# }
+
+module "api" {
+  source            = "./modules/api"
+  stage             = var.stage
+  prefix            = local.prefix
+  deployment_bucket = var.deployment_bucket
 }
 
-module "s3" {
-  source      = "./modules/s3"
-  prefix      = "${var.prefix}-${terraform.workspace}"
-  region      = var.region
-  lake_subnet = module.vpc.lake_subnet
-}
-
-module "dynamodb" {
-  source = "./modules/dynamodb"
-  stage  = var.stage
-}
-
-module "glue" {
-  source       = "./modules/glue"
-  lake_bucket  = module.s3.bucket_arn
-  fhir_db_name = module.dynamodb.name
-  fhir_db_arn  = module.dynamodb.arn
-  fhir_db_cmk  = module.dynamodb.cmk_arn
-}
+# module "glue" {
+#   source       = "./modules/glue"
+#   lake_bucket  = module.s3.bucket_arn
+#   fhir_db_name = module.api.dynamodb_name
+#   fhir_db_arn  = module.api.dynamodb_arn
+#   fhir_db_cmk  = module.api.dynamodb_cmk_arn
+# }
 
 locals {
   // resource naming prefix
