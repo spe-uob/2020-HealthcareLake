@@ -15,7 +15,7 @@ resource "aws_lambda_function" "fhir_server" {
       S3_KMS_KEY = aws_kms_key.fhir_binary_key.key_id,
       RESOURCE_TABLE = aws_dynamodb_table.fhir_api_db.name,
       FHIR_BINARY_BUCKET = aws_s3_bucket.fhir_binary.id,
-      OAUTH2_DOMAIN_ENDPOINT = ""
+      OAUTH2_DOMAIN_ENDPOINT = "https://${aws_cognito_user_pool_domain.api_pool_domain.domain}.auth.${var.region}.amazoncognito.com/oauth2"
     }
   }
 }
