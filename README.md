@@ -1,4 +1,3 @@
-[![CircleCI](https://circleci.com/gh/spe-uob/HealthcareDataLake.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareDataLake)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake?ref=badge_shield)
 
 # Healthcare Data Lake
@@ -19,23 +18,8 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 [FHIR API](../main/api/README.md)
 
-### Data Lake Team
+### Deployment
 
-#### API
-Change into the API directory
-```
-cd api
-```
-Run the deployment
-```
-sls deploy
-```
-(Optional) Destroy the deployment
-```
-sls remove
-```
-
-#### Data lake
 Change into the infra directory
 ```
 cd infra
@@ -52,6 +36,12 @@ Deploy Terraform changes
 ```
 terraform apply
 ```
+Copy the ETL script to the glue scripts bucket (Terraform output variable)
+```shell
+aws s3 cp jobs/lake_ingestion.py s3://GLUE_SCRIPTS/lake_ingestion.py
+```
+
+
 (Optional) Destroy Terraform infrastructure
 ```
 terraform destroy

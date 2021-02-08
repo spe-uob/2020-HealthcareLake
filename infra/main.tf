@@ -37,6 +37,7 @@ provider "aws" {
 module "api" {
   source            = "./modules/api"
   stage             = var.stage
+  region            = var.region
   prefix            = local.prefix
   deployment_bucket = var.deployment_bucket
 }
