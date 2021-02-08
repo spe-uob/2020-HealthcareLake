@@ -41,11 +41,12 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
   name = "lake_catalog"
 }
 
-# resource "aws_glue_crawler" "lake_crawler" {
-  
-#   // TODO:
+resource "aws_glue_crawler" "lake_crawler" {
+  database_name = aws_glue_catalog_database.lake_catalog_table.name
+  name = "lake_crawler"
+  role = aws_iam_role.fhir_glue_crawler_role.arn
 
-#   # s3_target {
-
-#   # }
-# }
+  s3_target {
+    path = var.lake_bucket
+  }
+}
