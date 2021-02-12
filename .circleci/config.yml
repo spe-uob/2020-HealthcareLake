@@ -1,0 +1,32 @@
+version: 2
+
+jobs:
+  init:
+    working_directory: /tmp/project
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform init
+          command: cd infra && terraform init
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  validate:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform-validate
+          command: cd infra && terraform validate 
+
+workflows:
+  version: 2
+  plan_approve_apply:
+    jobs:
+      - init
+      - validate
