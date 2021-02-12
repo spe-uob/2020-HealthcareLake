@@ -26,13 +26,13 @@ provider "aws" {
 #   region = var.region
 # }
 
-# module "s3" {
-#   source      = "./modules/s3"
-#   prefix      = "${var.prefix}-${terraform.workspace}"
-#   region      = var.region
-#   lake_subnet = module.vpc.lake_subnet
-#   stage       = var.stage
-# }
+module "s3" {
+  source      = "./modules/s3"
+  prefix      = "${var.prefix}-${terraform.workspace}"
+  region      = var.region
+  lake_subnet = module.vpc.lake_subnet
+  stage       = var.stage
+}
 
 module "api" {
   source            = "./modules/api"
