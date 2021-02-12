@@ -4,6 +4,8 @@ variable "name_prefix" {
   default = "FhirDb"
 }
 
+variable "prefix" {}
+
 variable "fhir_db_name" {}
 
 variable "fhir_db_arn" {}

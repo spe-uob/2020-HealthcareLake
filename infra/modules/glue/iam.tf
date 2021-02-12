@@ -1,52 +1,43 @@
 /*
   IAM permissions for the glue crawler
 */
-# resource "aws_iam_role" "fhir_glue_crawler_role" {
-#   name = "${var.name_prefix}CrawlerRole"
+resource "aws_iam_role" "fhir_glue_crawler_role" {
+  name = "${var.name_prefix}CrawlerRole"
 
-#   assume_role_policy = data.aws_iam_policy_document.fhir_glue_crawler_policy_doc.json
-# }
+  assume_role_policy = data.aws_iam_policy_document.fhir_glue_crawler_policy_doc.json
+}
 
-# data "aws_iam_policy_document" "fhir_glue_crawler_policy_doc" {
-#   // ...TODO
-#   statement {
-#     actions = [
-#       "dynamodb:DescribeTable",
-#       "dynamodb:Scan"
-#     ]
+data "aws_iam_policy_document" "fhir_glue_crawler_policy_doc" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+    principals {
+      type = "Service"
+      identifiers = [
+        "dynamodb.amazonaws.com", 
+        "kms.amazonaws.com"
+      ]
+    }
+  }
+}
 
-#     resources = [
-#       var.fhir_db_arn,
-#     ]
-#   }
+resource "aws_iam_role" "fhir_glue_job_role" {
+  name = "${var.name_prefix}Role"
 
-#   statement {
-#     actions = [
-#       "kms:DescribeKey",
-#       "kms:Decrypt"
-#     ]
+  assume_role_policy = data.aws_iam_policy_document.fhir_glue_job_policy_doc.json
+}
 
-#     resources = [
-#       var.fhir_db_cmk
-#     ]
-#   }
-# }
-
-# resource "aws_iam_role" "fhir_glue_job_role" {
-#   name = "${var.name_prefix}Role"
-
-#   assume_role_policy = data.aws_iam_policy_document.fhir_glue_job_policy_doc.json
-# }
-
-# data "aws_iam_policy_document" "fhir_glue_job_policy_doc" {
-#   // ...TODO
-#   statement {
-#     actions = [
-#       "s3:PutObject",
-#     ]
-
-#     resources = [
-#       var.lake_bucket
-#     ]
-#   }
-# }
+data "aws_iam_policy_document" "fhir_glue_job_policy_doc" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+    principals {
+      type = "Service"
+      identifiers = [
+        "s3.amazonaws.com"
+      ]
+    }
+  }
+}

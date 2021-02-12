@@ -25,7 +25,7 @@ resource "aws_glue_job" "fhir_etl" {
   role_arn = aws_iam_role.fhir_glue_job_role.arn
 
   command {
-    script_location = "s3://${aws_s3_bucket.glue_scripts}/lake_ingestion.py"
+    script_location = "s3://${aws_s3_bucket.glue_scripts.id}/lake_ingestion.py"
   }
 }
 
