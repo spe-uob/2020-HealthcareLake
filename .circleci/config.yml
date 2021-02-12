@@ -1,32 +1,21 @@
-version: 2
-
-jobs:
-  init:
-    working_directory: /tmp/project
-    docker:
-      - image: hashicorp/terraform:light
-    steps:
-      - checkout
-      - run:
-          name: terraform init
-          command: cd infra && terraform init
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  validate:
-    docker:
-      - image: hashicorp/terraform:light
-    steps:
-      - checkout
-      - run:
-          name: terraform-validate
-          command: cd infra && terraform validate 
-
+version: '2.1'
+orbs:
+  terraform: 'circleci/terraform@dev:alpha'
 workflows:
-  version: 2
-  plan_approve_apply:
+  test_infrastructure:
     jobs:
-      - init
-      - validate
+      - terraform/fmt:
+          checkout: true
+          context: terraform
+      - terraform/validate:
+          checkout: true
+          context: terraform
+          requires:
+            - terraform/fmt
+      # - terraform/plan:
+      #     checkout: true
+      #     context: terraform
+      #     persist-workspace: true
+      #     requires:
+      #       - terraform/validate
+
