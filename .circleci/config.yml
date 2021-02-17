@@ -6,10 +6,10 @@ workflows:
     jobs:
       - terraform/fmt:
           checkout: true
-          context: terraform
+          context: healthcare-data-lake
       - terraform/validate:
           checkout: true
-          context: terraform
+          context: healthcare-data-lake
           requires:
             - terraform/fmt
       # - terraform/plan:
