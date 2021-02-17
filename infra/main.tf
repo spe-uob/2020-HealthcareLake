@@ -42,14 +42,14 @@ module "api" {
   deployment_bucket = var.deployment_bucket
 }
 
-module "glue" {
-  source       = "./modules/glue"
-  lake_bucket  = module.s3.bucket_arn
-  fhir_db_name = module.api.dynamodb_name
-  fhir_db_arn  = module.api.dynamodb_arn
-  fhir_db_cmk  = module.api.dynamodb_cmk_arn
-  prefix       = local.prefix
-}
+# module "glue" {
+#   source       = "./modules/glue"
+#   lake_bucket  = module.s3.bucket_arn
+#   fhir_db_name = module.api.dynamodb_name
+#   fhir_db_arn  = module.api.dynamodb_arn
+#   fhir_db_cmk  = module.api.dynamodb_cmk_arn
+#   prefix       = local.prefix
+# }
 
 locals {
   // resource naming prefix

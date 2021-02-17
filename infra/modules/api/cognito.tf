@@ -31,6 +31,14 @@ resource "aws_cognito_user_pool" "api_pool" {
     attribute_data_type = "String"
     name = "cc_confirmed"
   }
+
+  password_policy {
+    minimum_length = 12
+    require_lowercase = false
+    require_numbers = false
+    require_symbols = false
+    require_uppercase = false
+  }
 }
 
 resource "aws_cognito_user_pool_client" "api_pool_client" {
