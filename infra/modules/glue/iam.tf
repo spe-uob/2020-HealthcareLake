@@ -3,34 +3,46 @@
 */
 resource "aws_iam_role" "crawler_role" {
   name = "${var.name_prefix}CrawlerRole"
-
-  assume_role_policy = data.aws_iam_policy.aws_glue_policy.policy
+  assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 
 resource "aws_iam_role" "job_role" {
   name = "${var.name_prefix}JobRole"
-
-  assume_role_policy = data.aws_iam_policy.aws_glue_policy.policy
+  assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 
-// Managed by AWS
-data "aws_iam_policy" "aws_glue_policy" {
-  arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+data "aws_iam_policy_document" "glue_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type = "Service"
+      identifiers = ["glue.amazonaws.com"]
+    }
+  }
 }
 
 // Crawler
 resource "aws_iam_role_policy_attachment" "crawler_attachment" {
-  role = aws_iam_role.crawler_role
+  role = aws_iam_role.crawler_role.name
   policy_arn = aws_iam_policy.dynamodb_access.arn
 }
+resource "aws_iam_role_policy_attachment" "glue_attachment_1" {
+  role = aws_iam_role.crawler_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
+
 // Job
 resource "aws_iam_role_policy_attachment" "job_attachment_1" {
-  role = aws_iam_role.crawler_role
+  role = aws_iam_role.crawler_role.name
   policy_arn = aws_iam_policy.dynamodb_access.arn
 }
 resource "aws_iam_role_policy_attachment" "job_attachment_2" {
-  role = aws_iam_role.job_role
+  role = aws_iam_role.job_role.name
   policy_arn = aws_iam_policy.lake_write.arn
+}
+resource "aws_iam_role_policy_attachment" "glue_attachment_2" {
+  role = aws_iam_role.job_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
 
 // DynamoDB access
