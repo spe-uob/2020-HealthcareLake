@@ -16,7 +16,8 @@ data "aws_iam_policy_document" "fhir_glue_crawler_policy_doc" {
       type = "Service"
       identifiers = [
         "dynamodb.amazonaws.com", 
-        "kms.amazonaws.com"
+        "kms.amazonaws.com",
+        "glue.amazonaws.com"
       ]
     }
   }
@@ -36,7 +37,8 @@ data "aws_iam_policy_document" "fhir_glue_job_policy_doc" {
     principals {
       type = "Service"
       identifiers = [
-        "s3.amazonaws.com"
+        "s3.amazonaws.com",
+        "glue.amazonaws.com"
       ]
     }
   }

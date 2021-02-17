@@ -37,6 +37,8 @@ module "api" {
   deployment_bucket = var.deployment_bucket
 }
 
+
+
 # module "glue" {
 #   source       = "./modules/glue"
 #   lake_bucket  = module.s3.bucket_arn

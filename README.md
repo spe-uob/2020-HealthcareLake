@@ -1,4 +1,7 @@
+[![CircleCI](https://circleci.com/gh/spe-uob/HealthcareDataLake.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareDataLake)
+[![codecov](https://codecov.io/gh/spe-uob/HealthcareDataLake/branch/main/graph/badge.svg?token=5NU3R4PGRU)](https://codecov.io/gh/spe-uob/HealthcareDataLake)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake?ref=badge_shield)
+
 
 # Healthcare Data Lake
 This project is designed to explore the benefits of cloud technologies to produce a prototype secure, scalable health data storage platform that can underpin local healthcare analytics.
@@ -20,6 +23,19 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ### Deployment
 
+#### Step 1: API pre-requisites
+The API module requires the Node.js Lambda to be bundled into a Zip file and uploaded to an S3 bucket. The Terraform code can then reference this script when deploying the function with API Gateway.
+
+Create an S3 bucket to upload the lambda.zip
+```sh
+aws s3api create-bucket --bucket=DEPLOYMENT_BUCKET_NAME --region=REGION --create-bucket-configuration LocationConstraint=REGION
+```
+Copy the lambda.zip
+```sh
+aws s3 cp api/dist/lambda.zip s3://DEPLOYMENT_BUCKET_NAME/v1.0.0/lambda.zip
+```
+
+#### Step 2: Terraform deployment
 Change into the infra directory
 ```
 cd infra

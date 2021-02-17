@@ -1,0 +1,21 @@
+version: '2.1'
+orbs:
+  terraform: 'circleci/terraform@dev:alpha'
+workflows:
+  test_infrastructure:
+    jobs:
+      - terraform/fmt:
+          checkout: true
+          context: healthcare-data-lake
+      - terraform/validate:
+          checkout: true
+          context: healthcare-data-lake
+          requires:
+            - terraform/fmt
+      # - terraform/plan:
+      #     checkout: true
+      #     context: terraform
+      #     persist-workspace: true
+      #     requires:
+      #       - terraform/validate
+
