@@ -11,7 +11,7 @@ resource "aws_lambda_function" "fhir_server" {
 
   environment {
     variables = {
-      API_URL = "",
+      API_URL = "https://${aws_api_gateway_rest_api.fhir_server_gw.id}.execute-api.${var.region}.amazonaws.com/${var.stage}",
       S3_KMS_KEY = aws_kms_key.fhir_binary_key.key_id,
       RESOURCE_TABLE = aws_dynamodb_table.fhir_api_db.name,
       FHIR_BINARY_BUCKET = aws_s3_bucket.fhir_binary.id,
@@ -35,3 +35,41 @@ data "aws_iam_policy_document" "assume_role_lambda" {
   }
 }
 
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.fhir_server_gw.id
+  parent_id = aws_api_gateway_rest_api.fhir_server_gw.root_resource_id
+  path_part = "{proxy+}"
+}
+
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.fhir_server_gw.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = "ANY"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.proxy.id
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
+}
+
+resource "aws_api_gateway_method" "proxy_root" {
+   rest_api_id   = aws_api_gateway_rest_api.fhir_server_gw.id
+   resource_id   = aws_api_gateway_rest_api.fhir_server_gw.root_resource_id
+   http_method = "ANY"
+    authorization = "COGNITO_USER_POOLS"
+    authorizer_id = aws_api_gateway_authorizer.proxy.id
+
+    request_parameters = {
+      "method.request.path.proxy" = true
+    }
+}
+
+resource "aws_lambda_permission" "apigw" {
+  statement_id = "AllowAPIGatewayInvoke"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.fhir_server.function_name
+  principal = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.fhir_server_gw.execution_arn}/*/*"
+}

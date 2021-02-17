@@ -84,3 +84,26 @@ data "aws_iam_policy_document" "s3_https_only" {
     }
   }
 }
+
+/*
+  API Gateway Role
+*/
+# resource "aws_api_gateway_rest_api_policy" "fhir_server" {
+#   rest_api_id = aws_api_gateway_rest_api.fhir_server_gw.id
+
+#   policy = data.aws_iam_policy_document.log_fhir.json
+# }
+
+# data "aws_iam_policy_document" "log_fhir" {
+#   statement {
+#     effect = "Allow"
+#     principals {
+#       type = "*"
+#       identifiers = ["*"]
+#     }
+#     actions = [""]
+#     resources = [
+
+#     ]
+#   }
+# }
