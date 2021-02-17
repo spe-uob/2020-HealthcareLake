@@ -1,4 +1,5 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake?ref=badge_shield)
+[![codecov](https://codecov.io/gh/spe-uob/HealthcareDataLake/branch/main/graph/badge.svg?token=5NU3R4PGRU)](https://codecov.io/gh/spe-uob/HealthcareDataLake)
 
 # Healthcare Data Lake
 This project is designed to explore the benefits of cloud technologies to produce a prototype secure, scalable health data storage platform that can underpin local healthcare analytics.
