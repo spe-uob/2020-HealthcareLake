@@ -1,0 +1,1 @@
+{"version":3,"file":"offlineEnvVariables.js","sourceRoot":"","sources":["../src/offlineEnvVariables.ts"],"names":[],"mappings":";AAAA;;;GAGG;AAEH,MAAM,EAAE,UAAU,EAAE,GAAG,OAAO,CAAC,GAAG,CAAC;AACnC,+FAA+F;AAC/F,IAAI,UAAU,KAAK,MAAM,EAAE;IACvB,4HAA4H;IAC5H,OAAO,CAAC,GAAG,CAAC,wBAAwB,GAAG,WAAW,CAAC;IACnD,OAAO,CAAC,GAAG,CAAC,kBAAkB,GAAG,QAAQ,CAAC;CAC7C"}

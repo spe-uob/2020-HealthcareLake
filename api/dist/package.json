@@ -1,0 +1,19 @@
+{
+  "name": "dist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fhir-works-on-aws-authz-rbac": "2.0.0",
+    "fhir-works-on-aws-interface": "2.0.0",
+    "fhir-works-on-aws-persistence-ddb": "2.0.1",
+    "fhir-works-on-aws-routing": "1.1.0",
+    "fhir-works-on-aws-search-es": "1.1.0"
+  }
+}

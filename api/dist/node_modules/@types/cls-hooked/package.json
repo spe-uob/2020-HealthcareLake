@@ -1,0 +1,26 @@
+{
+    "name": "@types/cls-hooked",
+    "version": "4.3.3",
+    "description": "TypeScript definitions for cls-hooked",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Leo Liang",
+            "url": "https://github.com/aleung",
+            "githubUsername": "aleung"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/cls-hooked"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "f03f88fdc3a8d63eb66171f29a2ac94c4c3aaf749b6bca864b597a0a3345b83a",
+    "typeScriptVersion": "3.4"
+}

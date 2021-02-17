@@ -1,0 +1,8 @@
+declare const enum DOCUMENT_STATUS {
+    LOCKED = "LOCKED",
+    PENDING = "PENDING",
+    PENDING_DELETE = "PENDING_DELETE",
+    DELETED = "DELETED",
+    AVAILABLE = "AVAILABLE"
+}
+export default DOCUMENT_STATUS;
