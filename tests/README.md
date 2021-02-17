@@ -1,6 +1,7 @@
 ## Testing
 
+- [ ] Unit Tests
+- [ ] Contract Tests
 - [ ] Integration Tests
-- [ ] Policy Tests
 - [ ] End-to-End Tests
 
