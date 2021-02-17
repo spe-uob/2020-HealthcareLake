@@ -5,9 +5,14 @@ terraform {
       version = "~> 3.22"
     }
   }
+  // where our terraform state is stored
   backend "s3" {
-    key            = "data-lake.tfstate"
-    encrypt        = true
+    bucket  = "data-lake-devops-tfstate"
+    key     = "data-lake.tfstate"
+    region  = "eu-west-2"
+    encrypt = true
+    // include a state lock to prevent deployment conflicts
+    dynamodb_table = "data-lake-devops-tfstate-lock"
   }
 }
 
@@ -37,16 +42,14 @@ module "api" {
   deployment_bucket = var.deployment_bucket
 }
 
-
-
-# module "glue" {
-#   source       = "./modules/glue"
-#   lake_bucket  = module.s3.bucket_arn
-#   fhir_db_name = module.api.dynamodb_name
-#   fhir_db_arn  = module.api.dynamodb_arn
-#   fhir_db_cmk  = module.api.dynamodb_cmk_arn
-#   prefix       = local.prefix
-# }
+module "glue" {
+  source       = "./modules/glue"
+  lake_bucket  = module.s3.bucket_arn
+  fhir_db_name = module.api.dynamodb_name
+  fhir_db_arn  = module.api.dynamodb_arn
+  fhir_db_cmk  = module.api.dynamodb_cmk_arn
+  prefix       = local.prefix
+}
 
 locals {
   // resource naming prefix

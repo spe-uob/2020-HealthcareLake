@@ -1,45 +1,81 @@
 /*
   IAM permissions for the glue crawler
 */
-resource "aws_iam_role" "fhir_glue_crawler_role" {
+resource "aws_iam_role" "crawler_role" {
   name = "${var.name_prefix}CrawlerRole"
 
-  assume_role_policy = data.aws_iam_policy_document.fhir_glue_crawler_policy_doc.json
+  assume_role_policy = data.aws_iam_policy.aws_glue_policy.policy
 }
 
-data "aws_iam_policy_document" "fhir_glue_crawler_policy_doc" {
+resource "aws_iam_role" "job_role" {
+  name = "${var.name_prefix}JobRole"
+
+  assume_role_policy = data.aws_iam_policy.aws_glue_policy.policy
+}
+
+// Managed by AWS
+data "aws_iam_policy" "aws_glue_policy" {
+  arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
+
+// Crawler
+resource "aws_iam_role_policy_attachment" "crawler_attachment" {
+  role = aws_iam_role.crawler_role
+  policy_arn = aws_iam_policy.dynamodb_access.arn
+}
+// Job
+resource "aws_iam_role_policy_attachment" "job_attachment_1" {
+  role = aws_iam_role.crawler_role
+  policy_arn = aws_iam_policy.dynamodb_access.arn
+}
+resource "aws_iam_role_policy_attachment" "job_attachment_2" {
+  role = aws_iam_role.job_role
+  policy_arn = aws_iam_policy.lake_write.arn
+}
+
+// DynamoDB access
+resource "aws_iam_policy" "dynamodb_access" {
+  name = "FHIR_DynamoDb_Access"
+  policy = data.aws_iam_policy_document.dynamodb_access_policy.json
+}
+data "aws_iam_policy_document" "dynamodb_access_policy" {
+  // Decrypt DynamoDb
   statement {
     actions = [
-      "sts:AssumeRole",
+      "kms:Decrypt",
+      "kms:DescribeKey"
     ]
-    principals {
-      type = "Service"
-      identifiers = [
-        "dynamodb.amazonaws.com", 
-        "kms.amazonaws.com",
-        "glue.amazonaws.com"
-      ]
-    }
+    resources = [
+      var.fhir_db_cmk
+    ]
+  }
+  // Read DynamoDb
+  statement {
+    actions = [
+      "dynamodb:Scan",
+      "dynamodb:DescribeTable"
+    ]
+    resources = [
+      var.fhir_db_arn
+    ]
   }
 }
 
-resource "aws_iam_role" "fhir_glue_job_role" {
-  name = "${var.name_prefix}Role"
-
-  assume_role_policy = data.aws_iam_policy_document.fhir_glue_job_policy_doc.json
+// S3 access
+resource "aws_iam_policy" "lake_write" {
+  name = "Lake_S3_Access"
+  policy = data.aws_iam_policy_document.lake_write_policy.json
 }
-
-data "aws_iam_policy_document" "fhir_glue_job_policy_doc" {
+data "aws_iam_policy_document" "lake_write_policy" {
+  // Write to S3 bucket
   statement {
     actions = [
-      "sts:AssumeRole",
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket"
     ]
-    principals {
-      type = "Service"
-      identifiers = [
-        "s3.amazonaws.com",
-        "glue.amazonaws.com"
-      ]
-    }
+    resources = [
+      var.lake_bucket
+    ]
   }
 }

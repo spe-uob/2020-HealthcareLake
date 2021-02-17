@@ -8,7 +8,7 @@ resource "aws_glue_catalog_database" "fhir_catalog" {
 resource "aws_glue_crawler" "fhir_db_crawler" {
   database_name = aws_glue_catalog_database.fhir_catalog.name
   name          = "${var.name_prefix}Crawler"
-  role          = aws_iam_role.fhir_glue_crawler_role.arn
+  role          = aws_iam_role.crawler_role.arn
 
   dynamodb_target {
     path = var.fhir_db_name
@@ -22,7 +22,7 @@ resource "aws_s3_bucket" "glue_scripts" {
 
 resource "aws_glue_job" "fhir_etl" {
   name     = "${var.name_prefix}ETL"
-  role_arn = aws_iam_role.fhir_glue_job_role.arn
+  role_arn = aws_iam_role.job_role.arn
 
   command {
     script_location = "s3://${aws_s3_bucket.glue_scripts.id}/lake_ingestion.py"
@@ -53,7 +53,7 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
 resource "aws_glue_crawler" "lake_crawler" {
   database_name = aws_glue_catalog_database.lake_catalog_table.name
   name = "lake_crawler"
-  role = aws_iam_role.fhir_glue_crawler_role.arn
+  role = aws_iam_role.crawler_role.arn
 
   s3_target {
     path = var.lake_bucket
