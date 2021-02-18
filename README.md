@@ -13,7 +13,11 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 [API](https://documenter.getpostman.com/view/12190139/TVsoFVgc)
 
-[Solution architecture](../main/docs/solution-architecture.pdf)
+[Whitepaper](../main/docs/solution-architecture.pdf)
+
+## Architecture
+
+![v1](../main/docs/images/v1.png)
 
 ## Usage
 
