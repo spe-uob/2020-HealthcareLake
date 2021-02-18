@@ -15,6 +15,8 @@ import (
 func TestS3(t *testing.T) {
 	t.Parallel()
 
+	stage := "test"
+
 	// Give this S3 Bucket a unique ID for a name tag so we can distinguish it from any other Buckets provisioned
 	// in your AWS account
 	expectedName := fmt.Sprintf("terratest-aws-s3-%s", strings.ToLower(random.UniqueId()))
@@ -33,6 +35,7 @@ func TestS3(t *testing.T) {
 			"prefix":      expectedName,
 			"region":      awsRegion,
 			"lake_subnet": "10.0.2.0/24",
+			"stage":       stage,
 		},
 
 		// Environment variables to set when running Terraform

@@ -21,3 +21,7 @@ output "user_pool_id" {
 output "client_id" {
   value = aws_cognito_user_pool_client.api_pool_client.id
 }
+
+output "dev_key" {
+  value = aws_api_gateway_api_key.developer_key.value
+}

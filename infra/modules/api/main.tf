@@ -20,21 +20,6 @@ resource "aws_lambda_function" "fhir_server" {
   }
 }
 
-resource "aws_iam_role" "lambda_exec" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_lambda.json
-}
-
-data "aws_iam_policy_document" "assume_role_lambda" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    principals {
-      type = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-    effect = "Allow"
-  }
-}
-
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.fhir_server_gw.id
   parent_id = aws_api_gateway_rest_api.fhir_server_gw.root_resource_id
@@ -73,3 +58,4 @@ resource "aws_lambda_permission" "apigw" {
 
   source_arn = "${aws_api_gateway_rest_api.fhir_server_gw.execution_arn}/*/*"
 }
+

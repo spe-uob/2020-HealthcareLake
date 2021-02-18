@@ -1,5 +1,5 @@
 output "region" {
-  value = var.region
+  value = local.region
 }
 
 output "deployment_bucket" {
@@ -16,4 +16,8 @@ output "user_pool_id" {
 
 output "client_id" {
   value = module.api.client_id
+}
+
+output "api_key" {
+  value = module.api.dev_key
 }
