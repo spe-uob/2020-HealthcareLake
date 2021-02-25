@@ -23,42 +23,44 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
   prefix = "${var.prefix}-${terraform.workspace}"
-  region = var.region
+  region = local.region
 }
 
 module "s3" {
   source      = "./modules/s3"
   prefix      = "${var.prefix}-${terraform.workspace}"
-  region      = var.region
+  region      = local.region
   lake_subnet = module.vpc.lake_subnet
   stage       = var.stage
 }
 
 module "api" {
-  source            = "./modules/api"
-  stage             = var.stage
-  region            = var.region
-  prefix            = local.prefix
-  deployment_bucket = var.deployment_bucket
+  source = "git@github.com:spe-uob/HealthcareLakeAPI.git"
+
+  stage  = var.stage
+  region = local.region
 }
 
 # module "glue" {
 #   source       = "./modules/glue"
-#   lake_bucket  = module.s3.bucket_arn
+#   lake_bucket  = module.s3.bucket_id
 #   fhir_db_name = module.api.dynamodb_name
 #   fhir_db_arn  = module.api.dynamodb_arn
 #   fhir_db_cmk  = module.api.dynamodb_cmk_arn
 #   prefix       = local.prefix
 # }
 
+data "aws_region" "current" {}
+
 locals {
+  region = data.aws_region.current.name
   // resource naming prefix
   prefix = "${var.prefix}-${terraform.workspace}"
   // resource tagging
   common_tags = {
     Environment = terraform.workspace
     Project     = var.project
-    Owner       = var.devops_contact
-    ManagedBy   = "Terraform"
+    # Owner       = var.devops_contact
+    ManagedBy = "Terraform"
   }
 }

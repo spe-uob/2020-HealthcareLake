@@ -13,7 +13,11 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 [API](https://documenter.getpostman.com/view/12190139/TVsoFVgc)
 
-[Solution architecture](../main/docs/solution-architecture.pdf)
+[Whitepaper](../main/docs/solution-architecture.pdf)
+
+## Architecture
+
+![v1](../main/docs/images/v1.png)
 
 ## Usage
 
@@ -24,7 +28,7 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 ### Deployment
 
 #### Step 1: API pre-requisites
-In order for you to deploy the Terraform infrastructure, the API module requires the Node.js app to be bundled into a Zip file and uploaded to an S3 bucket. The Terraform code can then reference this script when deploying the Lambda function with API Gateway.
+The API module requires the Node.js Lambda to be bundled into a Zip file and uploaded to an S3 bucket. The Terraform code can then reference this script when deploying the function with API Gateway.
 
 Create an S3 bucket to upload the lambda.zip
 ```sh
