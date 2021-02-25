@@ -51,10 +51,6 @@ Deploy Terraform changes
 ```
 terraform apply
 ```
-Copy the ETL script to the glue scripts bucket (Terraform output variable)
-```shell
-aws s3 cp jobs/lake_ingestion.py s3://GLUE_SCRIPTS/lake_ingestion.py
-```
 
 
 (Optional) Destroy Terraform infrastructure
