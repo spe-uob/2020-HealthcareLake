@@ -11,17 +11,13 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ## Documentation
 
-You can read our docs [here](https://joekendal.gitbook.io/healthcare-data-lake/). For instructions on integrating our production API, please see [this](https://joekendal.gitbook.io/healthcare-data-lake/api/usage)
-
-## Architecture
-
-![v1](../main/docs/images/v1.png)
+You can read our docs [here](https://joekendal.gitbook.io/healthcare-data-lake/).
 
 ## Usage
 
 ### Data Simulation Team
 
-[FHIR API](../main/api/README.md)
+For instructions on integrating our production API, please see [this](https://joekendal.gitbook.io/healthcare-data-lake/api/usage)
 
 ### Deployment
 
