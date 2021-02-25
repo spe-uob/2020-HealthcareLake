@@ -11,7 +11,3 @@ variable "prefix" {
 variable "project" {
   default = "HealthcareDataLake"
 }
-
-# variable "devops_contact" {}
-
-variable "deployment_bucket" {}
