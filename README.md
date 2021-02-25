@@ -11,9 +11,7 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ## Documentation
 
-[API](https://documenter.getpostman.com/view/12190139/TVsoFVgc)
-
-[Whitepaper](../main/docs/solution-architecture.pdf)
+You can read our docs [here](https://joekendal.gitbook.io/healthcare-data-lake/). For instructions on integrating our production API, please see [this](https://joekendal.gitbook.io/healthcare-data-lake/api/usage)
 
 ## Architecture
 
