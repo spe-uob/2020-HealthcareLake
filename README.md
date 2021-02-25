@@ -46,10 +46,7 @@ Select `dev` workspace
 ```
 terraform workspace select dev
 ```
-Run Terraform plan
-```
-terraform plan
-```
+
 Deploy Terraform changes
 ```
 terraform apply
