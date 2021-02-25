@@ -34,7 +34,7 @@ cd infra
 
 You may wish to save your project settings in a `.tfvars` file:
 
-**infra/terraform.tfvars**
+_**infra/terraform.tfvars**_
 ```tf
 // aws region
 region = "eu-west-2"
