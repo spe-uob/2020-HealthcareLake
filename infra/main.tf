@@ -35,21 +35,20 @@ module "s3" {
 }
 
 module "api" {
-  source            = "./modules/api"
-  stage             = var.stage
-  region            = local.region
-  prefix            = local.prefix
-  deployment_bucket = var.deployment_bucket
+  source = "git@github.com:spe-uob/HealthcareLakeAPI.git"
+
+  stage  = var.stage
+  region = local.region
 }
 
-module "glue" {
-  source       = "./modules/glue"
-  lake_bucket  = module.s3.bucket_arn
-  fhir_db_name = module.api.dynamodb_name
-  fhir_db_arn  = module.api.dynamodb_arn
-  fhir_db_cmk  = module.api.dynamodb_cmk_arn
-  prefix       = local.prefix
-}
+# module "glue" {
+#   source       = "./modules/glue"
+#   lake_bucket  = module.s3.bucket_id
+#   fhir_db_name = module.api.dynamodb_name
+#   fhir_db_arn  = module.api.dynamodb_arn
+#   fhir_db_cmk  = module.api.dynamodb_cmk_arn
+#   prefix       = local.prefix
+# }
 
 data "aws_region" "current" {}
 

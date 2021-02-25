@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/spe-uob/HealthcareDataLake.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareDataLake)
+[![CircleCI](https://circleci.com/gh/spe-uob/HealthcareLake.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareLake)
 [![codecov](https://codecov.io/gh/spe-uob/HealthcareDataLake/branch/main/graph/badge.svg?token=5NU3R4PGRU)](https://codecov.io/gh/spe-uob/HealthcareDataLake)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake?ref=badge_shield)
 
