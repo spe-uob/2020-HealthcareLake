@@ -4,9 +4,7 @@ variable "stage" {
   default = "dev"
 }
 
-variable "prefix" {
-  default = "healthcarelake"
-}
+variable "unique_prefix" {}
 
 variable "project" {
   default = "HealthcareDataLake"
