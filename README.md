@@ -31,6 +31,18 @@ Change into the infra directory
 ```
 cd infra
 ```
+
+You may wish to save your project settings in a `.tfvars` file:
+
+**infra/terraform.tfvars**
+```tf
+// aws region
+region = "eu-west-2"
+
+// must be unique
+prefix = "healthcarelake"
+```
+
 Select `dev` workspace
 ```
 terraform workspace select dev
