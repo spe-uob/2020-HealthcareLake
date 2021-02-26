@@ -6,9 +6,11 @@ workflows:
     jobs:
       - terraform/fmt:
           checkout: true
+          run: cd infra
           context: healthcare-data-lake
       - terraform/validate:
           checkout: true
+          run: cd infra
           context: healthcare-data-lake
           requires:
             - terraform/fmt
