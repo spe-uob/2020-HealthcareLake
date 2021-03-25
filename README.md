@@ -11,7 +11,7 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 
 ## Documentation
 
-You can read our docs [here](https://joekendal.gitbook.io/healthcare-data-lake/).
+You can read our docs [here](https://spe-uob.gitbook.io/healthcare-data-lake/).
 
 ## Usage
 
