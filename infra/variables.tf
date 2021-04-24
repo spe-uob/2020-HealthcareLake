@@ -11,3 +11,7 @@ variable "prefix" {}
 variable "project" {
   default = "HealthcareDataLake"
 }
+
+variable "password" {}
+
+variable "username" {}
