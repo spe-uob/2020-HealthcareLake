@@ -15,17 +15,18 @@ resource "aws_glue_crawler" "fhir_db_crawler" {
   }
 }
 
-resource "aws_s3_bucket" "glue_scripts" {
-  bucket = "${var.prefix}-glue-scripts"
-  acl    = "private"
-}
-
 resource "aws_glue_job" "fhir_etl" {
   name     = "${var.name_prefix}ETL"
   role_arn = aws_iam_role.job_role.arn
 
   command {
-    script_location = "s3://${aws_s3_bucket.glue_scripts.id}/lake_ingestion.py"
+    script_location = "s3://${var.glue_script_bucket_id}/${var.glue_script_path}"
+  }
+
+  non_overridable_arguments = {
+    "DB_NAME" = aws_glue_catalog_database.fhir_catalog.name
+    "TBL_NAME" = var.fhir_db_name
+    "OUT_DIR" = "s3://${var.lake_bucket}/datamart/"
   }
 }
 

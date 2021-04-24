@@ -41,10 +41,9 @@ module "api" {
 #   prefix       = local.prefix
 # }
 
-data "aws_region" "current" {}
 
 locals {
-  region = data.aws_region.current.name
+  region = var.region
   // resource naming prefix
   prefix = "${var.prefix}-${terraform.workspace}"
   // resource tagging

@@ -12,3 +12,6 @@ variable "fhir_db_arn" {}
 
 // KMS for DynamoDB (arn)
 variable "fhir_db_cmk" {} 
+
+variable "glue_script_bucket_id" {}
+variable "glue_script_path" {}
