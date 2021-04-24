@@ -26,21 +26,35 @@ module "s3" {
 }
 
 module "api" {
-  source = "git@github.com:spe-uob/HealthcareLakeAPI.git"
+  source = "github.com/spe-uob/HealthcareLakeAPI.git"
 
-  stage  = var.stage
-  region = local.region
+  username = var.username
+  password = var.password
+  stage    = var.stage
+  region   = local.region
 }
 
-# module "glue" {
-#   source       = "./modules/glue"
-#   lake_bucket  = module.s3.bucket_id
-#   fhir_db_name = module.api.dynamodb_name
-#   fhir_db_arn  = module.api.dynamodb_arn
-#   fhir_db_cmk  = module.api.dynamodb_cmk_arn
-#   prefix       = local.prefix
-# }
+module "etl" {
+  source = "github.com/spe-uob/HealthcareLakeETL.git"
 
+  region = local.region
+  prefix = local.prefix
+}
+
+module "glue" {
+  source                = "./modules/glue"
+  glue_script_bucket_id = module.etl.s3_bucket_name
+  glue_script_path      = module.etl.script_path
+  lake_bucket           = module.s3.bucket_id
+  fhir_db_name          = module.api.dynamodb_name
+  fhir_db_arn           = module.api.dynamodb_arn
+  fhir_db_cmk           = module.api.dynamodb_cmk_arn
+  prefix                = local.prefix
+
+  depends_on = [
+    module.etl,
+  ]
+}
 
 locals {
   region = var.region
