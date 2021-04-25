@@ -23,6 +23,10 @@ resource "aws_glue_job" "fhir_etl" {
     script_location = "s3://${var.glue_script_bucket_id}/${var.glue_script_path}"
   }
 
+  default_arguments = {
+    "--extra-py-files" = var.glue_library_path
+  }
+
   non_overridable_arguments = {
     "DB_NAME" = aws_glue_catalog_database.fhir_catalog.name
     "TBL_NAME" = var.fhir_db_name
@@ -41,6 +45,9 @@ resource "aws_glue_trigger" "fhir_trigger" {
 
   actions {
     job_name = aws_glue_job.fhir_etl.name
+    arguments = {
+      "--extra-py-files" = var.glue_library_path
+    }
   }
 }
 
