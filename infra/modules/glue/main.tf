@@ -20,7 +20,7 @@ resource "aws_glue_job" "fhir_etl" {
   role_arn = aws_iam_role.job_role.arn
 
   command {
-    script_location = "s3://${var.glue_script_bucket_id}/${var.glue_script_path}"
+    script_location = "s3://${var.glue_script_path}"
   }
 
   default_arguments = {
