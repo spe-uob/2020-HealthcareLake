@@ -15,3 +15,4 @@ variable "fhir_db_cmk" {}
 
 variable "glue_script_bucket_id" {}
 variable "glue_script_path" {}
+variable "glue_library_path" {}

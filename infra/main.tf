@@ -45,6 +45,7 @@ module "glue" {
   source                = "./modules/glue"
   glue_script_bucket_id = module.etl.s3_bucket_name
   glue_script_path      = module.etl.script_path
+  glue_library_path     = module.etl.library_path
   lake_bucket           = module.s3.bucket_id
   fhir_db_name          = module.api.dynamodb_name
   fhir_db_arn           = module.api.dynamodb_arn
