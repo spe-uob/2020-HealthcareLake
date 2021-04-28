@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
+  region = local.region
 }
 
 module "vpc" {
@@ -21,7 +21,7 @@ module "s3" {
   source = "./modules/s3"
   prefix = local.prefix
   region = local.region
-  stage  = var.stage
+  stage  = local.stage
 
   lake_subnet = module.vpc.lake_subnet
 }
