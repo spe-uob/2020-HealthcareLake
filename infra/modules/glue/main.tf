@@ -15,22 +15,32 @@ resource "aws_glue_crawler" "fhir_db_crawler" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "glue_logs" {
+  name              = "${var.name_prefix}-glue-logs"
+  retention_in_days = 14
+}
+
 resource "aws_glue_job" "fhir_etl" {
   name     = "${var.name_prefix}ETL"
   role_arn = aws_iam_role.job_role.arn
 
   command {
-    script_location = "s3://${var.glue_script_path}"
+    script_location = var.glue_script_path
   }
+
+  glue_version = "2.0"
+
+  timeout = 10
 
   default_arguments = {
     "--extra-py-files" = var.glue_library_path
-  }
-
-  non_overridable_arguments = {
-    "DB_NAME" = aws_glue_catalog_database.fhir_catalog.name
-    "TBL_NAME" = var.fhir_db_name
-    "OUT_DIR" = "s3://${var.lake_name}/datamart/"
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.glue_logs.name
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-continuous-log-filter"     = "true"
+    "--enable-metrics"                   = ""
+    "--DB_NAME" = aws_glue_catalog_database.fhir_catalog.name
+    "--TBL_NAME" = replace(var.fhir_db_name, "-", "_")
+    "--OUT_DIR" = "s3://${var.lake_name}/datamart/"
   }
 }
 
@@ -60,7 +70,7 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
 
 resource "aws_glue_crawler" "lake_crawler" {
   database_name = aws_glue_catalog_database.lake_catalog_table.name
-  name = "lake_crawler"
+  name = "LakeCrawler"
   role = aws_iam_role.crawler_role.arn
 
   s3_target {

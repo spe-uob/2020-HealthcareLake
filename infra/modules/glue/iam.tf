@@ -38,6 +38,10 @@ resource "aws_iam_role_policy_attachment" "job_attachment_2" {
   role = aws_iam_role.job_role.name
   policy_arn = aws_iam_policy.lake_write.arn
 }
+resource "aws_iam_role_policy_attachment" "job_attachment_3" {
+  role = aws_iam_role.job_role.name
+  policy_arn = aws_iam_policy.lib_read.arn
+}
 resource "aws_iam_role_policy_attachment" "glue_attachment_2" {
   role = aws_iam_role.job_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
@@ -86,6 +90,21 @@ data "aws_iam_policy_document" "lake_write_policy" {
     resources = [
       var.lake_arn,
       "${var.lake_arn}/*"
+    ]
+  }
+}
+resource "aws_iam_policy" "lib_read" {
+  name = "PySpark_Lib_S3_Access"
+  policy = data.aws_iam_policy_document.lib_read_policy.json
+}
+data "aws_iam_policy_document" "lib_read_policy" {
+  statement {
+    actions = [
+    "s3:GetObject"
+    ]
+    resources = [
+      var.etl_bucket_arn,
+      "${var.etl_bucket_arn}/*"
     ]
   }
 }

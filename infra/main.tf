@@ -47,6 +47,7 @@ module "glue" {
   glue_script_bucket_id = module.etl.s3_bucket_name
   glue_script_path      = module.etl.script_path
   glue_library_path     = module.etl.library_path
+  etl_bucket_arn        = module.etl.bucket_arn
 
   lake_arn  = module.s3.bucket_arn
   lake_name = module.s3.bucket_name
