@@ -84,8 +84,8 @@ data "aws_iam_policy_document" "lake_write_policy" {
       "s3:DeleteObject"
     ]
     resources = [
-      var.lake_bucket,
-      "${var.lake_bucket}/*"
+      var.lake_arn,
+      "${var.lake_arn}/*"
     ]
   }
 }

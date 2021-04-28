@@ -1,4 +1,6 @@
-variable "lake_bucket" {} 
+variable "lake_arn" {} 
+
+variable "lake_name" {}
 
 variable "name_prefix" {
   default = "FhirDb"

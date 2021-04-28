@@ -30,7 +30,7 @@ resource "aws_glue_job" "fhir_etl" {
   non_overridable_arguments = {
     "DB_NAME" = aws_glue_catalog_database.fhir_catalog.name
     "TBL_NAME" = var.fhir_db_name
-    "OUT_DIR" = "s3://${var.lake_bucket}/datamart/"
+    "OUT_DIR" = "s3://${var.lake_name}/datamart/"
   }
 }
 
@@ -64,6 +64,6 @@ resource "aws_glue_crawler" "lake_crawler" {
   role = aws_iam_role.crawler_role.arn
 
   s3_target {
-    path = var.lake_bucket
+    path = "s3://${var.lake_name}"
   }
 }

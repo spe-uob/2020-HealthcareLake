@@ -13,25 +13,25 @@ provider "aws" {
 
 module "vpc" {
   source = "./modules/vpc"
-  prefix = "${var.prefix}-${terraform.workspace}"
+  prefix = local.prefix
   region = local.region
 }
 
 module "s3" {
-  source      = "./modules/s3"
-  prefix      = "${var.prefix}-${terraform.workspace}"
-  region      = local.region
+  source = "./modules/s3"
+  prefix = local.prefix
+  region = local.region
+  stage  = var.stage
+
   lake_subnet = module.vpc.lake_subnet
-  stage       = var.stage
 }
 
 module "api" {
   source = "github.com/spe-uob/HealthcareLakeAPI.git"
 
-  username = var.username
-  password = var.password
-  stage    = var.stage
-  region   = local.region
+  stage  = local.stage
+  region = local.region
+  prefix = local.prefix
 }
 
 module "etl" {
@@ -42,29 +42,31 @@ module "etl" {
 }
 
 module "glue" {
-  source                = "./modules/glue"
+  source = "./modules/glue"
+
   glue_script_bucket_id = module.etl.s3_bucket_name
   glue_script_path      = module.etl.script_path
   glue_library_path     = module.etl.library_path
-  lake_bucket           = module.s3.bucket_id
-  fhir_db_name          = module.api.dynamodb_name
-  fhir_db_arn           = module.api.dynamodb_arn
-  fhir_db_cmk           = module.api.dynamodb_cmk_arn
-  prefix                = local.prefix
 
-  depends_on = [
-    module.etl,
-  ]
+  lake_arn  = module.s3.bucket_arn
+  lake_name = module.s3.bucket_name
+
+  fhir_db_name = module.api.dynamodb_name
+  fhir_db_arn  = module.api.dynamodb_arn
+  fhir_db_cmk  = module.api.dynamodb_cmk_arn
+
+  prefix = local.prefix
 }
 
 locals {
+  stage  = var.stage
   region = var.region
   // resource naming prefix
-  prefix = "${var.prefix}-${terraform.workspace}"
+  prefix = "${var.project_name}-${terraform.workspace}"
   // resource tagging
   common_tags = {
     Environment = terraform.workspace
-    Project     = var.project
+    Project     = var.project_name
     # Owner       = var.devops_contact
     ManagedBy = "Terraform"
   }

@@ -11,7 +11,8 @@ output "userpool_id" {
 }
 
 output "api_key" {
-  value = module.api.api_key
+  value     = module.api.api_key
+  sensitive = true
 }
 
 output "client_id" {

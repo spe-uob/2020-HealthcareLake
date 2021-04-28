@@ -6,12 +6,11 @@ variable "stage" {
   default = "dev"
 }
 
-variable "prefix" {}
+variable "project_name" {
+  default = "healthcarelake"
 
-variable "project" {
-  default = "HealthcareDataLake"
+  validation {
+    condition     = can(regex("^[a-z]+$", var.project_name))
+    error_message = "The project_name must be all lowercase letters."
+  }
 }
-
-variable "password" {}
-
-variable "username" {}

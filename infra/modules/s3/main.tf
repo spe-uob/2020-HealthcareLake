@@ -3,7 +3,7 @@
   Parquet files stored in
 */
 resource "aws_s3_bucket" "lake" {
-  bucket = "${var.prefix}-lake"
+  bucket_prefix = "${var.prefix}-lake"
   acl    = "private"
 
   versioning {
@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "lake" {
 }
 
 resource "aws_s3_bucket" "log_bucket" {
-  bucket = "${var.prefix}-lake-logs"
+  bucket_prefix = "${var.prefix}-lake-logs"
   acl    = "log-delivery-write"
 }
 
