@@ -2,11 +2,11 @@
   IAM permissions for the glue crawler
 */
 resource "aws_iam_role" "crawler_role" {
-  name = "${var.name_prefix}CrawlerRole"
+  name = "AWSGlueServiceRole-CrawlerRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 resource "aws_iam_role" "job_role" {
-  name = "${var.name_prefix}JobRole"
+  name = "AWSGlueServiceRole-JobRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 data "aws_iam_policy_document" "glue_role_policy" {
@@ -18,6 +18,30 @@ data "aws_iam_policy_document" "glue_role_policy" {
     }
   }
 }
+data "aws_iam_policy_document" "glue_policy" {
+  statement {
+    actions = ["iam:PassRole"]
+    effect = "Allow"
+    resources = [
+      "arn:aws:iam::*:role/AWSGlueServiceRole*",
+      "arn:aws:iam::*:role/service-role/AWSGlueServiceRole*"
+    ]
+    condition {
+      test = "StringLike"
+      variable = "iam:PassedToService"
+      values = ["glue.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_policy" "crawler_policy" {
+  name = "AWSGlueServiceRole-Crawler"
+  policy = data.aws_iam_policy_document.glue_policy.json
+}
+resource "aws_iam_policy" "job_policy" {
+  name = "AWSGlueServiceRole-Job"
+  policy = data.aws_iam_policy_document.glue_policy.json
+}
 
 // Crawler
 resource "aws_iam_role_policy_attachment" "crawler_attachment" {
@@ -27,6 +51,10 @@ resource "aws_iam_role_policy_attachment" "crawler_attachment" {
 resource "aws_iam_role_policy_attachment" "glue_attachment_1" {
   role = aws_iam_role.crawler_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
+resource "aws_iam_role_policy_attachment" "glue_attachment_3" {
+  role = aws_iam_role.crawler_role.name
+  policy_arn = aws_iam_policy.crawler_policy.arn
 }
 
 // Job
@@ -45,6 +73,10 @@ resource "aws_iam_role_policy_attachment" "job_attachment_3" {
 resource "aws_iam_role_policy_attachment" "glue_attachment_2" {
   role = aws_iam_role.job_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
+resource "aws_iam_role_policy_attachment" "job_attachment_4" {
+  role = aws_iam_role.job_role.name
+  policy_arn = aws_iam_policy.job_policy.arn
 }
 
 // DynamoDB access
@@ -83,6 +115,7 @@ data "aws_iam_policy_document" "lake_write_policy" {
   // Read|Write to S3 lake
   statement {
     actions = [
+      "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
       "s3:DeleteObject"
