@@ -29,8 +29,9 @@ resource "aws_glue_job" "fhir_etl" {
   }
 
   glue_version = "2.0"
-
   timeout = 10
+  number_of_workers = 10
+  worker_type = "G.1X"
 
   default_arguments = {
     "--extra-py-files" = var.glue_library_path
@@ -71,9 +72,9 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
 resource "aws_glue_crawler" "lake_crawler" {
   database_name = aws_glue_catalog_database.lake_catalog_table.name
   name = "LakeCrawler"
-  role = aws_iam_role.crawler_role.arn
+  role = aws_iam_role.lake_crawler_role.arn
 
   s3_target {
-    path = "s3://${var.lake_name}"
+    path = "s3://${var.lake_name}/datamart/"
   }
 }

@@ -9,6 +9,10 @@ resource "aws_iam_role" "job_role" {
   name = "AWSGlueServiceRole-JobRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
+resource "aws_iam_role" "lake_crawler_role" {
+  name = "AWSGlueServiceRole-LakeCrawlerRole"
+  assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
+}
 data "aws_iam_policy_document" "glue_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -79,6 +83,16 @@ resource "aws_iam_role_policy_attachment" "job_attachment_4" {
   policy_arn = aws_iam_policy.job_policy.arn
 }
 
+// Lake crawler
+resource "aws_iam_role_policy_attachment" "lake_crawler_attachment_2" {
+  role = aws_iam_role.lake_crawler_role.name
+  policy_arn = aws_iam_policy.lake_read.arn
+}
+resource "aws_iam_role_policy_attachment" "lake_crawler_attachment_1" {
+  role = aws_iam_role.lake_crawler_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}
+
 // DynamoDB access
 resource "aws_iam_policy" "dynamodb_access" {
   name = "FHIR_DynamoDb_Access"
@@ -108,7 +122,7 @@ data "aws_iam_policy_document" "dynamodb_access_policy" {
 
 // S3 access
 resource "aws_iam_policy" "lake_write" {
-  name = "Lake_S3_Access"
+  name = "Lake_S3_Write"
   policy = data.aws_iam_policy_document.lake_write_policy.json
 }
 data "aws_iam_policy_document" "lake_write_policy" {
@@ -126,6 +140,23 @@ data "aws_iam_policy_document" "lake_write_policy" {
     ]
   }
 }
+resource "aws_iam_policy" "lake_read" {
+  name = "Lake_S3_Read"
+  policy = data.aws_iam_policy_document.lake_read_policy.json
+}
+data "aws_iam_policy_document" "lake_read_policy" {
+  statement {
+    actions = [
+    "s3:GetObject",
+    "s3:ListBucket"
+    ]
+    resources = [
+      var.lake_arn,
+      "${var.lake_arn}/*"
+    ]
+  }
+}
+
 resource "aws_iam_policy" "lib_read" {
   name = "PySpark_Lib_S3_Access"
   policy = data.aws_iam_policy_document.lib_read_policy.json
