@@ -4,7 +4,7 @@
 
 ## Stakeholder and Requirements
 
-### Stakeholders
+### Primary Stakeholder
 
 Philip Harfield is our client and primary stakeholder, and this software is being developed for him at Bristol, North Somerset and South Gloucestershire NHS CCG
 (BNSSG). 
@@ -36,7 +36,15 @@ Exceptionally, the following user flow could take place:
 3. The analysts receive a message that these user credentials are not valid. 
 4. Access to the data is not granted.
 
+### Additional Stakeholders
 
+As well as our primary stakeholder as described above, we have additional interacting and non-interacting stakeholders. Some of these interacting stakeholders will be local healthcare organisations that will be supplying data to the data lake.
+
+For example, one of these stakeholders will be the Bristol Student Health GP service.  This service offers GP healthcare to the majority of students at the University of Bristol and would have the following user stories when interacting with our software.
+
+- A student may attend their GP with a health concern, which a GP can diagnose. A record of this can be sent to the data lake to be securely stored and used in analysis.
+- A student may have a measurement taken when attending the GP, for example a height, weight or blood pressure measurement. This measurement can be then sent to the data lake to be stored with their record. A healthcare organisation could then monitor change over time or carry out other analytics.
+- Finally a patient could contact the GP service to update their details, such as an address. This update of data can then be stored in the data lake to ensure that data is up to date.
 
 
 
