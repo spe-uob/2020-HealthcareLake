@@ -76,6 +76,16 @@ Additionally, we also have the following exceptional flow:
 6. Data is not accepted into the data lake.
 7. The healthcare service receives an error message to provide data in standard format.
 
+In addition we have other interacting stakeholders such as the Bristol Royal Infirmary, Southmead Hospital, other GP practices and healthcare services in the Bristol, North Somerset and South Gloucestershire area. These healthcare services will have similar user stories to the the Bristol Student Health Service:
+
+- A patient attends a healthcare service for a body imaging scan or measurement. This data can then be submitted to the data lake for secure storage and analysis. 
+- A patient attends a healthcare service for an operation. This data can then be submitted to the data lake for secure storage and analysis. 
+- A patient attends a private healthcare clinic. The record of the appointment and any actions can still be sent to the data lake for analysis.
+
+In addition to these interacting stakeholders, we have some non-interacting stakeholders.
+One of these is the general public, who expect high-quality public health care. They are stakeholders in this software due to its use in allowing data based decisions on what areas of healthcare need improvement and where additional services need to be commissioned. 
+In addition a non-interacting stakeholder group are healthcare workers. Although they won't be interacting with the system directly, the software can be used to inform decisions which can be of great importance to them, such as number of GPs surgeries or district nurses required in a particular local area.  
+
 
 ## Personal Data, Privacy, Security and Ethics Management
 
