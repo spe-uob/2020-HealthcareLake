@@ -46,7 +46,35 @@ For example, one of these stakeholders will be the Bristol Student Health GP ser
 - A student may have a measurement taken when attending the GP, for example a height, weight or blood pressure measurement. This measurement can be then sent to the data lake to be stored with their record. A healthcare organisation could then monitor change over time or carry out other analytics.
 - Finally a patient could contact the GP service to update their details, such as an address. This update of data can then be stored in the data lake to ensure that data is up to date.
 
+Now considering the first user story above, we can break down the story into flow steps.
 
+1. A patient attends the Student Health Service with a condition. 
+2. A GP diagnoses this condition.
+3. The Student Health Service wishes to send this data to the data lake.
+3. The Student Health Service authenticates their identity and is provided with a secure access token.
+4. The data is sent to the data lake securely via an API in the format of a FHIR message (industry standard for healthcare information)
+5. The data is accepted by the API and an acceptance message is sent to the GP service.
+6. The data is converted to a common data model format and securely stored.
+7. The data can be queried and analysed as required.
+
+We can also identify exceptional flow for this user story:
+
+1. A patient attends the Student Health Service with a condition. 
+2. A GP diagnoses this condition.
+3. The Student Health Service wishes to send this data to the data lake.
+4. The Student Health Service fails to authenticate their identity and is not provided with a secure access token.
+5. Incoming data is not accepted to the data lake.
+6. The health service receives an error message to provide valid credentials.
+
+Additionally, we also have the following exceptional flow:
+
+1. A patient attends the Student Health Service with a condition. 
+2. A GP diagnoses this condition.
+3. The Student Health Service wishes to send this data to the data lake.
+4. The Student Health Service authenticates their identity and is provided with a secure access token.
+5. Incoming data is not in an acceptable format matching the FHIR standard.
+6. Data is not accepted into the data lake.
+7. The healthcare service receives an error message to provide data in standard format.
 
 
 ## Personal Data, Privacy, Security and Ethics Management
