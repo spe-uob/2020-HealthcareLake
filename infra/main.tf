@@ -48,7 +48,7 @@ module "glue" {
 
 locals {
   // resource naming prefix
-  prefix = "${var.project_name}-${terraform.workspace}"
+  prefix = "${var.project_name}-${var.stage}"
   // resource tagging
   common_tags = {
     Environment = terraform.workspace
