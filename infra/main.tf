@@ -1,14 +1,18 @@
+provider "aws" {
+  region  = var.region
+}
+
 module "vpc" {
   source = "./modules/vpc"
   prefix = local.prefix
-  region = local.region
+  region = var.region
 }
 
 module "s3" {
   source = "./modules/s3"
   prefix = local.prefix
-  region = local.region
-  stage  = local.stage
+  region = var.region
+  stage  = var.stage
 
   lake_subnet = module.vpc.lake_subnet
 }
@@ -16,15 +20,15 @@ module "s3" {
 module "api" {
   source = "github.com/spe-uob/HealthcareLakeAPI.git"
 
-  stage  = local.stage
-  region = local.region
+  stage  = var.stage
+  region = var.region
   prefix = local.prefix
 }
 
 module "etl" {
   source = "github.com/spe-uob/HealthcareLakeETL.git"
 
-  region = local.region
+  region = var.region
   prefix = local.prefix
 }
 
@@ -47,8 +51,6 @@ module "glue" {
 }
 
 locals {
-  stage  = var.stage
-  region = var.region
   // resource naming prefix
   prefix = "${var.project_name}-${terraform.workspace}"
   // resource tagging

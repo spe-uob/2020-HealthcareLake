@@ -1,5 +1,5 @@
 output "region" {
-  value = local.region
+  value = var.region
 }
 
 output "api_url" {
