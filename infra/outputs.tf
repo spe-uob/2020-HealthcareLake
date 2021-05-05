@@ -18,3 +18,11 @@ output "api_key" {
 output "client_id" {
   value = module.api.client_id
 }
+
+output "username" {
+  value = module.api.username
+}
+
+output "password" {
+  value = module.api.password
+}
