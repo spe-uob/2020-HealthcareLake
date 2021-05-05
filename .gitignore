@@ -46,4 +46,4 @@ package-lock.json
 
 .env
 
-go.sum
+.terraform

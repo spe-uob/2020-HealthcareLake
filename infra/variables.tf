@@ -1,13 +1,15 @@
 variable "region" {
+  type = string
   default = "eu-west-2"
 }
 
 variable "stage" {
+  type = string
   default = "dev"
 }
 
 variable "project_name" {
-  default = "healthcarelake"
+  type = string
 
   validation {
     condition     = can(regex("^[a-z]+$", var.project_name))
