@@ -1,10 +1,10 @@
 variable "region" {
-  type = string
+  type    = string
   default = "eu-west-2"
 }
 
 variable "stage" {
-  type = string
+  type    = string
   default = "dev"
 }
 
