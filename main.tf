@@ -16,10 +16,6 @@ module "data_lake" {
   region       = local.region
   stage        = "dev"
   project_name = "healthcarelake"
-
-  # providers = {
-  #   aws = aws
-  # }
 }
 
 locals {
