@@ -2,15 +2,15 @@
   IAM permissions for the glue crawler
 */
 resource "aws_iam_role" "crawler_role" {
-  name = "AWSGlueServiceRole-CrawlerRole"
+  name = "${var.prefix}-CrawlerRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 resource "aws_iam_role" "job_role" {
-  name = "AWSGlueServiceRole-JobRole"
+  name = "${var.prefix}-JobRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 resource "aws_iam_role" "lake_crawler_role" {
-  name = "AWSGlueServiceRole-LakeCrawlerRole"
+  name = "${var.prefix}-LakeCrawlerRole"
   assume_role_policy = data.aws_iam_policy_document.glue_role_policy.json
 }
 data "aws_iam_policy_document" "glue_role_policy" {
@@ -39,11 +39,11 @@ data "aws_iam_policy_document" "glue_policy" {
 }
 
 resource "aws_iam_policy" "crawler_policy" {
-  name = "AWSGlueServiceRole-Crawler"
+  name = "${var.prefix}-Crawler"
   policy = data.aws_iam_policy_document.glue_policy.json
 }
 resource "aws_iam_policy" "job_policy" {
-  name = "AWSGlueServiceRole-Job"
+  name = "${var.prefix}-Job"
   policy = data.aws_iam_policy_document.glue_policy.json
 }
 
@@ -95,7 +95,7 @@ resource "aws_iam_role_policy_attachment" "lake_crawler_attachment_1" {
 
 // DynamoDB access
 resource "aws_iam_policy" "dynamodb_access" {
-  name = "FHIR_DynamoDb_Access"
+  name = "${var.prefix}-FHIR_DynamoDb_Access"
   policy = data.aws_iam_policy_document.dynamodb_access_policy.json
 }
 data "aws_iam_policy_document" "dynamodb_access_policy" {
@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "dynamodb_access_policy" {
 
 // S3 access
 resource "aws_iam_policy" "lake_write" {
-  name = "Lake_S3_Write"
+  name = "${var.prefix}-Lake_S3_Write"
   policy = data.aws_iam_policy_document.lake_write_policy.json
 }
 data "aws_iam_policy_document" "lake_write_policy" {
@@ -141,7 +141,7 @@ data "aws_iam_policy_document" "lake_write_policy" {
   }
 }
 resource "aws_iam_policy" "lake_read" {
-  name = "Lake_S3_Read"
+  name = "${var.prefix}-Lake_S3_Read"
   policy = data.aws_iam_policy_document.lake_read_policy.json
 }
 data "aws_iam_policy_document" "lake_read_policy" {
@@ -158,7 +158,7 @@ data "aws_iam_policy_document" "lake_read_policy" {
 }
 
 resource "aws_iam_policy" "lib_read" {
-  name = "PySpark_Lib_S3_Access"
+  name = "${var.prefix}-PySpark_Lib_S3_Access"
   policy = data.aws_iam_policy_document.lib_read_policy.json
 }
 data "aws_iam_policy_document" "lib_read_policy" {

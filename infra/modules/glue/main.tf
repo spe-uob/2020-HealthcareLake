@@ -2,7 +2,7 @@
   Stage 1: DynamoDB->Glue->S3
 */
 resource "aws_glue_catalog_database" "fhir_catalog" {
-  name = "fhir_db_catalog"
+  name = "${var.prefix}-fhir-${var.stage}"
 }
 
 resource "aws_glue_crawler" "fhir_db_crawler" {
@@ -16,7 +16,7 @@ resource "aws_glue_crawler" "fhir_db_crawler" {
 }
 
 resource "aws_cloudwatch_log_group" "glue_logs" {
-  name              = "${var.name_prefix}-glue-logs"
+  name              = "${var.prefix}-${var.name_prefix}-glue-logs"
   retention_in_days = 14
 }
 
@@ -45,13 +45,8 @@ resource "aws_glue_job" "fhir_etl" {
   }
 }
 
-
-resource "aws_glue_workflow" "lake_ingestion" {
-  name = "${var.name_prefix}Ingestion"
-}
-
 resource "aws_glue_trigger" "fhir_trigger" {
-  name = "${var.name_prefix}Trigger"
+  name = "${var.prefix}-${var.name_prefix}Trigger"
   type = "ON_DEMAND"
 
   actions {
@@ -66,7 +61,7 @@ resource "aws_glue_trigger" "fhir_trigger" {
   Stage 2: S3->Glue(->Athena)
 */
 resource "aws_glue_catalog_database" "lake_catalog_table" {
-  name = "lake_catalog"
+  name = "${var.prefix}-omop-${var.stage}"
 }
 
 resource "aws_glue_crawler" "lake_crawler" {

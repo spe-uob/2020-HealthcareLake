@@ -44,6 +44,7 @@ module "glue" {
   fhir_db_cmk  = module.api.dynamodb_cmk_arn
 
   prefix = local.prefix
+  stage  = var.stage
 }
 
 locals {
