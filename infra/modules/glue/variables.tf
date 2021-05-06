@@ -6,6 +6,8 @@ variable "name_prefix" {
   default = "FhirDb"
 }
 
+variable "stage" {}
+
 variable "prefix" {}
 
 variable "fhir_db_name" {}
