@@ -7,7 +7,7 @@ resource "aws_glue_catalog_database" "fhir_catalog" {
 
 resource "aws_glue_crawler" "fhir_db_crawler" {
   database_name = aws_glue_catalog_database.fhir_catalog.name
-  name          = "${var.name_prefix}Crawler"
+  name          = "${var.prefix}-${var.name_prefix}Crawler"
   role          = aws_iam_role.crawler_role.arn
 
   dynamodb_target {
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_log_group" "glue_logs" {
 }
 
 resource "aws_glue_job" "fhir_etl" {
-  name     = "${var.name_prefix}ETL"
+  name     = "${var.prefix}-${var.name_prefix}ETL"
   role_arn = aws_iam_role.job_role.arn
 
   command {
@@ -66,7 +66,7 @@ resource "aws_glue_catalog_database" "lake_catalog_table" {
 
 resource "aws_glue_crawler" "lake_crawler" {
   database_name = aws_glue_catalog_database.lake_catalog_table.name
-  name = "LakeCrawler"
+  name = "${var.prefix}-LakeCrawler"
   role = aws_iam_role.lake_crawler_role.arn
 
   s3_target {
