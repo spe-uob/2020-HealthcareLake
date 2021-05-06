@@ -4,9 +4,9 @@
 
 
 # HealthcareLake
-This project is designed to explore the benefits of cloud technologies to produce a prototype secure, scalable health data storage platform that can underpin local healthcare analytics.
+HealthcareLake is an open-source Terraform project that makes it easy to deploy a clinical research environment in minutes. We do this by deploying a serverless data lake, FHIR API and OMOP ETL job. 
 
-The repo contains a Terraform module for deploying an AWS data lake (`./infra/`). This imports two other modules:
+This repo contains a Terraform module for deploying the solution on AWS (`./infra`). We import two other modules:
 
 - [HealthcareLakeAPI](https://github.com/spe-uob/HealthcareLakeAPI): API to receive data (FHIR)
 - [HealthcareLakeETL](https://github.com/spe-uob/HealthcareLakeETL): Spark ETL job (FHIR→OMOP)
