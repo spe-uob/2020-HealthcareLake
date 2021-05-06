@@ -89,6 +89,30 @@ In addition a non-interacting stakeholder group are healthcare workers. Although
 
 ## Personal Data, Privacy, Security and Ethics Management
 
+### GDPR
+
+The data lake solution developed by the “Healthcare Data Lake” project team is an integrating part of the larger prototype system, alongside ”Healthcare Data Simulation” and ”Healthcare Analytics” teams. The proposed system is going to be used in compliance with the NHS Digital GDPR compliance implementation and the liability for the personal data stored falls onto the respective primary stakeholder, Philip Harfield at Bristol, North Somerset and South Gloucestershire CCG (BNSSG).
+
+The team developing the data lake infrastructure is responsible for creating a prototype secure, robust and scalable health data storage platform used for ingesting and interrogating patient’s data under the HL7 FHIR standard. As a client-specified requirement, medical data is going to be stored independently from the pseudonymised patient identifiers, thus protecting the identity and integrity of the patients whose data is stored in the data lake. The patient data is transformed to population-level data model (OMOP CDM) for the purpose of large-scale analysis.  
+
+The Data Lake team does not use the processed data. The responsability of ensuring the privacy and integrity of the processed data falls onto the end user (the Data Analytics Team). The security of the data ingested as described in the Security section is aligned with the NHS Digital GDPR compliance and practice.
+
+### Privacy
+
+The Healthcare Lake project does not disclose, use, copy, publish or modify in any way the stored patient data. The patient records are ingested with the sole purpose of storage and curation. The process of transforming the data to the OMOP Common Data Model is internal, automated and independent. The data is solely and securely made available to the Data Analytics team which has to guarantee the further privacy of it.
+
+### Security
+
+The security requirements for this project are extremely high, and thus this implementation will enforce protections at every layer in the stack. The principle of least privilege (PoLP) applies with isolation and strong encryption to ensure data storage, access and communication is safeguarded from unauthorised processes in any event. The entire infrastructure is written in testable code to catch any mistakes before they hit production in the first place.
+
+There will be no outbound (egress) communication from inside the data lake and the only inbound connection is data ingestion from the client API, which may in fact reside within a Virtual Private Network (VPN) to begin with rather than accessed over a public gateway. So that internet access is forbidden inside the Virtual Private Cloud (VPC) from our standpoint - so data exfiltration becomes challenging for an attacker that compromises any user account. 
+All curated data marts are accessible via a peering link with the Data Analytics team who are responsible for the security of their environment in which they spawn their processes. All access to these will be logged and anomalies, violations and exceptions will be flagged for alerts and auditing. Furthermore, this storage of curated data marts is in a private network separate from the rest of the data lake in any case. A comprehensive look at this architecture is included in the Architecture section this paper.
+
+### Ethics
+
+Ethics pre-approval was applied for on 19 November 2020, 12:00 GMT. The data handled in the project is simulated patients data supplied by the Healthcare Data Simulation project. The Healthcare Lake project does not collect any data from any real person nor handles any consent, as the scope of the project is to create a secure infrastructure for storing patients data.
+In case of future development and testing with actual patients data, separate ethics approvals will be required, NHS REC review as it involves patients and governance approvals (e.g. Health Research Authority HRA). 
+
 ## Architecture
 
 ## Development Testing
