@@ -92,8 +92,14 @@ In addition a non-interacting stakeholder group are healthcare workers. Although
 ## Architecture
 
 ## Development Testing
+Our testing strategy differed depending on whether we are testing infrastructure or application logic. As most of our code is a declarative language (HCL), it used end-to-end tests, integration tests and policy tests. However, our ETL module used an imperative language and thus had unit tests written to verify that the mapping functions resulted in their expected dataframes.  
+//pick a component for testing
+//TODO: table of test cases
 
 ## Release Testing
+Our deployment pipeline includes policy tests to check the Terraform plan before proceeding to apply the changes. For example, we use Open Policy Agent to test that a specific database isn't deleted by the plan. This can help catch disasterous security blunders as well, such as leaving an S3 bucket open to the public. 
+//select a user story
+//include test cases
 
 ## OO Design & UML
 
