@@ -22,10 +22,6 @@ You can read our docs [here](https://spe-uob.gitbook.io/healthcare-data-lake/).
 
 ## Usage
 
-### Data Simulation Team
-
-For instructions on integrating our production API, please see [this](https://spe-uob.gitbook.io/healthcare-data-lake/api/usage)
-
 ### Deployment
 
 Initialise the modules
