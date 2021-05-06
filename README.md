@@ -20,37 +20,15 @@ For instructions on integrating our production API, please see [this](https://sp
 
 ### Deployment
 
-Change into the infra directory
-```
-cd infra
-```
-
-You may wish to save your project settings in a `.tfvars` file:
-
-_**infra/terraform.tfvars**_
-```tf
-// aws region
-region = "eu-west-2"
-
-// must be unique
-prefix = "healthcarelake"
-```
-
 Initialise the modules
 ```
 terraform init
-```
-
-Select `dev` workspace
-```
-terraform workspace select dev
 ```
 
 Deploy Terraform changes
 ```
 terraform apply
 ```
-
 
 (Optional) Destroy Terraform infrastructure
 ```
