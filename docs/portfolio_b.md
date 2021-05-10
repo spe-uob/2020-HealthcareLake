@@ -93,22 +93,33 @@ Using these user stories above, we can decompose our flow steps into atomic impl
 We have identified these core requirements for the functionality of our software:
 
 1. An identity authentication process provides healthcare providers
-    with credentials to supply data to an API.
+    with credentials to supply data to an API. The identity authentication process must
+    1. Ensure only that an access token is only provided to authorised users.
+    
 2. An API takes in data from local healthcare providers as a HL7
     FHIR message. We have chosen HL7 FHIR as it is the [UK standard for
     transferring
-    healthcare messages.](https://digital.nhs.uk/services/fhir-uk-core)
-3. These data messages are transformed into a well structured common data model and stored in a cloud solution.
-4. Ingested data is catalogued.
-5. An ETL tool is used to curate data marts.
+    healthcare messages.](https://digital.nhs.uk/services/fhir-uk-core) The API must:
+    1. Ensure messages sent with an invalid access token are not accepted into the data lake and an appropriate error code is supplied.
+    2. Ensure messages sent in a non-valid format are not accepted into the data lake and an appropriate error code is supplied.
+    3. Ensure messages sent with a valid access token and in a valid FHIR format are accepted into the data lake, and an acceptance message is supplied. 
+
+3. These data messages are transformed into a well structured common data model and stored in a cloud solution. We have chosen the OMOP common data model as it allows data to be standardised to allow for analytics from a range of sources. This must:
+    1. Transform data from the received FHIR format to the OMOP common data model.
+    2. Store data in a suitable format in OMOP form in the data lake.
+    3. Ensure the data lake is regularly incrementally updated to include any new messages that have been received. 
+4. The stored data is catalogued to allow for analysis. This must produce meta-data of the stored data.
+5. A commercial ETL tool is used to curate data marts.
 6. These data marts can be queried by the analytics environment.
 
 We have also identified a set of additional requirements:
 
 1.  Medical data is to be stored independently from pseudonymised
     patient identifiers.
-2.  Provide a user console to monitor automated ETL jobs.
+2.  Provide a user console to monitor automated ETL jobs. 
 3.  Provide full audit trails.
+
+We can then use these requirements to test our developed software solution. 
 
 
 ## Personal Data, Privacy, Security and Ethics Management
