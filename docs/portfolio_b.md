@@ -1,8 +1,8 @@
 # Healthcare Data Lake - Portfolio B
 
 ## Overview
-Our client is Dr Philip D Harfield, Health Data Scientist (Informatics) at NIHR Bristol Biomedical Research Centre, University of Bristol. He has Representative Project, HDR-UK South West Better Care Partnership.
-The Domain of our project is the Healthcare Analytics Environment team who will design, implement and test a set of candidate cloud-hosted analytics environments that provide sufficient functionality while also maintaining a source data environment. The overall domain of the 3 teams(Healthcare Data Lake Team, Healthcare Analysis Team and Healthcare Simulation Team) is NHS Healthier Together Sustainability Transformation Partnership Bristol, North Somerset, and South Gloucestershire(BNSSG) & Bristol Biomedical Research Centre, University of Bristol Medical School.
+- Our client is Dr Philip D Harfield, Health Data Scientist (Informatics) at NIHR Bristol Biomedical Research Centre, University of Bristol. He has Representative Project, HDR-UK South West Better Care Partnership.
+- The Domain of our project is the Healthcare Analytics Environment team who will design, implement and test a set of candidate cloud-hosted analytics environments that provide sufficient functionality while also maintaining a source data environment. The overall domain of the 3 teams(Healthcare Data Lake Team, Healthcare Analysis Team and Healthcare Simulation Team) is NHS Healthier Together Sustainability Transformation Partnership Bristol, North Somerset, and South Gloucestershire(BNSSG) & Bristol Biomedical Research Centre, University of Bristol Medical School.
 
 ## Stakeholder and Requirements
 
