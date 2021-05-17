@@ -184,3 +184,29 @@ To demonstrate our end-to-end testing, we chose the primary user story (API clie
 ## Acceptance Testing (Evaluation)
 
 ## Reflection
+
+This project is an integrated part of a larger prototype, so its success depends on the success of every component. And this project has been indeed a success. The process was long ride, a marathon, which came along with a deal of challenges but has taught us more than any would have expected. 
+
+### With great achievements comes great challenges
+
+Starting work as a group where no one knows each other, with people that have different skills, is always a challenge in itself. With great requirements, the nature of this project imposed learning completely new concepts and skills from scratch, which was an initial bottleneck. But having one experienced team member that could lead the team and guide through all the new information was an extraordinary asset. From completing tutorials, reading blogs and pieces of documentation to having team-workshops, the software-development process was a steep-curve learning process, in which the team became not only more skilled and organised, but we all got to know each other better and became a united team. 
+
+Another challenge we encountered was integration with two other teams. We solved this for one team at the very beginning by deploying a temporary API so their development process was not left waiting for us to implement our project. We were then able to make them transition to the real API without breaking changes. As for the other team, we proposed our solution architecture early on so that they understood how data would be accessed (through S3) on their end, before having the data to make available.
+
+The hardship of doing everything online was experienced in this project as well. Keeping track of where everyone is in terms of learning and work was quite hard, especially in the first half of SPE. In time, we found that having frequent stand-up meetings was a great way of keeping up with everybody, between the working sessions. While in these we would split up in sub-teams or individually in order to tackle different tasks. We also utilised the features of GitHub for issue tracking, Kanban, automated jobs on pull requests etc. to increase organisation and produced documentation, usage instructions, solution architecture diagrams etc. for improved knowledge transfer.
+
+### Discipline leads to success
+
+Organised work, efficient communication and split workloads were essential processes. The main way in which we kept track of our tasks was using Kanban boards. Here each team member would be assigned tasks and provided instructions for it. When completed, each pull request would be subject to peer review after it passed the automatic tests.
+
+The team has communicated with the client on a constant basis through email, and periodically video-meetings would be organised. When the client would request changes to our project, we would have a thorough discussion and together decide what we could implement.
+
+Frequent meeting and stand-ups have provided a great way of keeping track and staying on the same page, while working together and sharing knowledge with each other. Peer help and review has been essential in creating an efficient and homogenous team.
+
+### The future impact of the project
+
+Our project lays in the middle of the bigger three-piece Healthcare data prototype. Needless to say, it is the core of the future system proposed by the NHS. While this project might remain at the prototype stage, it will serve as a working demonstration of what it can be achieved by using cloud-technology, with the potential of helping doctors and other medical staff to have better access and insight to medical data, regardless of its source, date or size.  
+
+In terms of ethics, our project its responsible for keeping and safe-guarding externally ingested medical data for the purpose of future analysis. It might seem wrong to store huge loads of NHS patient data into the servers of a cloud provider, but this has already been proven very safe and it’s only getting safer in the future. We are transitioning into the era of cloud technology, and its full potential it’s yet to be uncovered.  
+
+
