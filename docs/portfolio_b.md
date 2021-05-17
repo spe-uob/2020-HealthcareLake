@@ -183,10 +183,11 @@ To demonstrate our end-to-end testing, we chose the primary user story (API clie
 
 ## Acceptance Testing (Evaluation)
 
-To identify the extent to which our product met the requirements set out by our client, we used an acceptance testing process. This involved carrying out interviews with the client where we would demonstrate the functionality of the software. This would follow the process outlines below.   
+To identify the extent to which our product met the requirements set out by our client, we used an acceptance testing process. This involved carrying out interviews with the client where we would demonstrate the functionality of the software. This would follow the process outlined below.   
 
 After finishing an iteration sprint, we would arrange a video meeting with the client. In this meeting we would then demonstrate the functionality of the software in its current form, highlighting any new features. We then queried our client on his view on the current iteration, identifying any features that he felt did not fit the requirements and any requirements that were not currently met. These requirements could then be used to decide the features to implement or improve in the next development sprint. 
 
+For example, originally we were just storing incoming data in the FHIR format accepted by the API, however during one of these interviews with the client, it was raised that the data should be transformed into a common data model, which we then implemented in our next sprint, running a script to map the data from FHIR format to the OMOP common data model.
 
 
 ## Reflection
