@@ -169,7 +169,7 @@ For example, these unit tests were written for the PySpark (ETL) Job:
 | Visit Occurence: columns | visit_occurrence_id, person_id, visit_concept_id, visit_start_datetime, visit_end_datetime, visit_type_concept_id, admitted_from_concept_id |
 
 ## Release Testing
-Our deployment pipeline includes policy tests to check the Terraform plan before proceeding to apply the changes. For example, we use Open Policy Agent to test that a specific database isn't deleted by the plan. This can help catch disasterous security blunders as well, such as leaving an S3 bucket open to the public. We leveraged Terrascan - a tool that provides 500+ AWS security/compliance tests out-of-the-box and added this to our CI pipeline. 
+Our deployment pipeline includes policy tests to check the Terraform plan before proceeding to apply the changes. For example, we use Open Policy Agent to test that a specific database isn't deleted by the plan. This can help catch disastrous security blunders as well, such as leaving an S3 bucket open to the public. We leveraged Terrascan - a tool that provides 500+ AWS security/compliance tests out-of-the-box and added this to our CI pipeline. 
 
 To demonstrate our end-to-end testing, we chose the primary user story (API client / "The Data Simulation Team").
 | Test | Expect |
