@@ -1,11 +1,12 @@
 [![CircleCI](https://circleci.com/gh/spe-uob/HealthcareLake.svg?style=shield&circle-token=7e5cdbd8560954c827bd8e0368dc7785e6d788f0)](https://app.circleci.com/pipelines/github/spe-uob/HealthcareLake)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspe-uob%2FHealthcareDataLake?ref=badge_shield)
+[![Scan](https://github.com/spe-uob/HealthcareLake/workflows/Scan/badge.svg)](https://github.com/spe-uob/HealthcareLake/actions/workflows/scan.yml)
 
 
 # HealthcareLake
-This project is designed to explore the benefits of cloud technologies to produce a prototype secure, scalable health data storage platform that can underpin local healthcare analytics.
+HealthcareLake is a Terraform project that makes it easy to deploy a clinical research environment in minutes. We do this by deploying a serverless data lake, FHIR API and OMOP ETL job. 
 
-The repo contains a Terraform module for deploying an AWS data lake (`./infra/`). This imports two other modules:
+This repo contains a Terraform module for deploying the solution on AWS (`./infra`). We import two other modules:
 
 - [HealthcareLakeAPI](https://github.com/spe-uob/HealthcareLakeAPI): API to receive data (FHIR)
 - [HealthcareLakeETL](https://github.com/spe-uob/HealthcareLakeETL): Spark ETL job (FHIR→OMOP)
@@ -20,10 +21,6 @@ Digital healthcare provided by the NHS in England typically operates in silos. G
 You can read our docs [here](https://spe-uob.gitbook.io/healthcare-data-lake/).
 
 ## Usage
-
-### Data Simulation Team
-
-For instructions on integrating our production API, please see [this](https://spe-uob.gitbook.io/healthcare-data-lake/api/usage)
 
 ### Deployment
 

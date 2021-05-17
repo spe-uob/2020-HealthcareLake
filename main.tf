@@ -14,14 +14,11 @@ provider "aws" {
 module "data_lake" {
   source       = "./infra"
   region       = local.region
-  stage        = "dev"
+  stage        = local.stage
   project_name = "healthcarelake"
-
-  # providers = {
-  #   aws = aws
-  # }
 }
 
 locals {
   region = "eu-west-2"
+  stage  = terraform.workspace
 }

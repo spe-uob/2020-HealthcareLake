@@ -6,6 +6,7 @@ infrastructure:
 
 devops:
   - .circleci/*
+  - .github/*
 
 api:
   - api/*
