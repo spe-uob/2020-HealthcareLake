@@ -168,6 +168,8 @@ This project is an integrated part of a larger prototype, so its success depends
 
 Starting work as a group where no one knows each other, with people that have different skills, is always a challenge in itself. With great requirements, the nature of this project imposed learning completely new concepts and skills from scratch, which was an initial bottleneck. But having one experienced team member that could lead the team and guide through all the new information was an extraordinary asset. From completing tutorials, reading blogs and pieces of documentation to having team-workshops, the software-development process was a steep-curve learning process, in which the team became not only more skilled and organised, but we all got to know each other better and became a united team. 
 
+Another challenge we encountered was integration with two other teams. We solved this for one team at the very beginning by deploying a temporary API so their development process was not left waiting for us to implement our project. We were then able to make them transition to the real API without breaking changes.
+
 The hardship of doing everything online was experienced in this project as well. Keeping track of where is everyone in terms of learning and work was quite hard, especially in the first half of SPE. In time, we found that having frequent stand-up meetings was a great way of keeping up with everybody, between the working sessions. While in these we would split up in sub-teams or individually in order to tackle different tasks.
 
 ### Discipline leads to success
