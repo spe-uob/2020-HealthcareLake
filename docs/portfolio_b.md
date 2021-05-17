@@ -189,5 +189,6 @@ After finishing an iteration sprint, we would arrange a video meeting with the c
 
 For example, originally we were just storing incoming data in the FHIR format accepted by the API, however during one of these interviews with the client, it was raised that the data should be transformed into a common data model, which we then implemented in our next sprint, running a script to map the data from FHIR format to the OMOP common data model.
 
+Ideally, we would have been able to carry out additional acceptance testing using real systems used by interacting stakeholders, such as a GP practice. However, unfortunately due to the complex legislation regarding patient data and the fact our system hasn't been audited to be compliant to that legislation, it wasn't possible.
 
 ## Reflection
