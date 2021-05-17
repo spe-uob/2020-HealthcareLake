@@ -153,8 +153,31 @@ In case of future development and testing with actual patients data, separate et
 ## Architecture
 
 ## Development Testing
+Our testing strategy differed depending on whether we are testing infrastructure or application logic. As most of our code is a declarative language (HCL), it used end-to-end tests, integration tests and policy tests. However, our ETL module used an imperative language and thus had unit tests written to verify that the mapping functions resulted in their expected dataframes.  
+
+For example, these unit tests were written for the PySpark (ETL) Job:
+
+| Test        | Expect      |
+| ----------- | ----------- |
+| Patient: columns      | person_id, gender_concept_id, year_of_birth, month_of_birth, day_of_birth, birth_datetime       |
+| Patient: birth_date  | Datetime is split into columns year_of_birth, month_of_birth, day_of_birth, birth_datetime        |
+| Patient: gender | Gender is parsed correctly |
+| Device Exposure: columns | device_exposure_id, person_id, device_exposure_start_date, device_type_concept_id |
+| Measurement: columns |  measurement_id, person_id, measurement_concept_id, measurement_date, measurement_type_concept_id, measurement_datetime, value_as_number, provider_id, visit_occurrence_id, unit_source_value |
+| Observation: columns | observation_id, person_id, observation_concept_id, observation_date, observation_type_concept_id, observation_datetime, value_as_string, provider_id, visit_occurrence_id |
+| Procedure: columns | procedure_occurrence_id, person_id, procedure_concept_id, procedure_datetime, procedure_type_concept_id |
+| Visit Occurence: columns | visit_occurrence_id, person_id, visit_concept_id, visit_start_datetime, visit_end_datetime, visit_type_concept_id, admitted_from_concept_id |
 
 ## Release Testing
+Our deployment pipeline includes policy tests to check the Terraform plan before proceeding to apply the changes. For example, we use Open Policy Agent to test that a specific database isn't deleted by the plan. This can help catch disasterous security blunders as well, such as leaving an S3 bucket open to the public. We leveraged Terrascan - a tool that provides 500+ AWS security/compliance tests out-of-the-box and added this to our CI pipeline. 
+
+To demonstrate our end-to-end testing, we chose the primary user story (API client / "The Data Simulation Team").
+| Test | Expect |
+| ---- | ------ |
+| Apply plan | Successly deployed all resources in Terraform module (no AWS errors) |
+| Unauthenticated `POST` request | `401` Unauthorized |
+| Authenticated `POST` request | `200` Success |
+| DynamoDB table entry | Body from authenticated request written to database |
 
 ## OO Design & UML
 
