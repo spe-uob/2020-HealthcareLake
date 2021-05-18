@@ -189,6 +189,8 @@ After finishing an iteration sprint, we would arrange a video meeting with the c
 
 For example, originally we were just storing incoming data in the FHIR format accepted by the API, however during one of these interviews with the client, it was raised that the data should be transformed into a common data model, which we then implemented in our next sprint, running a script to map the data from FHIR format to the OMOP common data model.
 
-Ideally, we would have been able to carry out additional acceptance testing using real systems used by interacting stakeholders, such as a GP practice. However, unfortunately due to the complex legislation regarding patient data and the fact our system hasn't been audited to be compliant to that legislation, it wasn't possible.
+Ideally, we would have been able to carry out additional acceptance testing using real systems used by interacting stakeholders, such as a GP practice. However, unfortunately due to the complex legislation regarding patient data and the fact our system hasn't been audited to be compliant to that legislation, it wasn't possible. If this was possible, we would have carried out acceptance testing using observations, interviews and questionnaires. This would have been done by asking the population of stakeholders interacting with this system to fill out a questionnaire with questions rating each element of interaction of the system and asking how it could be improved. A sample of these users would be then asked to have an interview or use observation to discover any additional issues with the software which may not meet the set requirements or any additional previously unidentified requirements. 
+
+
 
 ## Reflection
