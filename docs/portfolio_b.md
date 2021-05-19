@@ -241,6 +241,18 @@ To demonstrate our end-to-end testing, we chose the primary user story (API clie
 
 ## Acceptance Testing (Evaluation)
 
+To identify the extent to which our product met the requirements set out by our client, we used an acceptance testing process. This involved carrying out interviews with the client where we would demonstrate the functionality of the software. This would follow the process outlined below.   
+
+After finishing an iteration sprint, we would arrange a video meeting with the client. In this meeting we would then demonstrate the functionality of the software in its current form, highlighting any new features. We then queried our client on his view on the current iteration, identifying any features that he felt did not fit the requirements and any requirements that were not currently met. These requirements could then be used to decide the features to implement or improve in the next development sprint. 
+
+For example, originally we were just storing incoming data in the FHIR format accepted by the API, however during one of these interviews with the client, it was raised that the data should be transformed into a common data model, which we then implemented in our next sprint, running a script to map the data from FHIR format to the OMOP common data model.
+
+In addition we also carried out email questionnaires with the client between interviews which clarified what needed to be done to meet the requirements of certain features. This allowed us to quickly highlight what was a priority for the next iteration. 
+
+Also, when acceptance testing the API part of our software we carried out interviews with the Data Simulator Team, checking the functionality of the API was appropriate and met the requirements.
+
+Ideally, we would have been able to carry out additional acceptance testing with interacting stakeholders using our system live, such as a GP practice. However, unfortunately due to the complex legislation regarding patient data and the fact our system hasn't been audited to be compliant to that legislation, it wasn't possible. If this was possible, we would have carried out acceptance testing using observations, interviews and questionnaires. This would have been done by asking the population of stakeholders interacting with this system to fill out a questionnaire with questions rating each element of interaction of the system and asking how it could be improved. A sample of these users would be then asked to have an interview or a use observation to discover any additional issues with the software which may not meet the set requirements or any additional previously unidentified requirements. 
+
 ## Reflection
 
 This project is an integrated part of a larger prototype, so its success depends on the success of every component. And this project has been indeed a success. The process was long ride, a marathon, which came along with a deal of challenges but has taught us more than any would have expected. 
