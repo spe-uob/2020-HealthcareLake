@@ -239,6 +239,41 @@ To demonstrate our end-to-end testing, we chose the primary user story (API clie
 
 ## OO Design & UML
 
+The reason we have created the UML diagrams below is to focus on the use case of the Data Analytics Team. This means focusing on the output we provide them alongside how they might interact with our system. Therefore, our dynamic sequence diagram will be aimed at the interaction side, and the C4 model (static) diagrams will focus on how to design the best output.
+
+We have chosen to focus on these sections as we needed clarity on the approach of production of the data marts as the Data Analytics Team are reliant on them. Alongside this, there was confusion early on about which team was meant to curate the data marts, therefore, we needed to confirm how they would be interacting with the system and how to structure our AWS Glue terraform code. 
+
+### Sequence Diagram (Dynamic Model)
+
+We have chosen a sequence diagram as we feel it best represents the interactions between the components in our system and does so in a simple and self-explanatory way.
+
+This model has confirmed how we will expect the Data Analytics Team to interact with our data lake, and what processes will take place to give them a response.
+
+![Sequence Model Diagram](images/sequence_model_diagram.png)
+
+### C4 Model (Static Model)
+
+We have followed the [C4 model](https://c4model.com/) as a static diagram as the other types of static diagram did not suit our project.  This is because we are using Infrastructure-as-code not Object Oriented therefore we are not dealing with classes and methods. Besides this, the C4 model provides an efficient and effective way to communicate the software design. It does this by following the top-down design approach by having four levels of detail (System Context, Container, Component, Code).
+
+From this model, we gained insight into how we might structure our terraform code for our AWS Glue components and what we will need to be taking as parameters and outputs.
+
+Level 1: System context diagram, shows an abstract view of the whole system.
+
+![C4 model Level 1](images/C4_diagram_1.png)
+
+Level 2: Container diagram, zooms into the data lake.
+
+![C4 model Level 2](images/C4_diagram_2.png)
+
+Level 3: Component diagram, zooms into AWS Glue revealing the main components we will be using in this section.
+
+![C4 model Level 3](images/C4_diagram_3.png)
+
+Level 4: Code diagram, shows a plan of what terraform resource we will be needing and how we will structure them.
+
+![C4 model Level 4](images/C4_diagram_4.png)
+
+
 ## Acceptance Testing (Evaluation)
 
 To identify the extent to which our product met the requirements set out by our client, we used an acceptance testing process. This involved carrying out interviews with the client where we would demonstrate the functionality of the software. This would follow the process outlined below.   
