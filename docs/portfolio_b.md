@@ -1,5 +1,11 @@
 # Healthcare Data Lake - Portfolio B
 
+Joe Kendal - jk17246@bristol.ac.uk<br>
+Jago Sherred - j.sherred.2019@bristol.ac.uk<br>
+Armand Cismaru - fz19792@bristol.ac.uk<br>
+Luke Benson - wr19606@bristol.ac.uk<br>
+Anna Liu - gf19916@bristol.ac.uk<br>
+
 ## Overview
 
 ### Client
